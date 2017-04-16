@@ -1,0 +1,59 @@
+@mixin calc($property, $expression) {
+  #{$property}: -moz-calc(#{$expression});
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}
+
+@mixin scrollbars($width, $height, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $height;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    outline: 1px solid slategrey;
+    background: $foreground-color; 
+    @include border-radius(2px);
+  }
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: mix($foreground-color, white, 50%); 
+  }
+  
+  &::-webkit-scrollbar-track {
+    @include box-shadow(inset 0 0 6px $background-color); 
+  }
+  
+}
+
+@mixin traingle-left($color, $width){
+  background: transparent;
+  border-color: $color transparent transparent $color;
+  border-style: solid;
+  border-width: $width;
+}
+
+@mixin traingle-right($color, $width){
+  background: transparent;
+  border-color: transparent $color $color transparent;
+  border-style: solid;
+  border-width: $width;
+}
+
+
+@mixin circle-hollow($color ,$r ,$border-width ){
+  width: $r;
+  height: $r;
+  border: solid $border-width $color;
+  border-radius: 100%;
+  background: transparent;
+}
+
+
+/*
+ * Keyframes
+ */
+@include keyframes(hideShow) {
+  from{ opacity: .3; }
+  to{ opacity: 1; }
+}

@@ -1,0 +1,55 @@
+/*
+ *  Breakpoint
+ */
+
+$break-point:(
+  table-s: 480px,
+  break-xs: 768px,
+  break-sm: 992px,
+  break-md: 1200px,
+  screen-lg:1350px
+);
+
+/*
+ *  Color
+ */
+$color: (
+  white: #FFF,
+  red: #F34708,
+  green: #0ADA7F,
+  orange: #FFAA0A,
+  gray--dark: #808080,
+  gray--light:#D7DAE1,
+  black--default: #333,
+);
+
+
+
+// component、state
+$color-default--bg: map-get($color, white);
+
+/*
+ *  Font
+ */
+$font-size--base: 1em;
+$font-ming: 'cwTeXMing', serif;
+$font-default: "Roboto Condensed",
+"Georgia",
+"Xin Gothic",
+"Hiragino Sans GB",
+"Droid Sans Fallback",
+"Microsoft YaHei",
+sans-serif;
+
+$letter-spacing:(
+  s: 2px,
+  m: 4px,
+  l: 6px
+);
+
+$font-size: (
+  s: $font-size--base * .5,
+  m: $font-size--base * 1,
+  l: $font-size--base * 1.5,
+  xl: $font-size--base * 2,
+)

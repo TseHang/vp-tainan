@@ -1,0 +1,53 @@
+@include normalize();
+
+html,
+body {
+  width: 100%;
+  height: auto;
+  font: 300 16px/1.62 $font-ming;
+  background: $color-default--bg;
+  color: map-get($color, black--default);
+  overflow-x: hidden;
+  letter-spacing: map-get($letter-spacing, s);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  display: block;
+  color: inherit;
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+em {
+  font-style: normal;
+}
+
+h1{
+  letter-spacing: map-get($letter-spacing, m);
+}
+
+.row{
+  @extend %position_relative;
+}
+
+.section{
+  width: 90%;
+  text-align: center;
+  margin: 13vh auto 5vh;
+
+  @media (min-width: map-get($break-point, break-xs)) {
+    width: 75%;
+    text-align: left;
+  }
+}

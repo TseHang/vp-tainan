@@ -1,0 +1,1 @@
+"use strict";!function(a){var o=0,e=!1,s=0;"/index"===a.location.pathname&&(e=!0,s=$(".hot-bar").offset().top),$(document).scroll(function(){var t=$(a).scrollTop();t<80||t<o?$(".nav").removeClass("hide-up"):$(".nav").addClass("hide-up"),e&&(t>=s-10?$(".hot-bar").addClass("fixed"):$(".hot-bar").removeClass("fixed")),o=t})}(window);

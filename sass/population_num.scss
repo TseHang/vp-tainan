@@ -1,0 +1,235 @@
+@import 'default/default';
+@import 'partials/header';
+
+.report-container {
+  border: solid .5px map-get($color, gray--dark);
+  
+  .report-line {
+    width: 80%;
+    height: 1px;
+    margin: auto;
+    background-color: map-get($color, gray--light);
+    box-shadow: 0px 2px 1px 0px rgba(215, 218, 225, 0.5);
+  }
+}
+
+.report-top-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  color: map-get($color, gray--dark);
+  padding: 1em 5px;
+
+  .report-left {
+    order: 2;
+
+    > img {
+      width: 40%;
+      margin: auto;
+    }
+
+    > p:nth-child(2) {
+      margin-top: 2em;
+    }
+  }
+
+  .report-title {
+    order: 1;
+    color: map-get($color, black--default);
+    font-size: map-get($font-size, xl);
+  }
+
+  .report-right {
+    order: 3;
+  }
+
+  p {
+    margin: 0px 1em;
+    font-size: .8em;
+  }
+}
+
+.report-bottom-container {
+  .report-section {
+    margin: 1em 0px;
+    padding: .5em .3em;
+
+    > h2 {
+      color: map-get($color, green);
+      font-size: map-get($font-size, l);
+      margin-bottom: .5em;
+    }
+  }
+
+  .report-section-intro {
+    font-weight: bold;
+    margin: .3em 1em;
+  }
+}
+
+.table-container {
+  .container {
+    @include scrollbars(.5em, 0px, map-get($color, green), rgba(0,0,0,.3));
+    display: none;
+    max-height: 60vh;
+    overflow: scroll;
+
+    &.active {
+      @include animation(hideShow .2s linear);
+      display: block;
+      border-top: dashed 2px rgba(128, 128, 128, 0.4);
+      border-bottom: dashed 2px rgba(128, 128, 128, 0.4);
+
+      .table-data{
+        &.highlight{
+          font-weight: bold;
+          line-height: 1.5;
+        }
+        &.red {
+          color: map-get($color, red);
+        }
+        &.size-s {
+          font-size: 1.1em;
+        }
+        &.size-l {
+          font-size: 1.3em; 
+          &:last-child {
+            margin-bottom: 1em;        
+          }
+        }
+      }
+    }
+  }
+
+  .table-cell{
+    @extend %position_relative;
+    text-align: left;
+    padding: .2em 0px .1em;
+
+    left: 50%;
+    transform: translateX(-25%);
+
+    &:first-child {
+      margin: 1em 0px;
+    }
+  }
+
+  .table-data {
+    &.tainan {
+      color: map-get($color, green);
+      line-height: 2.5;
+    }
+  }
+}
+
+.area-map {
+  display: none;
+}
+
+
+// Semantic Ui reset
+.ui.selection.active.dropdown{
+  border-color: map-get($color, green);
+  .menu {
+    border-color: map-get($color, green);
+  }
+
+  &:hover {
+    border-color: map-get($color, green);
+    .menu {
+      border-color: map-get($color, green);
+    }
+  }
+}
+
+.ui.secondary.pointing.menu{
+  border: none;
+  .item {
+    margin: auto;
+    color: map-get($color, gray--light);
+
+    &:hover {
+      color: map-get($color, black--default);
+      border-color: map-get($color, green);
+    }
+
+    &.active {
+      color: map-get($color, black--default);
+      border-color: map-get($color, green);
+
+      &:hover {
+        border-color: map-get($color, green);
+      }
+    }
+  }
+}
+
+
+@media (min-width: map-get($break-point, break-xs)) {
+  .area-map {
+    display: block;
+  }
+  
+  .report-top-container {
+    flex-direction: row;
+    padding: 1em;
+    .report-left {
+      order: 1;
+
+      > img {
+        width: 75%;
+        margin: 4em 0px 0px;
+      }
+
+      > p:nth-child(2) {
+        margin-top: 1em;
+      }
+    }
+
+    .report-title {
+      order: 2;
+      text-align: center;
+    }
+
+    .report-right {
+      position: relative;
+      align-self: center;
+      top: 3em;
+    }
+  }
+
+  .report-bottom-container {
+    padding: .5em 2.5em;
+  }
+
+  .table-container {
+    display: flex;
+
+    .container {
+      display: block;
+      margin: 0px auto;
+      padding: 1em;
+      border-radius: 3px;
+
+      &.active {
+        background: rgba(255, 203, 104, 0.15);
+      }
+    }
+    
+    .table-cell {
+      text-align: center;
+      left: 0%;
+      transform: none;
+    }
+  }
+
+
+  .ui.secondary.pointing.menu{
+    .item {
+      &:nth-child(2) {
+        position: relative;
+        left: -2%;
+      }
+    }
+  }
+}
