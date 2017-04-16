@@ -44,7 +44,7 @@ h1{
 .section{
   width: 90%;
   text-align: center;
-  margin: 13vh auto 5vh;
+  margin: 15vh auto 5vh;
 
   @media (min-width: map-get($break-point, break-xs)) {
     width: 75%;

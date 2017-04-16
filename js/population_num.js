@@ -20,7 +20,7 @@ const Vue = window.Vue;
     $(this).addClass('active')
   })
 
-  d3.json('../../src/data/tainan-town.topo.json', (topodata) => {
+  d3.json('./src/data/tainan-town.topo.json', (topodata) => {
     const features = topojson.feature(topodata, topodata.objects.tainan).features
     const path = d3.geo.path().projection( // 路徑產生器
       d3.geo.mercator().center([120.25, 23.15]).scale(50000),
@@ -41,8 +41,7 @@ const Vue = window.Vue;
         $(this).css('opacity', .5)
       })
   })
-
-  d3.csv('../../src/data/population_num.csv', (data) => {
+  d3.csv('./src/data/population_num.csv', (data) => {
     const tableVm = new Vue({
       delimiters: ['${', '}'],
       el: '#table-list',

@@ -2,8 +2,10 @@
   let lastScrollY = 0
   let isIndex = false
   let fixHotBarTop = 0
+  const pathname = window.location.pathname
 
-  if (window.location.pathname === '/index') {
+  // include github's location state
+  if (pathname.includes('/index') || pathname === '/' || pathname === '/vp-tainan/') {
     isIndex = true
     fixHotBarTop = $('.hot-bar').offset().top
   }
