@@ -62,6 +62,10 @@ const $ = window.$;
     }
   }
 
+  if ($(window).width() < 768) {
+    $('#every-area').addClass('color-red p-font-600');
+  }
+
   d3.csv('./src/data/population_num.csv', (data) => {
     const tableVm = new Vue({
       delimiters: ['${', '}'],
@@ -135,7 +139,7 @@ const $ = window.$;
       .attr({
         'd': path,
         'fill': (d) => {
-          const areaName = d.properties.TOWNNAME;
+          const areaName = d.properties.TOWNNAME
           if (DATA[areaName].isDensityOver) {
             return densityOverColor(DATA[areaName].density)
           }
@@ -153,10 +157,10 @@ const $ = window.$;
             'stroke': '#333',
             'stroke-width': '6px',
           })
-        $('.intro-area').text(areaName)
-        $('#intro-population-percent').text(`${DATA[areaName].populationPercent}%`)
-        $('#intro-land-percent').text(`${DATA[areaName].landPercent}%`)
-        $('#intro-density').text(density)
+        $('.intro-area').html(areaName)
+        $('#intro-population-percent').html(`${DATA[areaName].populationPercent}%`)
+        $('#intro-land-percent').html(`${DATA[areaName].landPercent}%`)
+        $('#intro-density').html(density)
 
         // set CommentWord
         setComment(density)
@@ -182,7 +186,7 @@ const $ = window.$;
 
     const path = d3.geo.path().projection(
       // 路徑產生器
-      d3.geo.mercator().center([121.2, 22.81]).scale(21000),
+      d3.geo.mercator().center([121.55, 22.58]).scale(16000),
     )
     mobileVis.selectAll('path').data(features)
       .enter().append('path')
@@ -201,10 +205,9 @@ const $ = window.$;
 
     const density = DATA[area].density
     $('#mobile-area').text(area)
-    $('mobile-population-percent').text(area)
-    $('#mobile-population-percent').text(`${DATA[area].populationPercent}%`)
-    $('#mobile-land-percent').text(`${DATA[area].landPercent}%`)
-    $('#mobile-density').text(density)
+    $('#mobile-population-percent').html(`&nbsp;${DATA[area].populationPercent}%&nbsp;`)
+    $('#mobile-land-percent').html(`&nbsp;${DATA[area].landPercent}%&nbsp;`)
+    $('#mobile-density').html(`&nbsp;${density}&nbsp;`)
 
     setComment(density)
 

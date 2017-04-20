@@ -67,6 +67,9 @@
   }
 }
 
+.area-list {
+  margin-bottom: 5em;
+}
 .report-basic {
   color: map-get($color, gray--dark);
   padding: 1em 2em;
@@ -168,6 +171,7 @@
   border: none;
   .item {
     margin: auto;
+    padding: .5em .2em;
     color: map-get($color, gray--light);
 
     &:hover {
