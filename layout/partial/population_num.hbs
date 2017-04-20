@@ -16,7 +16,34 @@
   </div>
   
   <div class="report-line"></div>
+
   <div class="report-bottom-container">
+    <section class="report-section">
+      <h2>基本資料</h2>
+      <p class="report-section-intro">當我們都在喊著國際化的時候，你了解所生長的這片土地嗎？</p>
+      <div class="report-basic">
+        <p>1. 總人口數： 188 萬 6033 人（台灣第7）</p>
+        <p>2. 土地面積： 2191 平方公里（台灣第6）</p>
+        <p>3. 戶數： 67 萬 8158 戶</p>
+        <div class="content">
+          <p>台南市人口密度為 <span class="color-green"> 860.55 </span>人/平方公里，以人口-面積比來說居於台灣第11（直轄市中最末），<span class="p-font-bold">整體來說目前屬於發展程度良好，也不會太擁擠的城市。</span></p>
+          <p>台南約有67萬戶，得出<span class="p-font-600 color-red">每戶的平均人口數僅 2.78 人，並且還在持續下降當中。</span>顯示目前家庭數上升的速度大於人口增長速度，<span class="p-font-bold link" ><a href='https://kairos.news/40179' target="_blank">越來越多年輕人傾向結婚不生子甚至不婚，或許是「一個人更好」的觀念逐漸盛行？亦或許是經濟壓力過大無法負擔？</a></span></p>
+          <p>總之，台南將更明顯的往小家庭、頂客家庭轉化，中小住宅的趨勢也將會越來越盛行。</p>
+        </div>
+      </div>
+
+      <div class="report-basic">
+        <p class="color-red">4. 自然增加率： -0.28(‰)（出生 - 死亡）</p>
+        <p >5. 社會增加率： 0.55(‰) （移入 - 移出）</p>
+        <p >6. 人口成長率： 0.26(‰)（自然增加 + 社會增加）</p>
+        <div class="content">
+          <p><span class="color-green">自然增加率為負，表示出生率已明顯低於死亡率</span>，少子化現象已經滲入到整個社會之中。</p>
+          <p>由人口成長率可以看出來，目前的人口增加來自於移入人口的數量並不是出生人口的數量，<span class="p-font-600">這樣子的社會結構好像顛覆我們以往的認知</span>，到底台南市目前的人口結構是如何呢？</p>
+          <a class="link" href=";javascript"><p>台南人口診斷報告書 - 社會結構</p></a>
+        </div>
+      </div>
+    </section>
+
     <section class="report-section">
       <h2>各區診斷情況</h2>
       <p class="report-section-intro">選擇所在的區域，你看出什麼了嗎？</p>
@@ -24,41 +51,78 @@
       <!--
         Desktop 
       -->
-      <div class="area-map"></div>
+      <div class="area-map">
+        <div class="area-desktop-map"></div>
+        <div class="area-intro">
+          <h2 class="intro-area">台南市</h2>
+          <p>約佔有台南市&nbsp;<span id="intro-population-percent" class="color-green p-font-600">1,886,033人</span>&nbsp;的人口數<br>約擁有台南市&nbsp;<span id="intro-land-percent" class="color-green p-font-600">2,191.6平方公里</span>&nbsp;的土地面積</p>
+          <p><span id="intro-comment">就像是剛做好的鮪魚蛋土司，不油不膩，空間舒適度相對來說</span>&nbsp;<span id="intro-word" class="color-green p-font-600">相當不錯呢！</span>&nbsp;</p>
+          <p>人口密度約為&nbsp;<span id="intro-density">860.5</span>&nbsp;人/平方公里</p>
+        </div>
+      </div>
 
       <!-- 
         MObile 
       -->
       <div class="area-list">
         <select class="ui dropdown">
-          <option value="">台南市</option>
-          <option value="AL">東區</option>
-          <option value="AK">Alaska</option>
-          <option value="AZ">Arizona</option>
-          <option value="AR">Arkansas</option>
+          <option value="Tainan" >台南市</option>
+          <option value="Xinhua">新化區</option>
+          <option value="Xinying">新營區</option>
+          <option value="Yanshui">鹽水區</option>
+          <option value="Baihe">白河區</option>
+          <option value="Liuying">柳營區</option>
+          <option value="Houbi">後壁區</option>
+          <option value="Dongshan">東山區</option>
+          <option value="Madou">麻豆區</option>
+          <option value="Xiaying">下營區</option>
+          <option value="Liujia">六甲區</option>
+          <option value="Guantian">官田區</option>
+          <option value="Danei">大內區</option>
+          <option value="Jiali">佳里區</option>
+          <option value="Xuejia">學甲區</option>
+          <option value="Xigang">西港區</option>
+          <option value="Qigu">七股區</option>
+          <option value="Jiangjun">將軍區</option>
+          <option value="Beimen">北門區</option>
+          <option value="Shanhua">善化區</option>
+          <option value="Xinshi">新市區</option>
+          <option value="Anding">安定區</option>
+          <option value="Shanshang">山上區</option>
+          <option value="Yujing">玉井區</option>
+          <option value="Nanxi">楠西區</option>
+          <option value="Nanhua">南化區</option>
+          <option value="Zuozhen">左鎮區</option>
+          <option value="Rende">仁德區</option>
+          <option value="Guiren">歸仁區</option>
+          <option value="Guanmiao">關廟區</option>
+          <option value="Longqi">龍崎區</option>
+          <option value="Yongkang">永康區</option>
+          <option value="East">東區</option>
+          <option value="South">南區</option>
+          <option value="North">北區</option>
+          <option value="WestCentral">中西區</option>
+          <option value="Annan">安南區</option>
+          <option value="Anping">安平區</option>
         </select>
       </div>
 
-      <!-- Map-modal -->
+      <!-- MObile-map-modal -->
       <div id="map-modal" class="ui modal">
         <i class="close icon"></i>
         <div class="header">
-          Profile Picture
+          <h2 id="mobile-area">台南市</h2>
         </div>
-        <div class="image content">
-          <div class="description">
-            <div class="ui header">We've auto-chosen a profile image for you.</div>
-            <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-            <p>Is it okay to use this photo?</p>
-          </div>
+        <div class="content">
+          <div class="area-mobile-map"></div>
+          <p>約佔有台南市&nbsp;<span id="mobile-population-percent" class="color-green p-font-bold">1,886,033人</span>&nbsp;的人口數<br>約擁有台南市&nbsp;<span id="mobile-land-percent" class="color-green p-font-bold">2,191.6平方公里</span>&nbsp;的土地面積</p>
+          <p><span id="mobile-comment">就像是剛做好的鮪魚蛋土司，不油不膩，空間舒適度相對來說</span>&nbsp;<span id="mobile-word" class="color-green p-font-bold">相當不錯呢！</span>&nbsp;</p>
+          <p>人口密度約為&nbsp;<span id="mobile-density">860.5</span>&nbsp;人/平方公里</p>
         </div>
         <div class="actions">
-          <div class="ui black deny button">
-            Nope
-          </div>
           <div class="ui positive right labeled icon button">
-            Yep, that's me
-            <i class="checkmark icon"></i>
+            給我按個讚！
+            <i class="thumbs up icon"></i>
           </div>
         </div>
       </div>

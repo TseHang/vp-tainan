@@ -1,3 +1,9 @@
+// Global Func
+const formatFloat = (num, pos) => {
+  const size = Math.pow(10, pos)
+  return Math.round(num * size) / size
+}
+
 ((window) => {
   let lastScrollY = 0
   let isIndex = false

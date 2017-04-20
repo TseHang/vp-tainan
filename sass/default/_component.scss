@@ -20,9 +20,8 @@
 /*
  *  font
  */
-.p-font-400{
-  font-size: $font-size--base * 1.1;
-  font-weight: 400;
+.p-font-bold{
+  font-weight: bold;
 }
 
 .p-font-600{
@@ -38,6 +37,12 @@
   letter-spacing: map-get($letter-spacing, m);
 }
 
+.link {
+  text-decoration: underline !important;
+  &:hover {
+    color: map-get($color, green);
+  }
+}
 
 /*
  *  module

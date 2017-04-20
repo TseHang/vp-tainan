@@ -7,7 +7,7 @@ $header: (
   @include transition(top .2s linear);
   position: fixed;
   z-index: 1000;
-  height: 10vh;
+  height: map-get($header, all);
   padding: 1em 5%;
   top: 0px;
 
@@ -95,11 +95,9 @@ $header: (
   width: 60vw;
   height: auto;
 
-  @media (min-width: map-get($break-point, table-s)) {
-    background-size: auto 100%;
-  }
   @media (min-width: map-get($break-point, break-xs)) {
     width: 30vw;
+    background-size: auto 100%;
     background-image: url('../img/index/logo-dark.png');
 
     &:hover {
