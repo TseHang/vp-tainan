@@ -49,27 +49,34 @@
   }
 }
 
-.report-bottom-container {
-  .report-section {
-    margin: 1em 0px;
-    padding: .5em .3em;
+.report-section {
+  margin: 1em 0px;
+  padding: .5em .3em;
 
-    > h2 {
-      color: map-get($color, green);
-      font-size: map-get($font-size, l);
-      margin-bottom: .5em;
-    }
+  > h2 {
+    color: map-get($color, green);
+    font-size: map-get($font-size, l);
+    margin-bottom: .5em;
   }
 
   .report-section-intro {
     font-weight: bold;
     margin: .3em 1em;
   }
+
+  .reference {
+    margin: .3em 1em;
+    color: map-get($color, gray--dark);
+    &:hover {
+      color: map-get($color, green);
+    }
+  }
 }
 
 .area-list {
   margin-bottom: 5em;
 }
+  
 .report-basic {
   color: map-get($color, gray--dark);
   padding: 1em 2em;
@@ -87,6 +94,10 @@
     padding: 1em;
     color: map-get($color, black--default);
     background-color: rgba(215, 218, 225, .2);
+  }
+  
+  .conclusion {
+    background-color: rgba(255, 203, 9, .2);
   }
 }
 

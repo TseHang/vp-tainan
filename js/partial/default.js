@@ -34,4 +34,11 @@ const formatFloat = (num, pos) => {
     }
     lastScrollY = st
   })
+
+  // Fix semantic-ui's click's jump
+  $('.collapse-toggle').click(function (e) {
+    e.preventDefault()
+    const id = $(this).data('id')
+    $(`#${id}`).slideToggle(200)
+  })
 })(window)
