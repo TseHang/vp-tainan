@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html style = "height:100%;width:100%;margin:0px;">
+<head>
+  {{> head}}
+
+  <title> {{title}}</title>
+  <link rel="stylesheet" href="./src/leaflet-extra/leaflet.extra-markers.min.css">
+
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+  <link rel="stylesheet" href = "./dist/css/water.css">
+</head>
+<body>
+  {{> header}}
+
+  <section class="section">
+    {{> water}}
+  </section>
+
+  {{> footer}}
+</body>
+
+{{> inner_script}}
+<script type="text/javascript" src="http://
+maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+<script type="text/javascript" src="./src/leaflet-extra/leaflet.extra-markers.min.js"></script>
+<script type="text/javascript" src="./src/jquery.csv.min.js"></script>
+<script type="text/javascript" src="https://d3js.org/topojson.v1.min.js"></script>
+<script type="text/javascript" src = "./dist/js/water.js"></script>
+</html>

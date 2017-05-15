@@ -9,6 +9,7 @@ module.exports= function (hbs) {
 
   // Project Partials
   hbs.registerPartial('population_num', getProjectPartials('population_num'));
+  hbs.registerPartial('water', getProjectPartials('water'));
 };
 
 function getProjectPartials(filename) {
