@@ -11,6 +11,8 @@ const rename = require('gulp-rename');
 
 const chalk = require('chalk');
 
+const connect = require("gulp-connect");
+
 /*
 	`gulp default`
 	sasss , js , watch
@@ -41,12 +43,20 @@ gulp.task('js', function(){
 		.pipe(gulp.dest('dist/js'))
 })
 
+gulp.task('server', function () {
+  connect.server({
+    root: './',
+    livereload: true,
+    port: 8000
+  });
+})
+
 gulp.task('watch',function(){
 	gulp.watch(['./sass/**/*.scss'], ['sass']);
   gulp.watch(['./js/**/*.js'], ['js']);
 })
 
-gulp.task('default',['sass','js','watch']);
+gulp.task('default',['sass','js','watch','server']);
 
 
 /*
