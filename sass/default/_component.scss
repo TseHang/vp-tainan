@@ -4,9 +4,28 @@
 
 .intro-text {
   color: map-get($color, red);
-  letter-spacing: map-get($letter-spacing, s) ;
 }
 
+.conclusion-text {
+  padding-top: 2em;
+  color: map-get($color, orange);
+}
+
+ul.number-type {
+  list-style-type: decimal;
+}
+
+.collapse{
+  display: none;
+  margin: .3em 0px 1.3em 0px !important;
+  &:target {
+    display: block;
+  }
+
+  &.open {
+    display: block;
+  }
+}
 /*
  *  color
  */
@@ -39,6 +58,7 @@
 
 .link {
   text-decoration: underline !important;
+  cursor: pointer;
   &:hover {
     color: map-get($color, green);
   }
