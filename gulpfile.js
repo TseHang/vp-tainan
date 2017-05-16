@@ -8,8 +8,10 @@ const minifyCSS = require('gulp-minify-css');
 const imagemin = require('gulp-imagemin');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
+const connect = require("gulp-connect");
 
 const chalk = require('chalk');
+const historyApiFallback = require('connect-history-api-fallback');
 
 /*
 	`gulp default`
@@ -26,6 +28,7 @@ gulp.task('sass',function(){
 		}))
 		.pipe(minifyCSS())
 		.pipe(gulp.dest('dist/css'))
+    .pipe(connect.reload())
 })
 
 gulp.task('js', function(){
@@ -39,6 +42,25 @@ gulp.task('js', function(){
 			logPath(path , "yellow");
     }))
 		.pipe(gulp.dest('dist/js'))
+    .pipe(connect.reload())
+})
+
+gulp.task('server', function () {
+  connect.server({
+    root: './',
+    livereload: true,
+    port: 8000,
+    fallback: 'index.html'
+    /*
+    TODO: Use middleware to transfer 'index.html' to 'index'
+
+    middleware: function(connect, opt) {
+      return [historyApiFallback({
+        'water': '/water.html'
+      })]
+    }
+    */
+  });
 })
 
 gulp.task('watch',function(){
@@ -46,7 +68,7 @@ gulp.task('watch',function(){
   gulp.watch(['./js/**/*.js'], ['js']);
 })
 
-gulp.task('default',['sass','js','watch']);
+gulp.task('default',['sass','js','watch','server']);
 
 
 /*

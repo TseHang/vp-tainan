@@ -20,6 +20,15 @@ var route = [
       partials: './partial.js',
       layout:  "./layout/population_num_report.hbs",
       filename: "./population_num_report.html"
+    },
+    {
+      data: {
+        paht: './',
+        title: '一杯水的故事'
+      },
+      partials: './partial.js',
+      layout: "./layout/water.hbs",
+      filename: "./water.html"
     }
   ];
 module.exports = route;
