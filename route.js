@@ -29,6 +29,16 @@ var route = [
       partials: './partial.js',
       layout: "./layout/water.hbs",
       filename: "./water.html"
+    },
+    {
+      data: {
+        path: './',
+        title: 'XYZ 三元素 - 台南市人口診斷書',
+      },
+      partials: './partial.js',
+      layout:  "./layout/population_xyz_report.hbs",
+      filename: "./population_xyz_report.html"
     }
   ];
+  
 module.exports = route;

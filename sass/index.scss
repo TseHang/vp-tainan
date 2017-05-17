@@ -20,13 +20,13 @@
   }
 
   &:before {
-    @include animation(wrap-bg-show .4s .3s ease-in forwards);
+    @include animation(wrap-bg-show .5s .4s ease-in forwards);
     transform-origin: 0 0; 
     transform: rotateZ(-25deg);
   }
 
   &:after {
-    @include animation(wrap-bg-show .5s ease-in forwards);
+    @include animation(wrap-bg-show .6s ease-in forwards);
     transform-origin: 150vw 0;
     transform: translateX(-50vw) rotateZ(25deg);
   }

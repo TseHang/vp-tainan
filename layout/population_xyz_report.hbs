@@ -5,13 +5,13 @@
   {{> head}}
 
   <title> {{title}} || 數字說話 Tainan</title>
-  <link rel="stylesheet" href = "./dist/css/population_num.css">
+  <link rel="stylesheet" href = "./dist/css/population_xyz.css">
 </head>
 <body>
   {{> header}}
-  
+
   <section class="section">
-    {{> population_num}}
+    {{> population_xyz}}
   </section>
 
   {{> footer}}
@@ -20,5 +20,6 @@
 {{> inner_script}}
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script type="text/javascript" src="https://d3js.org/topojson.v1.min.js"></script>
-<script type="text/javascript" src = "./dist/js/population_num.js"></script>
+<script type="text/javascript" src = "./src/countupjs/countUp.js"></script>
+<script type="text/javascript" src = "./dist/js/population_xyz.js"></script>
 </html>
