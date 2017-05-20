@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html style = "height:100%;width:100%;margin:0px;">
+<head>
+  {{> head}}
+
+  <title> {{title}} || 數字說話 Tainan</title>
+  <link rel="stylesheet" href = "./dist/css/index.css">
+  <link rel="stylesheet" href = "./dist/css/disaster.css">
+</head>
+<body>
+  {{> header}}
+
+  <section class="section">
+    {{> disaster}}
+  </section>
+
+  {{> footer}}
+</body>
+
+{{> inner_script}}
+<script type="text/javascript" src = "./dist/js/disaster.js"></script>
+</html>

@@ -29,6 +29,15 @@ var route = [
       partials: './partial.js',
       layout: "./layout/water.hbs",
       filename: "./water.html"
+    },
+    {
+      data: {
+        paht: './',
+        title: '災害地圖'
+      },
+      partials: './partial.js',
+      layout: "./layout/disaster_report.hbs",
+      filename: "./disaster_report.html"
     }
   ];
 module.exports = route;
