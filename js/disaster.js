@@ -1,8 +1,20 @@
+
+
 var map = L.map('well-living-map').setView([23.1, 120.3], 11);
+/* api key shall be protext */
+L.Control.geocoder({
+      collapsed: false,
+      placeholder: "請輸入地址...",
+      errorMessage: "查無此地址",
+      geocoder: new L.Control.Geocoder.Google("AIzaSyARIN80OjEjl4O24neRkXZgAo7hTKqVhD4")
+    }
+  ).addTo(map);
+
 var mapLayer = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
   maxZoom: 18,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
 var sensitiveArea, liquefactionArea, waterArea;
 var sStyle = {
     "color": "#ff0000",

@@ -1,1 +1,46 @@
-"use strict";var formatFloat=function(a,o){var t=Math.pow(10,o);return Math.round(a*t)/t};!function(a){var o=0,t=!1,e=0,n=a.location.pathname;(n.includes("/index")||"/"===n||"/vp-tainan/"===n)&&(t=!0,e=$(".hot-bar").offset().top),$(document).scroll(function(){var n=$(a).scrollTop();n<80||n<o?$(".nav").removeClass("hide-up"):$(".nav").addClass("hide-up"),t&&(n>=e-10?$(".hot-bar").addClass("fixed"):$(".hot-bar").removeClass("fixed")),o=n}),$(".collapse-toggle").click(function(a){a.preventDefault();var o=$(this).data("id");$("#"+o).slideToggle(200)})}(window);
+'use strict';
+
+// Global Func
+var formatFloat = function formatFloat(num, pos) {
+  var size = Math.pow(10, pos);
+  return Math.round(num * size) / size;
+};
+
+(function (window) {
+  var lastScrollY = 0;
+  var isIndex = false;
+  var fixHotBarTop = 0;
+  var pathname = window.location.pathname;
+
+  // include github's location state
+  if (pathname.includes('/index') || pathname === '/' || pathname === '/vp-tainan/') {
+    isIndex = true;
+    fixHotBarTop = $('.hot-bar').offset().top;
+  }
+
+  $(document).scroll(function () {
+    var st = $(window).scrollTop();
+
+    if (st < 80 || st < lastScrollY) {
+      $('.nav').removeClass('hide-up');
+    } else {
+      $('.nav').addClass('hide-up');
+    }
+
+    if (isIndex) {
+      if (st >= fixHotBarTop - 10) {
+        $('.hot-bar').addClass('fixed');
+      } else {
+        $('.hot-bar').removeClass('fixed');
+      }
+    }
+    lastScrollY = st;
+  });
+
+  // Fix semantic-ui's click's jump
+  $('.collapse-toggle').click(function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    $('#' + id).slideToggle(200);
+  });
+})(window);
