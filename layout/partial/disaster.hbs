@@ -8,16 +8,31 @@
       <br> 您也曾有這樣的擔憂嗎？那你也許可以看看這份地圖，認識家園所處的災害潛勢。
     </p>
     <img class="ui fluid rounded image" src="../src/img/disaster_hero.jpg">
-    <a href="https://pixabay.com/en/earthquake-rubble-collapse-disaster-1665897/" target="_blank">photo credit to pixababy</a>
     <div class="ui divider"></div>
     <p>每當遇上地震、颱風、暴雨，你會不會擔心自己家園的安全呢？</p>
     <p>台灣位處於自然災害頻繁的環境，儘管每每做好了準備，卻仍然有災情發生，這是台灣人民永遠的隱憂。 </p>
     <p>這次我們將以台南市政府公布的開放資料，製作台南的災害潛勢地圖，讓您知道家園是否有潛在的危機， 同時，有什麼事是我們可以做的，去避免下一次的遺憾發生！</p>
   </section>
   <section>
-    <h1 class="ui header">你家是高災害潛勢區嗎？</h1>
+    <h1 class="ui header">你家是高災害潛勢區嗎？
+    <div class="sub header">查看台南地區內的災害潛勢、包含土壤液化以及淹水。</div>
+    </h1>
     <div id="well-living-map"></div>
-    <p>在地圖中可以見到，土壤液化、山崩地滑與淹水三種災害的高潛勢區，恰好分處於台南三地。（參考圖資說明）</p>
+    <div id="map-info" class="ui segment centered"></div>
+    <div class="ui compact message warning">地質敏感區多位於山坡，資料龐大，載入可能造成瀏覽流暢度降低，若想查看請點擊以下按鈕載入。
+      <button id="s-loadin" class="ui small basic button">載入地質敏感區資料</button>
+    </div>
+    <p>在地圖中可以見到，土壤液化、淹水兩種災害分色的潛勢區，此外台南市開放資料中亦有山坡地滑的地質敏感區，可點擊上方按鈕載入。</p>
+    <p>圖中繪製的淹水潛勢圖，為經濟部水利署經由設計降雨情境、特定水文地文條件及水理模式演算，模擬而成。但由於水災變因眾多，圖僅可作為防災的參考。此圖的情境為累積雨量600毫米時淹水的區域，並以上色深淺代表淹水程度，並推薦使用地圖右上查詢地址，則可同時查詢累積雨量200毫米時的淹水潛勢，若無出現淹水資訊，則為沒有潛勢。</p>
+    <div class="ui small message">
+      根據氣象局的定義
+      <ul>
+        <li>大雨：24小時累積雨量達80毫米以上，或時雨量達40毫米以上。</li>
+        <li>豪雨：指24小時累積雨量達200毫米以上，或3小時累積雨量達100毫米以上。</li>
+        <li>超大豪雨：24小時累積雨量達500毫米以上</li>
+      </ul>
+    </div>
+    <p>而土壤液化潛勢圖之圖資，是以精度 1/25,000 的調查成果，可做為國土規劃基礎資料，但勿用於工程規劃設計。透過地圖右上角的搜尋，可以直接得知地址是否有具有土壤液化潛勢。但若得知居住地具有土讓液化潛勢也不必太過擔心，可以參照下方資訊即可完成簡易自我診斷。</p>
   </section>
   <section>
     <h1 class="ui header">什麼是土壤液化？</h1>
@@ -70,20 +85,21 @@
   </section>
   <section>
     <h3 class="ui header">使用開放資料</h3>
-    <div class="ui ordered list">
-      <a class="item" href="http://data.tainan.gov.tw/dataset/geologically-sensitive-area">台南市政府 地質敏感區範圍</a>
-      <a class="item" href="http://data.tainan.gov.tw/dataset/potential-inundation-maps">臺南市政府 淹水潛勢圖</a>
-      <a class="item" href="http://data.tainan.gov.tw/dataset/liquefaction">台南市政府 土壤液化潛勢圖資</a>
+    <div class="ui ordered link list">
+      <a class="item" href="http://data.tainan.gov.tw/dataset/geologically-sensitive-area">地質敏感區範圍</a>
+      <a class="item" href="http://data.tainan.gov.tw/dataset/potential-inundation-maps">淹水潛勢圖</a>
+      <a class="item" href="http://data.tainan.gov.tw/dataset/liquefaction">土壤液化潛勢圖資</a>
     </div>
     <h3 class="ui header">引用與參考資料</h3>
-    <div class="ui ordered list">
+    <div class="ui ordered link list">
       <a class="item" href="http://www.tainan.gov.tw/Tainan/pdapage2.asp?id=%7BC18D2FF0-5959-4DB7-B384-F2E160069890%7D">0206地震後 市府積極進行老屋健檢、土壤液化防治改善</a>
       <a class="item" href="http://fhy.wra.gov.tw/fhy/Disaster/Knowledge">經濟部水利署防災資訊服務網</a>
       <a class="item" href="http://soil.taipei/qa.html">台北市政府 土壤液化潛勢查詢系統：FAQ</a>
       <a class="item" href="http://twgeoref.moeacgs.gov.tw/GipOpenWeb/wSite/ct?xItem=153059&ctNode=1233&mp=105">地質敏感區 - 臺灣地質知識服務網 - 中央地質調查所</a>
+      <a class="item" href="http://www.cwb.gov.tw/V7/observe/rainfall/define.htm">雨量分級定義</a>
     </div>
     <h3 class="ui header">圖片來源</h3>
-    <div class="ui ordered list">
+    <div class="ui ordered link list">
       <a class="item">https://pixabay.com/en/landslide-m%C3%B6ssingen-59575/</a>
       <a class="item">https://pixabay.com/en/earthquake-rubble-collapse-disaster-1665888/</a>
       <a class="item">https://pixabay.com/en/flood-stream-river-natural-71302/</a>
