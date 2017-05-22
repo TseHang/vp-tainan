@@ -36,9 +36,21 @@ ul.number-type {
   }
 }
 
+.border-green {
+  border-color: map-get($color, green) !important;
+}
+
+.border-orange {
+  border-color: map-get($color, orange) !important;
+}
+
 /*
  *  font
  */
+.p-font-small{
+  font-size: map-get($font-size, s);
+}
+
 .p-font-bold{
   font-weight: bold;
 }
@@ -61,6 +73,14 @@ ul.number-type {
   cursor: pointer;
   &:hover {
     color: map-get($color, green);
+  }
+}
+
+.link-disable {
+  cursor: not-allowed;
+  color: map-get($color, gray--dark);
+  &:hover {
+    color: map-get($color, gray--dark);
   }
 }
 

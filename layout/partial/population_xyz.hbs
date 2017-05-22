@@ -33,7 +33,7 @@
       <p class="report-section-intro">重男輕女？女權主義？到底台南的男女分佈如何呢？</p>
       <div class="report-basic">
         <p>男： 94 萬 3082 人 ; 女： 94 萬 2951 人</p>
-        <p>性別比： 100.1 人（每100位女子對應男子人數）</p>
+        <p>性別比： 100.01 人（每100位女子對應男子人數）</p>
         <div class="sexRatioSvg"></div>
         <div class="content">
           <p>台南市生理性別男女比大約是 1 : 1<br>比起以前因為傳統觀念造成男生多女生少的狀況已經相對平衡許多。</p>
@@ -43,17 +43,19 @@
 
     <section id="Y-element" class="report-section">
       <h2>Y - 年齡結構</h2>
-      <p class="report-section-intro">從年齡結構可以看出未來潛力、還有正面臨的窘境。</p>
+      <p class="report-section-intro">從年齡結構可以看出未來潛力、還有正面臨的窘境。<br><span class="p-font-small color-gray--dark">- 滑動到屬於你的方塊，經典語錄特輯 - </span>
+      </p>
       <div class="report-basic">
         <div class="agesPramidSvg"></div>
-        <p>扶養比：36%</p>
+        <p class="pramidIntroText color-black--default"></p>
+        <p>扶養比：36%，大約每2.8位壯年需負擔 1 位無生產能力人</p>
         <p>離高齡社會標準 <span class="color-red">只差0.23%，要小心</span></p>
         <div class="content">
-          <p>國際上將65歲以上人口占總人口比率達到 7%、14% 及 20%，分別稱為高齡化社會、高齡社會及超高齡社會。<span class="p-font-600"> 事實上，我國已於民國 82 年邁著高齡化社會。</span></p>
+          <p>國際上將65歲以上人口占總人口比率達到 7%、14% 及 20%，分別稱為高齡化社會、高齡社會及超高齡社會。事實上，我國已於民國 82 年邁著高齡化社會。<span class="p-font-600"> 雖說高齡化社會是必然結果，但我們也要預備足夠的措施、福利，建立人民意識讓人們了解自己身處於什麼樣的環境，才算是準備好進入高齡化社會了。</span></p>
           <p>據統計台南市，<br>
-          大約美 2.8 位壯年需負擔 1 位無生產能力人（14歲以下 + 65歲以上）<br>
-          大約每 5.3 位壯年需負擔 1 位老年人口 <br>
-          大約每 5.9 位壯年須負擔 1 位幼年人口 </p>
+          大約每 10 位壯年需負擔 3.6 位無生產能力人（14歲以下 + 65歲以上）<br>
+          大約每 10 位壯年需負擔 1.9 位老年人口 <br>
+          大約每 10 位壯年須負擔 1.7 位幼年人口 </p>
         </div>
       </div>
     </section>
@@ -62,12 +64,14 @@
       <h2>Z - 人口變化</h2>
       <p class="report-section-intro">出生、死亡、移入、移出...人口的變化象徵著社會的脈動...</p>
       <div class="report-basic">
-        <div class="populationChangeChart">3333</div>
-        <p>自然增加數： -536 人 ; -0.28(‰)</p>
-        <p>社會增加數： 1028 人 ; 0.27(‰)</p>
-        <p class="p-font-600">人口變化數： 492人 ; 0.26(‰)</p>
+        <div class="populationChangeSvg"></div>
+        <p class="chart-support"><span id="top-bar">出生數</span> - <sapn id="bottom-bar">死亡數</sapn> = <span class="color-red" id="support-diff"> -536 人</span></p>
+        <div class="btn-change-population-data ui basic button">點我看 移入 / 移出</div>
+        <p class="p-font-600 color-red">人口變化數、率： 492人 ; 0.26(‰)（出生 - 死亡 + 移入 - 移出）</p>
+        <p>自然增加數、率： -536 人 ; -0.28(‰)</p>
+        <p>社會增加數、率： 1028 人 ; 0.27(‰)</p>
         <div class="content">
-          <p>從人口變化的長條圖來看，人口的數量增減幾乎以社會變化為大宗。</p>
+          <p class="p-font-600">從人口變化的長條圖來看，人口的數量增減以社會變化為大宗。</p>
           <p>依照資料，台南市人口目前雖還在正成長，但極為緩慢。而且自然增加率已開始變為負值，表示此次人口的成長人數已移入人數為主，<span class="p-font-600">證明少子化現象確實已經存在我們社會中</span></p>
           <a class="link" target="_blank" href="http://www.ndc.gov.tw/Content_List.aspx?n=0F11EF2482E76C53">國家發展委員會於105年預測人口出現負成長將在110 ~ 114年間。</a>
           <p>綜觀目前人口變化的資料，其實都已經在0.xx多少之間徘徊，這些相對來說極小浮度的變動，代表台南的人口數將會在近幾年趨近於一個穩定值（奕或許是一個最高點）</p>
@@ -77,7 +81,7 @@
 
     <section class="report-section">
       <h2>診斷建議</h2>
-      <p class="report-section-intro">啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦</p>
+      <p class="report-section-intro">仔細想想，人口的概況或許是最關乎於社會本質的事實。<br>因為有人的組成，才有了社會，進而發展成國家，組織政府與各種團體...</p>
       <div class="report-basic">
         <div class="content conclusion">
           <p>台南市目前人口數量相比其他直轄市確實較為寬敞與舒適，但要擔心的是人口密集區域依地域皆屬舊台南市，而舒適區域幾乎為舊臺南縣<span class="link">（原因為 2010 年台南縣市合併升格直轄市為台南市）</span>。
@@ -99,7 +103,7 @@
 
     <section class="report-section">
       <h2>各區診斷情況</h2>
-      <p id = "every-area" class="report-section-intro">選擇你的區域，睜大眼睛，你看出什麼了嗎？</p>
+      <p id = "tainan-every-area" class="report-section-intro">選擇你的區域，點即點擊，你看出什麼了嗎？</p>
 
       <!--
         Desktop 
@@ -108,9 +112,16 @@
         <div class="area-desktop-map"></div>
         <div class="area-intro">
           <h2 class="intro-area">台南市</h2>
-          <p>約佔有台南市&nbsp;<span id="intro-population-percent" class="color-green p-font-600">1,886,033人</span>&nbsp;的人口數<br>約擁有台南市&nbsp;<span id="intro-land-percent" class="color-green p-font-600">2,191.6平方公里</span>&nbsp;的土地面積</p>
-          <p><span id="intro-comment">就像是剛做好的鮪魚蛋土司，不油不膩，空間舒適度相對來說</span>&nbsp;<span id="intro-word" class="color-green p-font-600">相當不錯呢！</span>&nbsp;</p>
-          <p>人口密度約為&nbsp;<span id="intro-density">860.5</span>&nbsp;人/平方公里</p>
+          <p>人口密度&nbsp;<span id="intro-density">&nbsp;860.5</span></p>
+          <p>每 100個女生對應到&nbsp;<span class="color-green p-font-600" id="deskMap-sex-ratio">100.01</span>&nbsp;個男生</p>
+          <p>65 以上，國家的文化瑰寶約佔&nbsp;<span class="color-green p-font-600" id="deskMap-sixtyFiveUp">13.8%</span>
+          <br>15 - 64，社會的中流砥柱約佔&nbsp;<span class="color-green p-font-600" id="deskMap-fifteen-sixtyFour">73.7%</span>
+          <br>14 以下，未來的青年棟樑約佔&nbsp;<span class="color-green p-font-600" id="deskMap-zero-fourteen">12.5%</span>
+          </p>
+
+          <p>每&nbsp;10&nbsp;位壯年需負擔&nbsp;<span id="deskMap-intro-num">3.6</span>&nbsp;位沒有收入的夥伴們&nbsp;<span id="deskMap-intro-word" class="color-green p-font-600">年輕人的負擔將越變越大...</span>&nbsp;</p>
+
+          <p id="deskMap-ages-text">離高齡化社會<span class="color-red">只差 0.23%，要注意！</span></p>
         </div>
       </div>
 

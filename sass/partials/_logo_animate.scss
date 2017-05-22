@@ -1,0 +1,152 @@
+.logo {
+  @extend %position_relative;
+  width: 30vw;
+  margin: 3em auto 1em;
+}
+
+.shadow {
+  @include animation(fade .4s 1.3s linear forwards);
+  @extend %position_relative;
+  top: -10px;
+  width: 80%;
+  height: 7px;
+  margin: auto;
+  background-color: rgb(128, 128, 128);
+  border-radius: 100%;
+}
+
+#trigger-logo {
+  cursor: pointer;
+  fill: transparent;
+  opacity: 0;
+}
+
+#logo {
+  @extend %position_relative;
+  @include animation(up-move-show 1.2s .5s linear forwards);
+  opacity: 0; 
+}
+
+#logo-center {
+  transform-origin: center;
+  @include animation(logo-center-fade 5s 2s ease-in infinite);
+}
+
+#logo-left {
+  @include animation(logo-left-fade 5s 2s ease-in infinite);
+}
+
+#logo-right {
+  @include animation(logo-right-fade 5s 2s ease-in infinite);
+}
+
+@media (min-width: map-get($break-point, break-xs)) {
+  .logo {
+    width: 10vw;
+    max-width: 282px;
+  }
+}
+
+@include keyframes(fade) {
+  from{ opacity: 1; }
+  to{ opacity: .1; }
+}
+
+@include keyframes(up-move-show) {
+  from{
+    opacity: 0; 
+    transform: translateY(105%);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@include keyframes(logo-center-fade) {
+  from {
+    transform: translateY(0px);
+  }
+
+  10% {
+    transform: translateY(0px); 
+  }
+
+  13% {
+    transform: translateY(-5px);  
+  }
+
+  16% {
+    transform: translateY(0px);  
+  }
+
+  25% {
+    transform: translateY(-15px);  
+  }
+
+  40% {
+    transform: translateY(5px);  
+  }
+
+  47% {
+    transform: translateY(0px);  
+  }
+
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@include keyframes(logo-left-fade) {
+  from {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  10% {
+    opacity: 0;
+    transform: translateX(-10px); 
+  }
+
+  70% {
+    opacity: 0;
+    transform: translateX(-10px)
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateX(0px) 
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px)
+  }
+}
+
+@include keyframes(logo-right-fade) {
+  from {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  10% {
+    opacity: 0;
+    transform: translateX(10px); 
+  }
+
+  70% {
+    opacity: 0;
+    transform: translateX(10px)
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateX(0px) 
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px)  
+  }
+}

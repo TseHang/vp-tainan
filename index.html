@@ -1,48 +1,111 @@
 <!doctype html><html style="height:100%;width:100%;margin:0px;"><head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="Visualize-Project-Tainan" content="yes"><!-- google-font --><link href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet"><!-- font-awesome && semantic-ui && leaflet --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link href="./src/Semantic-UI/semantic.min.css" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="Visualize-Project-Tainan" content="yes"><!-- google-font --><link href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet"><!-- font-awesome && semantic-ui && leaflet --><!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --><link href="./src/Semantic-UI/semantic.min.css" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
   <title> 數字說話 || Let data speak! </title>
   <link rel="stylesheet" href="./dist/css/index.css">
 </head>
 <body>
-  <header>  <nav class="nav col-xs-12">    <div class="main-header">      <div class="logo-container" onclick="window.location.href='./index.html'"></div>      <div class="m-menu-botton">        <div class="menu-line"></div>        <div class="menu-line"></div>        <div class="menu-line"></div>      </div>      <h3 class="nav-text">「用數據，探索台南。」<!--3-->    </h3></div>    <div class="sub-header">      <a href="./population_num_report.html"><p>人口</p></a>      <a href="javascript;"><p>水源</p></a>      <a href="javascript;"><p>災害</p></a>      <a href="javascript;"><p>交通</p></a>      <a href="javascript;"><p>財政</p></a>    </div>  </nav></header>
+  <header>  <nav class="nav col-xs-12">    <div class="main-header">      <div class="logo-container" onclick="window.location.href='./index.html'"></div>      <div class="m-menu-botton">        <div class="menu-line"></div>        <div class="menu-line"></div>        <div class="menu-line"></div>      </div>      <h3 class="nav-text">「用數據，探索台南。」<!--3-->    </h3></div>    <div class="sub-header">      <a href="#population"><p>人口</p></a>      <a href="#water"><p>水源</p></a>      <a href="#disaster"><p>災害</p></a>      <a href="#traffic"><p>交通</p></a>      <a href="#money"><p>財政</p></a>    </div>  </nav></header>
   <div class="wrap">
     <h1 class="color-red">一場以數據為核心的資訊號召</h1>
     <p>
       大家好，我們是用數據看台灣團隊。<br>這是一場有別於以往的<span class="color-red p-font-400 text-1">資訊號召</span>，一切都<span class="color-green p-font-600 text-2">讓數字來說話</span>。
     </p>
-    <div class="logo">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.1 95.2" style="enable-background:new 0 0 152.1 95.2;" xml:space="preserve">
-      <g>
-          <rect id="trigger-logo" x="0.5" y="0.5" style="stroke:#808080;stroke-miterlimit:10;" width="151.1" height="94.2"></rect>
-        <g id="logo">
-          <path id="logo-center" style="fill:#0ADA7F;" d="M75.2,19.5c-15.4,0-27.9,12.5-27.9,27.9s12.5,27.9,27.9,27.9
-            s27.9-12.5,27.9-27.9S90.6,19.5,75.2,19.5z M75.2,60.3c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9
-            S82.4,60.3,75.2,60.3z"></path>
-          <path id="logo-left" style="fill:#FFAA0A;" d="M37.6,47.4c0-12.1,7.7-26.3,18.6-30.2c0.9-0.3,0.7-1.6-0.3-1.6c0,0,0,0,0,0
-            c-15.4,0-27.9,16.4-27.9,31.8s12.5,31,27.9,31c0,0,0,0,0,0c0.9,0,1.1-1.3,0.3-1.6C45.3,72.9,37.6,59.5,37.6,47.4z"></path>
-          <path id="logo-right" style="fill:#FFAA0A;" d="M114.5,47.8c0,12.1-7.7,26.3-18.6,30.2c-0.9,0.3-0.7,1.6,0.3,1.6c0,0,0,0,0,0
-            c15.4,0,27.9-16.4,27.9-31.8s-12.5-31-27.9-31c0,0,0,0,0,0c-0.9,0-1.1,1.3-0.3,1.6C106.7,22.3,114.5,35.7,114.5,47.8z"></path>
-        </g>
-      </g>
-      </svg>
-      <div class="shadow"></div>
-    </div>
-  </div>
-  
+    <div class="logo">  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.1 95.2" style="enable-background:new 0 0 152.1 95.2;" xml:space="preserve">  <g>      <rect id="trigger-logo" x="0.5" y="0.5" style="stroke:#808080;stroke-miterlimit:10;" width="151.1" height="94.2"></rect>    <g id="logo">      <path id="logo-center" style="fill:#0ADA7F;" d="M75.2,19.5c-15.4,0-27.9,12.5-27.9,27.9s12.5,27.9,27.9,27.9        s27.9-12.5,27.9-27.9S90.6,19.5,75.2,19.5z M75.2,60.3c-7.1,0-12.9-5.8-12.9-12.9s5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9        S82.4,60.3,75.2,60.3z"></path>      <path id="logo-left" style="fill:#FFAA0A;" d="M37.6,47.4c0-12.1,7.7-26.3,18.6-30.2c0.9-0.3,0.7-1.6-0.3-1.6c0,0,0,0,0,0        c-15.4,0-27.9,16.4-27.9,31.8s12.5,31,27.9,31c0,0,0,0,0,0c0.9,0,1.1-1.3,0.3-1.6C45.3,72.9,37.6,59.5,37.6,47.4z"></path>      <path id="logo-right" style="fill:#FFAA0A;" d="M114.5,47.8c0,12.1-7.7,26.3-18.6,30.2c-0.9,0.3-0.7,1.6,0.3,1.6c0,0,0,0,0,0        c15.4,0,27.9-16.4,27.9-31.8s-12.5-31-27.9-31c0,0,0,0,0,0c-0.9,0-1.1,1.3-0.3,1.6C106.7,22.3,114.5,35.7,114.5,47.8z"></path>    </g>  </g>  </svg>  <div class="shadow"></div></div>  </div>
+
   <div class="hot-bar">
     <a href="./population_num_report.html"><p>台南市人口診斷報告書</p></a>
-    <a href="./population_xyz_report.html"><p>人口 XYZ 三元素</p></a>
-    <a href="./water.html"><p>一杯水的故事</p></a>
-    <a href="javascript;"><p>test3</p></a>
+    <!-- <a href="./population_xyz_report.html"><p>人口 XYZ 三元素</p></a> -->
+    <!-- <a href="./water.html"><p>一杯水的故事</p></a> -->
+    <!-- <a href="javascript;"><p>test3</p></a> -->
   </div>
 
   <section class="news-container">
-    <div class="news-right">right</div>    
-    <div class="news-left">left</div>
+    <div class="news-right">
+      <h3>心路歷程</h3>
+      <div class="recommend-article" onclick="window.location.href='./articles/article-tainanstat.html'">
+        <h3>用數據看台南</h3>
+        <p>5/22 - 6/22 || 這是一場為期一個月的資訊號召。</p>
+      </div>
+      <!-- <div class="recommend-article">
+        <h3>台南市人口診斷報告書</h3>
+        <p>當大家都在喊著國際化的時候，你真的了解台南的人口了嗎？</p>
+      </div> -->
+
+      <div class="ui button"><i class="write icon"></i>許願大聲公</div>
+
+      <div class="ui animated list list-box">
+        <a href="./let-data-speak.html" class="item">Let Data Speak!</a>
+        <a href="./contact-us.html" class="item">聯絡我們</a>
+      </div>
+
+  </div>
+
+        
+    <div class="news-left">
+      <section id="population" class="news-section">
+        <h3>人口</h3>
+        <p class="section-intro">關於人口的知識，我們從小學就開始接觸。
+        <br><br>還記得地理課本第一章永遠都是「人口」嗎？
+        <br>了解社會的人口對於身為人類的我們來說相當重要，但長大之後，有多少人真正關心過自己居住地方的人口變化呢？
+        </p>
+        <div class="article">
+          <div id="img_population_num_report" class="article-img" onclick="window.location.href='./population_num_report.html'"></div>
+          <h2 onclick="window.location.href='./population_num_report.html'">台南市人口診斷報告書</h2>
+          <p>這是一份專為台南市量身打造的人口診斷書，當資料化身為手術刀，以台南市作為目標一探究竟，話不多說，你看到了什麼？...</p>
+        </div>
+      </section>
+
+      <section id="water" class="news-section">
+        <h3>水源</h3>
+        <p class="section-intro">你敢生飲自來水嗎？
+        <br><br>
+        大部分人的答案是否定的，但你知道其實根據台灣自來水公司公佈的數據，我們的自來水已經達到飲用標準水質了嗎？
+        <br>
+        我們對於自來水的不信任是來自於哪裡？環境？台水？抑或是我們自己呢？
+        </p>
+
+        <h4>&lt;敬請期待&gt;</h4>
+      </section>
+
+      <section id="disaster" class="news-section">
+        <h3>災害</h3>
+        <p class="section-intro">每當遇上地震、颱風、暴雨，你會不會擔心自己家園的安全呢？
+        <br><br>
+        台灣位處於自然災害頻繁的環境，儘管每每做好了準備，卻仍然有災情發生，這是台灣人民永遠的隱憂。
+        <br>這次我們將以台南市政府公布的開放資料，製作台南的災害潛勢地圖，讓您知道家園是否有潛在的危機，同時，有什麼事是我們可以做的，去避免下一次的遺憾發生！
+        </p>
+
+        <h4>&lt;敬請期待&gt;</h4>
+      </section>
+
+      <section id="traffic" class="news-section">
+        <h3>交通</h3>
+        <p class="section-intro">交通問題，是我們每天都會遇到的頭痛煩惱，其中車禍事件更是層出不窮。
+        <br><br>
+        2013年根據世界衛生組織統計，全球超過120萬人死於車禍，台灣的車禍死亡率遠高於日本、英國、德國等先進國家  ლ(ﾟдﾟლ) ?!
+        <br>
+        所謂『馬路如虎口』、『預防勝於治療，要保護自己，就要更了解環境』。我們是否了解我們所居住的周圍，哪些路段容易發生哪種類型的事故? 讓我們透過這次分享，來了解台南市中哪些路段可能有潛藏危機~~
+        </p>
+
+        <h4>&lt;敬請期待&gt;</h4>
+      </section>
+
+      <section id="money" class="news-section">
+        <h3>財政</h3>
+        <p class="section-intro">交通問題，是我們每天都會遇到的頭痛煩惱，其中車禍事件更是層出不窮。
+        <br><br>
+        2013年根據世界衛生組織統計，全球超過120萬人死於車禍，台灣的車禍死亡率遠高於日本、英國、德國等先進國家  ლ(ﾟдﾟლ) ?!
+        <br>
+        所謂『馬路如虎口』、『預防勝於治療，要保護自己，就要更了解環境』。我們是否了解我們所居住的周圍，哪些路段容易發生哪種類型的事故? 讓我們透過這次分享，來了解台南市中哪些路段可能有潛藏危機~~
+        </p>
+
+        <h4>&lt;敬請期待&gt;</h4>
+      </section>
+    </div>
   </section>
 
-
+  <footer class="footer">  <a href="http://www.taiwanstat.com/" target="_blank">2017&nbsp;©&nbsp;用數據看台灣<p></p></a></footer><a href="http://www.taiwanstat.com/" target="_blank">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script><script type="text/javascript" src="src/Semantic-UI/semantic.min.js"></script><!-- default Js --><script type="text/javascript" src="./dist/js/partial/default.js"></script><!-- leaflet Js --><script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script><script type="text/javascript" src="./dist/js/index.js"></script>
 
-</body><!-- jquery-ui css && jquery --><!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" /> --><!-- <script type="text/javascript" src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> --><!-- <script src="src/jquery.ui.touch-punch.min.js"></script> --><!-- semantic, d3, jquery--></html>
+</a></body><!-- jquery-ui css && jquery --><!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" /> --><!-- <script type="text/javascript" src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> --><!-- <script src="src/jquery.ui.touch-punch.min.js"></script> --><!-- semantic, d3, jquery--></html>

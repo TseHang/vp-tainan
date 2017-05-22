@@ -28,8 +28,10 @@ const formatFloat = (num, pos) => {
     if (isIndex) {
       if (st >= (fixHotBarTop - 10)) {
         $('.hot-bar').addClass('fixed')
+        $('.news-right').addClass('fixed')
       } else {
         $('.hot-bar').removeClass('fixed')
+        $('.news-right').removeClass('fixed')
       }
     }
     lastScrollY = st

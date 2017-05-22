@@ -8,6 +8,7 @@ module.exports= function (hbs) {
   hbs.registerPartial('inner_script', getDefaultPartials('inner_script'));
 
   // Project Partials
+  hbs.registerPartial('logo_animate', getProjectPartials('logo_animate'));
   hbs.registerPartial('population_num', getProjectPartials('population_num'));
   hbs.registerPartial('population_xyz', getProjectPartials('population_xyz'));
   hbs.registerPartial('water', getProjectPartials('water'));
