@@ -32,7 +32,7 @@ const $ = window.$;
   }
 
   if (isMobile) {
-    $('#tainan-every-area').addClass('color-red p-font-600');
+    $('#tainan-every-area').addClass('color-red p-size-big');
   }
 
   d3.csv('./src/data/population_xyz.csv', (data) => {
@@ -597,10 +597,10 @@ const $ = window.$;
           const numberNoProductive = parseFloat(raiseRatio / 10)
           if (numberNoProductive > 4) {
             $('#deskMap-intro-word').text('社會中的無生產能力人口比例將會越來越重...')
-            $('#deskMap-intro-num').addClass(' color-red p-font-600')
+            $('#deskMap-intro-num').addClass(' color-red p-size-big')
           } else {
             $('#deskMap-intro-word').text('年輕人的負擔將越變越大...')
-            $('#deskMap-intro-num').removeClass(' color-red p-font-600')
+            $('#deskMap-intro-num').removeClass(' color-red p-size-big')
           }
           return numberNoProductive
         })
@@ -615,9 +615,9 @@ const $ = window.$;
         })
 
         if (DATA[areaName].isDensityOver) {
-          $('#intro-density').addClass('p-font-600 color-red')
+          $('#intro-density').addClass('p-size-big color-red')
         } else {
-          $('#intro-density').removeClass('p-font-600 color-red')
+          $('#intro-density').removeClass('p-size-big color-red')
         }
       })
       .on('mouseleave', function(d) {
@@ -658,9 +658,9 @@ const $ = window.$;
     $('#mobile-density').html(`&nbsp;${density}&nbsp;`)
 
     if (DATA[area].isDensityOver) {
-      $('#mobile-density').addClass('p-font-600 color-red')
+      $('#mobile-density').addClass('p-size-big color-red')
     } else {
-      $('#mobile-density').removeClass('p-font-600 color-red')
+      $('#mobile-density').removeClass('p-size-big color-red')
     }
   }
 

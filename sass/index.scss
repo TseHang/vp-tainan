@@ -67,8 +67,9 @@
   z-index: 999;
 
   overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
   white-space: nowrap;
-
+  
   > a {
     margin-left: 1rem;
   }
@@ -84,7 +85,6 @@
   display: flex;
   background-color: white;
   width: 100vw;
-  height: 300vh;
   text-align: center;
 }
 
@@ -141,13 +141,6 @@
     background-size: cover;
 
     box-shadow: inset 0px 0px 15px 2px;
-    -webkit-filter: brightness(1.1) grayscale(1);
-    filter: brightness(1.1) grayscale(1);
-
-    &:hover {
-      -webkit-filter: brightness(1) grayscale(0);
-      filter: brightness(1) grayscale(0);
-    }
   }
 }
 
@@ -186,6 +179,16 @@
     .article {
       > h2 {
         font-size: 1.5rem;
+      }
+    }
+
+    .article-img {
+      -webkit-filter: brightness(1.1) grayscale(1);
+      filter: brightness(1.1) grayscale(1);
+
+      &:hover {
+        -webkit-filter: brightness(1) grayscale(0);
+        filter: brightness(1) grayscale(0);
       }
     }
   }

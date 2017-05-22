@@ -18,7 +18,11 @@ $header: (
   background-color: #FFF;
 
   &.hide-up {
-    top: -20vh;
+    top: -12vh;
+
+    @media(min-width: map-get($break-point, break-xs)) {
+      top: -20vh;
+    }
   }
   
   .main-header {
@@ -32,20 +36,65 @@ $header: (
   }
 
   .m-menu-botton {
+    cursor: pointer;
     width: 30%;
     text-align:center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    &.open {
+      > .menu-line {
+        &:first-child {
+          transform-origin: 0;
+          transform: rotateZ(400deg);
+        }
+
+        &:nth-child(2) {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+
+        &:last-child {
+          transform-origin: 0;
+          transform: rotateZ(-400deg);
+        }
+      }
+    }
   }
   .menu-line {
     @extend %position_relative;
     @include transition(all .3s ease-in);
+    position: relative;
     width: 2rem;
     height: 3px;
     margin: 3px 0px 4px 0px;
     background-color: map-get($color, gray--dark);
+  }
+
+  .m-menu-list {
+    @include transition(all .2s ease-in);
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    opacity: 0;
+    top: -20vh;
+    z-index: -1;
+
+    background-color: white;
+
+    > a {
+      padding: .5em;
+      border-bottom: solid 1px;
+    }
+
+    &.open {
+      top: 12vh;
+      opacity: 1;
+      z-index: 100;
+    }
   }
 
   @media (max-height: map-get($break-point, table-s)) {
@@ -72,10 +121,10 @@ $header: (
 
     .nav-text {
       display: block;
-      align-self: baseline;
+      align-self: center;
       width: 60vw;
+      margin: 0px 2em;
       text-align: right;
-      margin-right: 2em;
       color: map-get($color, red);
 
       font: bold 1.5em $font-ming ;

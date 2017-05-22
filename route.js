@@ -5,7 +5,7 @@ var route = [
     {
       data: {
         path: './',
-        title: '數字說話 || Let data speak! ',
+        title: '用數據看台南 Let data speak! ',
         first_word: 'It is a good template',
       },
       partials: './partial.js',
