@@ -99,6 +99,9 @@ $header: (
 
   @media (max-height: map-get($break-point, table-s)) {
     height: map-get($header, all) + 2vh;
+    &.hide-up {
+      top: -15vh;
+    }
   }
 
   @media (min-width: map-get($break-point, break-xs)) {
@@ -123,8 +126,8 @@ $header: (
       display: block;
       align-self: center;
       width: 60vw;
-      margin: 0px 2em;
       text-align: right;
+      margin: 0px 2em;
       color: map-get($color, red);
 
       font: bold 1.5em $font-ming ;
