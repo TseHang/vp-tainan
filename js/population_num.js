@@ -220,7 +220,7 @@ const $ = window.$;
       onChange: (value, text) => {
         $('#map-modal')
           .modal({
-            offset: $('#every-area').offset().top - 200,
+            offset: $('#every-area').offset().top - 200
           })
           .modal('show')
         selectAreaMap(text)
