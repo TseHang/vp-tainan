@@ -31,7 +31,6 @@ var route = [
       data: {
         path: './',
         title: '用數據看台南',
-        head_img: './dist/img/index/news-section-2.png',
       },
       partials: './partial.js',
       layout: './layout/articles/article-tainanstat.hbs',
@@ -40,6 +39,9 @@ var route = [
       data: {
         path: './',
         title: '台南市人口診斷書',
+        chart_description: {
+          img: 'https://www.taiwanstat.com/vp-tainan/dist/img/index/news-section-2.png',
+        },
       },
       partials: './partial.js',
       layout: './layout/population_num_report.hbs',
