@@ -1,3 +1,5 @@
+const isMobile = ($(window).width() < 768) ? true : false
+
 // Global Func
 const formatFloat = (num, pos) => {
   const size = Math.pow(10, pos)
@@ -16,23 +18,64 @@ const formatFloat = (num, pos) => {
     fixHotBarTop = $('.hot-bar').offset().top
   }
 
-  $(document).scroll(() => {
-    const st = $(window).scrollTop()
+  // For mobile
+  if (isMobile) {
+    $('body').on({
+      touchmove: function (e) {
+        const st = $(this).scrollTop()
+        if (st < 80 || st < lastScrollY) {
+          $('.nav').removeClass('hide-up')
+        } else {
+          $('.nav').addClass('hide-up')
+          $('.m-menu-list').removeClass('open')
+          $('#m-menu-button').removeClass('open')
+        }
 
-    if (st < 80 || st < lastScrollY) {
-      $('.nav').removeClass('hide-up')
-    } else {
-      $('.nav').addClass('hide-up')
-    }
+        if (isIndex) {
+          if (st >= (fixHotBarTop - 10)) {
+            $('.hot-bar').addClass('fixed')
+            $('.news-right').addClass('fixed')
+          } else {
+            $('.hot-bar').removeClass('fixed')
+            $('.news-right').removeClass('fixed')
+          }
+        }
+        lastScrollY = st
+      },
+    })
+  } else {
+    $(document).scroll(() => {
+      const st = $(window).scrollTop()
 
-    if (isIndex) {
-      if (st >= (fixHotBarTop - 10)) {
-        $('.hot-bar').addClass('fixed')
+      if (st < 80 || st < lastScrollY) {
+        $('.nav').removeClass('hide-up')
       } else {
-        $('.hot-bar').removeClass('fixed')
+        $('.nav').addClass('hide-up')
+        $('.m-menu-list').removeClass('open')
+        $('#m-menu-button').removeClass('open')
       }
-    }
-    lastScrollY = st
+
+      if (isIndex) {
+        if (st >= (fixHotBarTop - 10)) {
+          $('.hot-bar').addClass('fixed')
+          $('.news-right').addClass('fixed')
+        } else {
+          $('.hot-bar').removeClass('fixed')
+          $('.news-right').removeClass('fixed')
+        }
+      }
+      lastScrollY = st
+    })
+  }
+
+  $('#m-menu-button').click(function (e) {
+    $(this).toggleClass('open')
+    $('.m-menu-list').toggleClass('open')
+  })
+
+  $('.m-menu-list>a').click(function (e) {
+    $('#m-menu-button').removeClass('open')
+    $('.m-menu-list').removeClass('open')
   })
 
   // Fix semantic-ui's click's jump

@@ -26,6 +26,14 @@ ul.number-type {
     display: block;
   }
 }
+
+.task-container {
+  background-color: rgba(255,203,104,.15);
+  padding: 1em;
+  p {
+    margin-bottom: 2em;
+  }
+}
 /*
  *  color
  */
@@ -36,16 +44,30 @@ ul.number-type {
   }
 }
 
+.border-green {
+  border-color: map-get($color, green) !important;
+}
+
+.border-orange {
+  border-color: map-get($color, orange) !important;
+}
+
 /*
  *  font
  */
+.p-font-small{
+  font-size: map-get($font-size, s);
+}
+
 .p-font-bold{
   font-weight: bold;
 }
 
-.p-font-600{
+.p-size-big{
   font-size: $font-size--base * 1.3;
-  font-weight: 600;
+}
+.p-size-s{
+  font-size: $font-size--base * 0.7;
 }
 
 .letter-spacing-s{
@@ -61,6 +83,14 @@ ul.number-type {
   cursor: pointer;
   &:hover {
     color: map-get($color, green);
+  }
+}
+
+.link-disable {
+  cursor: not-allowed;
+  color: map-get($color, gray--dark);
+  &:hover {
+    color: map-get($color, gray--dark);
   }
 }
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html style = "height:100%;width:100%;margin:0px;">
+<head>
+  {{> head}}
+
+  <title> {{title}} || 用數據看台南</title>
+  <link rel="stylesheet" href = "./dist/css/population_xyz.css">
+</head>
+<body>
+  {{> header}}
+
+  <section class="section main">
+    {{> population_xyz}}
+  </section>
+
+  <section class="section">
+    <h3>小任務</h3>
+    <p>小任務的目的是希望人們能夠藉由看完報導後反思與自身週遭的關係，並賦予大家一些小小的行動去體會其中的意義。</p>
+    <div class="task-container">
+      <h4><人的變化></h4>
+      <p>說明：看完了台南市人口的概況，說實話或許與自身的連結性少了一點，因為這是一個城市。那麼把範圍縮小一點，有沒有想過自己的「家」的人口歷史狀況呢？這一次想請大家找尋家中的一個長輩，花個簡短的 20 分鐘與長輩聊聊自己家族的歷史脈絡吧！（我們從哪裡來？祖先在哪呢？甚至是有沒有族譜？）</p>
+    </div>
+  </section>
+
+  {{> footerGA}}
+</body>
+
+{{> inner_script}}
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script type="text/javascript" src="https://d3js.org/topojson.v1.min.js"></script>
+<script type="text/javascript" src = "./dist/js/population_xyz.js"></script>
+</html>

@@ -1,0 +1,166 @@
+@import 'default/default';
+@import 'partials/header';
+@import 'partials/footer';
+@import 'layout/layout_report_population';
+
+.sexRatioSvg{
+  text {
+    fill: white;
+    text-shadow: 3px 3px 1px rgba(51, 51, 51, 0.8);
+  }
+}
+
+.pramidRow {
+  rect {
+    fill: map-get($color, green);
+  }
+  
+  .label {
+    font-size: .8em;
+    text-overflow: ellipsis;
+  }
+
+  .label, path {
+    opacity: 0;
+  }
+}
+
+.pramidIntroText{
+  font-weight: bold;
+}
+
+.populationChangeSvg {
+  .population-name-text {
+    fill: white;
+  }
+
+  .num-text {
+    fill: map-get($color, black--default);
+  }
+}
+
+.area-list {
+  margin-bottom: 5em;
+}
+
+.area-map {
+  display: none;
+  @extend %position_relative;
+}
+
+.area-mobile-map {
+  width: 100%;
+}
+
+// Semantic Ui reset
+.ui.selection.active.dropdown{
+  border-color: map-get($color, green);
+  .menu {
+    border-color: map-get($color, green);
+    max-height: 10.01428571rem;
+  }
+
+  &:hover {
+    border-color: map-get($color, green);
+    .menu {
+      border-color: map-get($color, green);
+    }
+  }
+}
+
+.ui.secondary.pointing.menu{
+  border: none;
+  .item {
+    margin: auto;
+    padding: .5em .2em;
+    color: map-get($color, gray--light);
+
+    &:hover {
+      color: map-get($color, black--default);
+      border-color: map-get($color, green);
+    }
+
+    &.active {
+      color: map-get($color, black--default);
+      border-color: map-get($color, green);
+
+      &:hover {
+        border-color: map-get($color, green);
+      }
+    }
+  }
+}
+
+.ui.modal .actions {
+  > .button {
+    color: white;
+    background-color: map-get($color, green);
+  }
+}
+
+.ui.basic.button, .ui.basic.buttons .button {
+  margin-bottom: 1em;
+  &:hover {
+    background-color: rgba(215, 218, 225, .2) !important;
+  }
+}
+
+@media (min-width: map-get($break-point, break-xs)) {
+  .area-map {
+    display: flex;
+    width: 100%;
+  }
+
+  .area-list {
+    display: none;
+  }
+
+  .area-desktop-map {
+    width: 60%;
+  }
+
+  .area-intro {
+    width: 40%;
+    height: 70vh;
+    max-height: 600px;
+    padding: 1em .5em;
+
+    > .intro-area {
+      margin-top: 1em;
+    } 
+  }
+
+  .ui.secondary.pointing.menu{
+    .item {
+      &:nth-child(2) {
+        position: relative;
+        left: -2%;
+      }
+
+      &.active {
+        color: map-get($color, black--default);
+        border-color: map-get($color, green);
+
+        &:hover {
+          border-color: map-get($color, green);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: map-get($break-point, break-xs)) and (max-width: map-get($break-point, break-md)) {
+  .area-desktop-map {
+    width: 100%;
+  }
+  .area-intro {
+    > .intro-area {
+      margin-top: 0em;
+    }
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: rgba(152, 151, 151, 0.15);
+    border-radius: 20px;
+  }
+}

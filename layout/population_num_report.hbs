@@ -4,17 +4,31 @@
 <head>
   {{> head}}
 
-  <title> {{title}} || 數字說話 Tainan</title>
+  <title> {{title}} || 用數據看台南</title>
   <link rel="stylesheet" href = "./dist/css/population_num.css">
 </head>
 <body>
   {{> header}}
-
-  <section class="section">
+  
+  <section class="section main">
     {{> population_num}}
   </section>
 
-  {{> footer}}
+  <section class="section">
+    <h3>小任務</h3>
+    <p>小任務的目的是希望人們能夠藉由看完報導後反思與自身週遭的關係，並賦予大家一些小小的行動去體會其中的意義。</p>
+    <div class="task-container">
+      <h4><我在哪裡></h4>
+      <p>說明：我們知道當人口密度愈高的地方，其經濟發展程度也會愈高。而在文末我們也討論到了台南市正面臨著發展極度不均衡的情況，但其實不只是台南市，世界上想要高度發展工業化的國家都面臨著這樣的狀況。大的城市有大的好處，生活便利、各種嶄新的高樓大廈、機能富裕等，但也有其壞處，自然環境少、空間狹窄、或許比較沒有那麼有人情味等。<span class="p-font-bold">如果是你，會怎麼選呢？為什麼選擇居住在大城市或是較小的鄉村中？
+      （思考看看，若是願意的話歡迎到用數據看台灣公開社群當中與大家分享自己的觀點）</span></p>
+
+      <p>為了促進大家討論小任務的內容，我們創了一個社團，並且之後也會把最新的消息公佈在裡頭。<br>我們誠摯地邀請對我們感興趣的你/妳加入社團: <span class="link p-font-bold" onclick="window.open('https://goo.gl/z40RBD')">加入社團（點擊加入社團）</span></p>
+
+      <p class="color-gray--dark p-size-s">歡迎各位即將邁入社會的新鮮人、已經在社會中打滾的大師兄、脫離社會看破紅塵的前輩們去<span class="link p-font-bold">用數據看台灣公開社群</span>分享自己的看法</p>
+    </div>
+  </section>
+
+  {{> footerGA}}
 </body>
 
 {{> inner_script}}

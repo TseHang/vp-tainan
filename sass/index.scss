@@ -1,5 +1,7 @@
 @import 'default/default';
 @import 'partials/header';
+@import 'partials/footer';
+@import 'partials/logo_animate';
 
 .wrap{
   @extend %position_relative;
@@ -20,13 +22,13 @@
   }
 
   &:before {
-    @include animation(wrap-bg-show .4s .3s ease-in forwards);
+    @include animation(wrap-bg-show .5s .4s ease-in forwards);
     transform-origin: 0 0; 
     transform: rotateZ(-25deg);
   }
 
   &:after {
-    @include animation(wrap-bg-show .5s ease-in forwards);
+    @include animation(wrap-bg-show .6s ease-in forwards);
     transform-origin: 150vw 0;
     transform: translateX(-50vw) rotateZ(25deg);
   }
@@ -53,57 +55,24 @@
   }
 }
 
-.logo {
-  @extend %position_relative;
-  width: 30vw;
-  margin: 3em auto 1em;
-}
-
-.shadow {
-  @include animation(fade .4s 1.3s linear forwards);
-  @extend %position_relative;
-  top: -10px;
-  width: 80%;
-  height: 7px;
-  margin: auto;
-  background-color: rgb(128, 128, 128);
-  border-radius: 100%;
-}
-
-#trigger-logo {
-  cursor: pointer;
-  fill: transparent;
-  opacity: 0;
-}
-
-#logo {
-  @extend %position_relative;
-  @include animation(up-move-show 1.2s .5s linear forwards);
-  opacity: 0; 
-}
-
-#logo-center {
-  transform-origin: center;
-  @include animation(logo-center-fade 5s 2s ease-in infinite);
-}
-
-#logo-left {
-  @include animation(logo-left-fade 5s 2s ease-in infinite);
-}
-
-#logo-right {
-  @include animation(logo-right-fade 5s 2s ease-in infinite);
-}
-
 .hot-bar {
   width: 100vw;
   color: white;
   background-color: map-get($color, orange);
 
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
-  padding: .3em 0px;
+  padding: .8em .5em;
+  z-index: 999;
+
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+
+  > a {
+    margin-left: 1rem;
+  }
 
   &.fixed {
     position: fixed;
@@ -116,7 +85,6 @@
   display: flex;
   background-color: white;
   width: 100vw;
-  height: 300vh;
   text-align: center;
 }
 
@@ -126,6 +94,59 @@
 
 .news-left {
   width: 100%;
+}
+
+.news-section {
+  text-align: left;
+  margin-top: 4rem;
+  color: map-get($color, gray--dark);
+
+  > h3 {
+    color: map-get($color, green);
+    padding: .5em 1rem 0px 1rem;
+  }
+
+  .section-intro {
+    padding: .2em 1rem;
+  }
+  
+  .article {
+    margin: 4em 0px;
+
+    > h2 {
+      @include transition(all .1s linear);
+      margin: .5rem 0px;
+      padding: 0px 1rem;
+      cursor: pointer;
+      font-weight: 400;
+      color: map-get($color, orange);
+
+      &:hover {
+        opacity: .7;
+      }
+    }
+
+    > p {
+      padding: 0px 1rem 1rem;
+    }
+  }
+
+  .article-img {
+    @include transition(all .2s linear);
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    height: 30vh;
+    background: url(../img/index/news-section-1.jpg) no-repeat center;
+    background-size: cover;
+
+    box-shadow: inset 0px 0px 15px 2px;
+  }
+}
+
+#img_population_num_report {
+  background: url(../img/population/img_population_num_report.png) no-repeat center top;
+  background-size: cover;
 }
 
 @media (min-width: map-get($break-point, break-xs)) {
@@ -143,37 +164,104 @@
     max-width: 282px;
   }
 
+  .hot-bar {
+    justify-content: space-around;
+    padding: .3em 0px;
+  }
+  
+  .news-left {
+    padding-left: 10vw;
+  }
+
+  .news-section {
+    padding: 0px 3em 0px 1em;
+
+    .article {
+      > h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .article-img {
+      -webkit-filter: brightness(1.1) grayscale(1);
+      filter: brightness(1.1) grayscale(1);
+
+      &:hover {
+        -webkit-filter: brightness(1) grayscale(0);
+        filter: brightness(1) grayscale(0);
+      }
+    }
+  }
+
   .news-right {
     display: block;
     order: 2;
     width: 30%;
+    text-align: left;
+    padding-right: 10vw;
+
+    > h3 {
+      position: relative;
+      margin: 4rem 0px 1.3em;
+      padding: 5px .3em;
+      font-size: 1.3rem;
+      font-weight: 400;
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 65%;
+        height: 2px;
+        background-color: map-get($color, orange);
+        left: 0px;
+        bottom: 0px;
+      }
+    }
+
+    &.fixed {
+      position: fixed;
+      left: 70%;
+      top: 2em;
+    }
   }
 
   .news-left {
     order: 1;
     width: 70%;
   }
+
+  .recommend-article {
+    margin: 1em 0px 2em;
+    cursor: pointer;
+    > h3 {
+      font-weight: 400;
+      margin-bottom: .3em;
+    }
+    > p {
+      font-size: .9rem;
+      color: map-get($color, gray--dark);
+    }
+  }
+  .ui.button {
+    font-size: .9rem;
+  }
+
+  .ui.list.list-box {
+    margin: 2em 0px;
+    font-size: .9rem;
+
+    > .item {
+      color: map-get($color, gray--light);
+      &:hover {
+        color: map-get($color, orange);        
+      }
+    }
+  }
 }
 
 @include keyframes(wrap-bg-show) {
   from{ width: 0vw; }
   to{ width: 150vw; }
-}
-
-@include keyframes(fade) {
-  from{ opacity: 1; }
-  to{ opacity: .1; }
-}
-
-@include keyframes(up-move-show) {
-  from{
-    opacity: 0; 
-    transform: translateY(105%);
-  }
-  to{
-    opacity: 1;
-    transform: translateY(0%);
-  }
 }
 
 @include keyframes(highlight-text-1) {
@@ -217,93 +305,5 @@
 
   to {
     top: 0px;
-  }
-}
-
-@include keyframes(logo-center-fade) {
-  from {
-    transform: translateY(0px);
-  }
-
-  10% {
-    transform: translateY(0px); 
-  }
-
-  13% {
-    transform: translateY(-5px);  
-  }
-
-  16% {
-    transform: translateY(0px);  
-  }
-
-  25% {
-    transform: translateY(-15px);  
-  }
-
-  40% {
-    transform: translateY(5px);  
-  }
-
-  47% {
-    transform: translateY(0px);  
-  }
-
-  to {
-    transform: translateY(0px);
-  }
-}
-
-@include keyframes(logo-left-fade) {
-  from {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-
-  10% {
-    opacity: 0;
-    transform: translateX(-10px); 
-  }
-
-  70% {
-    opacity: 0;
-    transform: translateX(-10px)
-  }
-
-  80% {
-    opacity: 1;
-    transform: translateX(0px) 
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0px)
-  }
-}
-
-@include keyframes(logo-right-fade) {
-  from {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-
-  10% {
-    opacity: 0;
-    transform: translateX(10px); 
-  }
-
-  70% {
-    opacity: 0;
-    transform: translateX(10px)
-  }
-
-  80% {
-    opacity: 1;
-    transform: translateX(0px) 
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0px)  
   }
 }

@@ -50,7 +50,6 @@ gulp.task('server', function () {
     root: './',
     // livereload: true,
     port: 8000,
-    fallback: 'index.html'
     /*
     TODO: Use middleware to transfer 'index.html' to 'index'
 
