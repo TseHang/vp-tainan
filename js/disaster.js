@@ -33,8 +33,8 @@
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map)
 
-  let mapInfo = '<span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>'
-  mapInfo += '<span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>'
+  let mapInfo = `<span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>
+                 <span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>`
   $('#map-info').append(mapInfo)
 
   $.getJSON('./src/data/disaster-liquefaction.json', (json) => {
@@ -56,7 +56,7 @@
             break
         }
         return lStyle
-      }
+      },
     }).addTo(map)
   })
 
@@ -79,7 +79,7 @@
             break
         }
         return wStyle
-      }
+      },
     }).addTo(map)
   })
 
@@ -115,9 +115,9 @@
   /* api key shall be protext */
   L.Control.geocoder({
     collapsed: false,
-    placeholder: "請輸入地址或地名查詢...",
-    errorMessage: "查無此地址",
-    geocoder: new L.Control.Geocoder.Google("AIzaSyARIN80OjEjl4O24neRkXZgAo7hTKqVhD4"),
+    placeholder: '請輸入地址或地名查詢...',
+    errorMessage: '查無此地址',
+    geocoder: new L.Control.Geocoder.Google('AIzaSyARIN80OjEjl4O24neRkXZgAo7hTKqVhD4'),
   }).on('markgeocode', (e) => {
     const latlng = e.geocode.center
     const name = e.geocode.name
@@ -191,19 +191,20 @@
   info.update = (props) => {
     console.log(props)
     if (props) {
-      if (isLoadSensitiveData)
-        this._div.innerHTML = '<tbody>' +
-        '<thead><tr><th colspan="2">' + props.name + '</th></tr></thead>' +
-        '<tr><td>地質敏感區</td><td>' + props.s + '</td></tr>' +
-        '<tr><td>土壤液化潛勢</td><td>' + props.l + '</td></tr>' +
-        '<tr><td>淹水潛勢</td><td>' + props.w + '</td></tr>' +
-        '</tbody>'
-      else
-        this._div.innerHTML = '<tbody>' +
-        '<thead><tr><th colspan="2">' + props.name + '</th></tr></thead>' +
-        '<tr><td>土壤液化潛勢</td><td>' + props.l + '</td></tr>' +
-        '<tr><td>淹水潛勢</td><td>' + props.w + '</td></tr>' +
-        '</tbody>'
+      if (isLoadSensitiveData) {
+        this._div.innerHTML = `<tbody>
+        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
+        <tr><td>地質敏感區</td><td>${props.s}</td></tr>
+        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
+        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
+        </tbody>`
+      } else {
+        this._div.innerHTML = `<tbody>
+        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
+        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
+        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
+        </tbody>`
+      }
     }
   }
   info.addTo(map)
@@ -218,9 +219,9 @@
       sLayer = L.geoJSON(sensitiveArea, { style: sStyle }).addTo(map)
       $('#s-loadin').removeClass('loading')
 
-      mapInfo = '<span><span class="info-block" style="background-color:' + sStyle.color + '"></span><strong>地質敏感區</strong></span>'
-      mapInfo += '<span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>'
-      mapInfo += '<span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>'
+      mapInfo = `<span><span class="info-block" style="background-color: ${sStyle.color} "></span><strong>地質敏感區</strong></span>
+      <span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>
+      <span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>`
 
       $('#map-info').html(mapInfo)
     })
