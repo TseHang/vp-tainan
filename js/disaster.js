@@ -37,10 +37,10 @@
   mapInfo += '<span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>'
   $('#map-info').append(mapInfo)
 
-  $.getJSON('./src/data/disaster-liquefaction.json', function(json) {
+  $.getJSON('./src/data/disaster-liquefaction.json', (json) => {
     liquefactionArea = json
     lLayer = L.geoJSON(liquefactionArea, {
-      style: function(feature) {
+      style: (feature) => {
         switch (feature.properties['分級']) {
           case '低潛勢':
             lStyle.fillOpacity = 0.5
@@ -60,10 +60,10 @@
     }).addTo(map)
   })
 
-  $.getJSON('./src/data/disaster-water600.json', function(json) {
+  $.getJSON('./src/data/disaster-water600.json', (json) => {
     waterArea = json
     w600Layer = L.geoJSON(waterArea, {
-      style: function(feature) {
+      style: (feature) => {
         switch (feature.properties.CLASS) {
           case 1:
             wStyle.fillOpacity = 0.5
@@ -83,15 +83,15 @@
     }).addTo(map)
   })
 
-  $.getJSON('./src/data/disaster-water200.json', function(json) {
+  $.getJSON('./src/data/disaster-water200.json', (json) => {
     w200Layer = L.geoJSON(json)
   })
-  $.getJSON('./src/data/disaster-country-water200.json', function(json) {
+  $.getJSON('./src/data/disaster-country-water200.json', (json) => {
     countryW200Layer = L.geoJSON(json)
   })
-  $.getJSON('./src/data/disaster-country-water600.json', function(json) {
+  $.getJSON('./src/data/disaster-country-water600.json', (json) => {
     countryW600Layer = L.geoJSON(json, {
-      style: function(feature) {
+      style: (feature) => {
         switch (feature.properties.CLASS) {
           case 1:
             wStyle.fillOpacity = 0.5
@@ -118,7 +118,7 @@
     placeholder: "請輸入地址或地名查詢...",
     errorMessage: "查無此地址",
     geocoder: new L.Control.Geocoder.Google("AIzaSyARIN80OjEjl4O24neRkXZgAo7hTKqVhD4"),
-  }).on('markgeocode', function(e) {
+  }).on('markgeocode', (e) => {
     const latlng = e.geocode.center
     const name = e.geocode.name
     const lResult = leafletPip.pointInLayer(latlng, lLayer, true)
@@ -183,12 +183,12 @@
   })
 
   let info = L.control()
-  info.onAdd = function(map) {
+  info.onAdd = (map) => {
     this._div = L.DomUtil.create('table', 'ui table')
     this.update()
     return this._div
   }
-  info.update = function(props) {
+  info.update = (props) => {
     console.log(props)
     if (props) {
       if (isLoadSensitiveData)
@@ -206,25 +206,25 @@
         '</tbody>'
     }
   }
-  info.addTo(map);
+  info.addTo(map)
 
-  $('#s-loadin').on('click', function() {
+  $('#s-loadin').on('click', () => {
     if (isLoadSensitiveData) {
       return
     }
     $('#s-loadin').addClass('loading')
-    $.getJSON('./src/data/disaster-sensitive.json', function(json) {
+    $.getJSON('./src/data/disaster-sensitive.json', (json) => {
       sensitiveArea = json
       sLayer = L.geoJSON(sensitiveArea, { style: sStyle }).addTo(map)
       $('#s-loadin').removeClass('loading')
 
-      var info = '<span><span class="info-block" style="background-color:' + sStyle.color + '"></span><strong>地質敏感區</strong></span>'
-      info += '<span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>'
-      info += '<span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>'
+      mapInfo = '<span><span class="info-block" style="background-color:' + sStyle.color + '"></span><strong>地質敏感區</strong></span>'
+      mapInfo += '<span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>'
+      mapInfo += '<span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>'
 
-      $('#map-info').html(info)
+      $('#map-info').html(mapInfo)
     })
 
-      isLoadSensitiveData = true
-    })
-  })(window)
+    isLoadSensitiveData = true
+  })
+})(window)
