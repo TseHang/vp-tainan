@@ -107,7 +107,32 @@
       },
     }).addTo(map)
   })
-
+  let info = L.control()
+  info.onAdd = function() {
+    this._div = L.DomUtil.create('table', 'ui table');
+    this.update();
+    return this._div;
+  };
+  
+  info.update = function(props) {
+    if (props) {
+      if (isLoadSensitiveData) {
+        this._div.innerHTML = `<tbody>
+        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
+        <tr><td>地質敏感區</td><td>${props.s}</td></tr>
+        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
+        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
+        </tbody>`
+      } else {
+        this._div.innerHTML = `<tbody>
+        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
+        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
+        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
+        </tbody>`
+      }
+    }
+  }
+  info.addTo(map)
 
   /* api key shall be protext */
   L.Control.geocoder({
@@ -123,9 +148,9 @@
     if (isLoadSensitiveData) {
       sResult = leafletPip.pointInLayer(latlng, sLayer, true)
     }
-    const w600Result = leafconstPip.pointInLayer(latlng, w600Layer, true)
-    const w200Result = leafconstPip.pointInLayer(latlng, w200Layer, true)
-    const countryW600Result = leafconstPip.pointInLayer(latlng, countryW600Layer, true)
+    const w600Result = leafletPip.pointInLayer(latlng, w600Layer, true)
+    const w200Result = leafletPip.pointInLayer(latlng, w200Layer, true)
+    const countryW600Result = leafletPip.pointInLayer(latlng, countryW600Layer, true)
     const countryW200Result = leafletPip.pointInLayer(latlng, countryW200Layer, true)
     const lresponse = lResult.length > 0 ? lResult[0].feature.properties['分級'] : '無潛勢'
     let sresponse
@@ -171,35 +196,9 @@
         name,
         l: lresponse,
         w: wresponse,
-      }).addTo(map)
+      })
     }
-  })
-
-  let info = L.control()
-  info.onAdd = () => {
-    this._div = L.DomUtil.create('table', 'ui table')
-    this.update()
-    return this._div
-  }
-  info.update = (props) => {
-    if (props) {
-      if (isLoadSensitiveData) {
-        this._div.innerHTML = `<tbody>
-        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
-        <tr><td>地質敏感區</td><td>${props.s}</td></tr>
-        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
-        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
-        </tbody>`
-      } else {
-        this._div.innerHTML = `<tbody>
-        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
-        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
-        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
-        </tbody>`
-      }
-    }
-  }
-  info.addTo(map)
+  }).addTo(map)
 
   $('#s-loadin').on('click', () => {
     if (isLoadSensitiveData) {
