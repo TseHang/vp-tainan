@@ -12,6 +12,7 @@ module.exports= function (hbs) {
   hbs.registerPartial('population_num', getProjectPartials('population_num'));
   hbs.registerPartial('population_xyz', getProjectPartials('population_xyz'));
   hbs.registerPartial('water', getProjectPartials('water'));
+  hbs.registerPartial('disaster', getProjectPartials('disaster'));
 };
 
 function getProjectPartials(filename) {

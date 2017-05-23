@@ -1,0 +1,72 @@
+@import 'default/default';
+@import 'partials/header';
+$black-color: #333;
+$max-width: 1280px;
+$min-width: 400px;
+.disaster-container {
+  #map-info {
+    height: 3em;
+    text-align: center;
+    line-height: 1em;
+    .info-block {
+      height: 1em;
+      width: 1em;
+      line-height: 1em;
+      margin: 0 4px 0 24px;
+      border-radius: 0.3em;
+      display: inline-block;
+    }
+    .bg-liquefaction {
+      width: 3em;
+      background: -moz-linear-gradient(left, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
+      /* FF3.6-15 */
+      background: -webkit-linear-gradient(left, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
+      /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to right, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+    .bg-water {
+      width: 3em;
+      background: -moz-linear-gradient(left, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
+      /* FF3.6-15 */
+      background: -webkit-linear-gradient(left, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
+      /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to right, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+    table.ui.basic.table {
+      background-color: white;
+    }
+  }
+  #well-living-map {
+    width: 100%;
+    height: 400px;
+  }
+  section {
+    margin-bottom: 100px;
+  }
+  p {
+    line-height: 1.7em;
+    letter-spacing: 1px;
+    text-align: justify;
+    margin: 0;
+    // text-indent: 2em;
+    margin-bottom: 1em;
+  }
+}
+
+@media (min-width: map-get($break-point, break-xs)) and (max-width: map-get($break-point, break-md)) {
+  .area-desktop-map {
+    width: 100%;
+  }
+  .area-intro {
+    > .intro-area {
+      margin-top: 2em;
+    }
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: rgba(152, 151, 151, 0.15);
+    border-radius: 20px;
+  }
+}

@@ -49,7 +49,7 @@ var route = [
     filename: './population_num_report.html',
   }, {
     data: {
-      paht: './',
+      path: './',
       title: '一杯水的故事',
     },
     partials: './partial.js',
@@ -66,6 +66,18 @@ var route = [
     partials: './partial.js',
     layout: './layout/population_xyz_report.hbs',
     filename: './population_xyz_report.html',
+  }, {
+    data: {
+      paht: './',
+      title: '台南災害潛勢地圖',
+      chart_description: {
+        img: '//www.taiwanstat.com/vp-tainan/dist/img/population/img_population_xyz_report.png',
+      },
+    },
+    partials: './partial.js',
+    layout: './layout/disaster_report.hbs',
+    filename: './disaster_report.html',
   },
 ]
 module.exports = route
+
