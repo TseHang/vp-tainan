@@ -31,6 +31,7 @@ var route = [
       data: {
         path: './',
         title: '用數據看台南',
+        head_img: './dist/img/index/news-section-2.png',
       },
       partials: './partial.js',
       layout: './layout/articles/article-tainanstat.hbs',
