@@ -127,7 +127,7 @@
     const w200Result = leafconstPip.pointInLayer(latlng, w200Layer, true)
     const countryW600Result = leafconstPip.pointInLayer(latlng, countryW600Layer, true)
     const countryW200Result = leafletPip.pointInLayer(latlng, countryW200Layer, true)
-    const lresponse = lResult.length > 0 ? lResult[0].feature.properties['分級'] : "無潛勢"
+    const lresponse = lResult.length > 0 ? lResult[0].feature.properties['分級'] : '無潛勢'
     let sresponse
     let wresponse
     if (isLoadSensitiveData) {
@@ -161,22 +161,22 @@
 
     if (isLoadSensitiveData) {
       info.update({
-        name: name,
+        name,
         l: lresponse,
         s: sresponse,
         w: wresponse
       })
     } else {
       info.update({
-        name: name,
+        name,
         l: lresponse,
-        w: wresponse
+        w: wresponse,
       }).addTo(map)
     }
   })
 
   let info = L.control()
-  info.onAdd = (map) => {
+  info.onAdd = () => {
     this._div = L.DomUtil.create('table', 'ui table')
     this.update()
     return this._div
