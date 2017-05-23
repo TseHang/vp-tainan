@@ -52,7 +52,6 @@
             lStyle.fillOpacity = 0.9
             break
           default:
-            console.log("undefined error")
             break
         }
         return lStyle
@@ -75,7 +74,6 @@
             wStyle.fillOpacity = 0.9
             break
           default:
-            console.log("undefined error")
             break
         }
         return wStyle
@@ -103,7 +101,6 @@
             wStyle.fillOpacity = 0.9
             break
           default:
-            console.log("undefined error")
             break
         }
         return wStyle
@@ -130,10 +127,6 @@
     const w200Result = leafconstPip.pointInLayer(latlng, w200Layer, true)
     const countryW600Result = leafconstPip.pointInLayer(latlng, countryW600Layer, true)
     const countryW200Result = leafletPip.pointInLayer(latlng, countryW200Layer, true)
-    console.log("lLayer", lResult)
-    if (isLoadSensitiveData)
-      console.log("sLayer", sResult)
-    console.log("wLayer", w600Result)
     const lresponse = lResult.length > 0 ? lResult[0].feature.properties['分級'] : "無潛勢"
     let sresponse
     let wresponse
@@ -189,7 +182,6 @@
     return this._div
   }
   info.update = (props) => {
-    console.log(props)
     if (props) {
       if (isLoadSensitiveData) {
         this._div.innerHTML = `<tbody>
