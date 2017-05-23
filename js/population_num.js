@@ -218,11 +218,16 @@ const $ = window.$;
   $('.ui.dropdown')
     .dropdown({
       onChange: (value, text) => {
-        $('#map-modal').modal('show')
+        $('#map-modal')
+          .modal({
+            offset: $('#every-area').offset().top - 200
+          })
+          .modal('show')
         selectAreaMap(text)
         // console.log(value, text, $selectedItem)
       },
     })
+
   $('.ui.pointing.menu .item').click(function () {
     const showContainer = $(this).data('container')
     $('.container.active').removeClass('active')

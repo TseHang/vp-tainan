@@ -6,9 +6,9 @@
     <div class="report-left">
       <img src="./dist/img/index/logo-report-company.png">
       <p>病歷號碼: TW-VP001</p>
-      <p>2017.5.22</p>
+      <p>2017.5.23</p>
     </div>
-    <h1 class="report-title">台南市人口診斷報告書</h1>
+    <h1 class="report-title">台南市人口診斷報告書<br>概況說明</h1>
     <div class="report-right">
       <p>身份：直轄市</p>
       <p>資料統計至 2016 年 12 月</p>
@@ -166,7 +166,7 @@
               ${sortedData.area}: ${sortedData.population} 人
             </p>
             <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.population}</span> 
+              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.population}</span> 
             </p>
           </div>
         </div>
@@ -176,7 +176,7 @@
               ${sortedData.area}: &nbsp;${sortedData.land.slice(0,-2)} 平方公里
             </p>
             <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.land.slice(0,-2)}</span>
+              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.land.slice(0,-2)}</span>
             </p>
           </div>
         </div>
@@ -186,7 +186,7 @@
               ${sortedData.area}: &nbsp;${sortedData.density} 人 / 平方公里
             </p>
             <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 14)? 'red size-s highlight ': (index === 14)? 'tainan' : ' '">${sortedData.area}: &nbsp;${sortedData.density}</span>
+              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 14)? 'red highlight ': (index === 14)? 'tainan' : ' '">${sortedData.area}: &nbsp;${sortedData.density}</span>
             </p>
           </div>
         </div>

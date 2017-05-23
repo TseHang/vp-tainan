@@ -113,19 +113,13 @@
       .table-data{
         &.highlight{
           font-weight: bold;
-          line-height: 1.5;
-        }
-        &.red {
-          color: map-get($color, red);
-        }
-        &.size-s {
-          font-size: 1.1em;
-        }
-        &.size-l {
-          font-size: 1.3em; 
+          line-height: 2;
           &:last-child {
             margin-bottom: 1em;        
           }
+        }
+        &.red {
+          color: map-get($color, red);
         }
       }
     }
@@ -143,7 +137,7 @@
 
   .table-data {
     &.tainan {
-      color: map-get($color, green);
+      font-weight: bold;
       line-height: 2.5;
     }
   }

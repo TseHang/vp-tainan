@@ -1,6 +1,5 @@
-
-
 const isMobile = ($(window).width() < 768) ? true : false
+
 // Global Func
 const formatFloat = (num, pos) => {
   const size = Math.pow(10, pos)

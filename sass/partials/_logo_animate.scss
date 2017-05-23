@@ -15,16 +15,21 @@
   border-radius: 100%;
 }
 
-#trigger-logo {
-  cursor: pointer;
-  fill: transparent;
-  opacity: 0;
-}
-
 #logo {
   @extend %position_relative;
   @include animation(up-move-show 1.2s .5s linear forwards);
   opacity: 0; 
+  cursor: pointer;
+
+  &.invert {
+    > #logo-center {
+      fill: map-get($color, orange) !important;
+    }
+
+    > #logo-left, #logo-right {
+      fill: map-get($color, green) !important; 
+    }
+  }
 }
 
 #logo-center {
@@ -38,6 +43,13 @@
 
 #logo-right {
   @include animation(logo-right-fade 5s 2s ease-in infinite);
+}
+
+.logo-speak {
+  opacity: 0;
+  font-size: .8rem;
+  background: white;
+  color: map-get($color, gray--light);
 }
 
 @media (min-width: map-get($break-point, break-xs)) {
