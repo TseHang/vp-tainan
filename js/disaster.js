@@ -30,6 +30,7 @@
   map.scrollWheelZoom.disable()
   L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
     maxZoom: 18,
+    minZoom: 10,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map)
 
@@ -173,6 +174,20 @@
       })
     }
   }).addTo(map)
+
+  const focusButton = L.control().setPosition('topleft')
+
+  focusButton.onAdd = function() {
+    const container = L.DomUtil.create('button','ui compact icon button')
+    const icon = L.DomUtil.create('i','map outline icon', container)
+    $(icon).on('click', () => {
+      map.setView([23.1, 120.3], 11)
+    })
+    $(icon).attr('title', '縮放至整個台南市')
+    return container
+  }
+
+  focusButton.addTo(map)
 
   let info = L.control()
   info.onAdd = function() {
