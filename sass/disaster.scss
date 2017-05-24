@@ -38,6 +38,9 @@ $min-width: 400px;
     table.ui.basic.table {
       background-color: white;
     }
+    .sub.header {
+      padding-top: 12px;
+    }
   }
   #well-living-map {
     width: 100%;
@@ -53,6 +56,9 @@ $min-width: 400px;
     margin: 0;
     // text-indent: 2em;
     margin-bottom: 1em;
+  }
+  .leaflet-top {
+    z-index: 999;
   }
 }
 

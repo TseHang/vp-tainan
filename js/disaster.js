@@ -107,32 +107,6 @@
       },
     }).addTo(map)
   })
-  let info = L.control()
-  info.onAdd = function() {
-    this._div = L.DomUtil.create('table', 'ui table');
-    this.update();
-    return this._div;
-  };
-  
-  info.update = function(props) {
-    if (props) {
-      if (isLoadSensitiveData) {
-        this._div.innerHTML = `<tbody>
-        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
-        <tr><td>地質敏感區</td><td>${props.s}</td></tr>
-        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
-        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
-        </tbody>`
-      } else {
-        this._div.innerHTML = `<tbody>
-        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
-        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
-        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
-        </tbody>`
-      }
-    }
-  }
-  info.addTo(map)
 
   /* api key shall be protext */
   L.Control.geocoder({
@@ -199,6 +173,33 @@
       })
     }
   }).addTo(map)
+
+  let info = L.control()
+  info.onAdd = function() {
+    this._div = L.DomUtil.create('table', 'ui table');
+    this.update();
+    return this._div;
+  };
+  
+  info.update = function(props) {
+    if (props) {
+      if (isLoadSensitiveData) {
+        this._div.innerHTML = `<tbody>
+        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
+        <tr><td>地質敏感區</td><td>${props.s}</td></tr>
+        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
+        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
+        </tbody>`
+      } else {
+        this._div.innerHTML = `<tbody>
+        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
+        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
+        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
+        </tbody>`
+      }
+    }
+  }
+  info.addTo(map)
 
   $('#s-loadin').on('click', () => {
     if (isLoadSensitiveData) {
