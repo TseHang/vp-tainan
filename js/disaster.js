@@ -209,6 +209,9 @@
       sensitiveArea = json
       sLayer = L.geoJSON(sensitiveArea, { style: sStyle }).addTo(map)
       $('#s-loadin').removeClass('loading')
+      $('#s-loadin').removeClass('basic')
+      $('#s-loadin').addClass('disabled')
+      $('#s-loadin').text('已載入地質敏感資料')
 
       mapInfo = `<span><span class="info-block" style="background-color: ${sStyle.color} "></span><strong>地質敏感區</strong></span>
       <span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>
