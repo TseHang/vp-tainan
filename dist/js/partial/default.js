@@ -84,6 +84,7 @@ var formatFloat = function formatFloat(num, pos) {
   $('.collapse-toggle').click(function (e) {
     e.preventDefault();
     var id = $(this).data('id');
+    $(this).toggleClass('active');
     $('#' + id).slideToggle(200);
   });
 })(window);

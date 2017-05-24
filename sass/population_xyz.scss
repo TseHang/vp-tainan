@@ -52,6 +52,34 @@
   width: 100%;
 }
 
+.table-container {
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+
+  h4 {
+    display: none;
+  }
+
+  .column {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+
+  .container { 
+    display: block;
+    width: 100%;
+    margin: 0px auto;
+    max-height: 60vh;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
 // Semantic Ui reset
 .ui.selection.active.dropdown{
   border-color: map-get($color, green);
@@ -73,20 +101,10 @@
   .item {
     margin: auto;
     padding: .5em .2em;
-    color: map-get($color, gray--light);
-
-    &:hover {
-      color: map-get($color, black--default);
-      border-color: map-get($color, green);
-    }
+    border-color: map-get($color, gray--light);
 
     &.active {
-      color: map-get($color, black--default);
       border-color: map-get($color, green);
-
-      &:hover {
-        border-color: map-get($color, green);
-      }
     }
   }
 }
@@ -136,14 +154,38 @@
         position: relative;
         left: -2%;
       }
+      &:hover {
+        border-color: map-get($color, green);
+      }
+    }
+  }
+
+  .table-container {
+    display: inline-block;
+    overflow: scroll;
+    white-space: nowrap;
+    height: 70vh;
+    h4 {
+      display: block;
+    }
+
+    > .column {
+      display: none;
+      text-align: center;
 
       &.active {
-        color: map-get($color, black--default);
-        border-color: map-get($color, green);
+        display: inline-block;
+      }
+    }
 
-        &:hover {
-          border-color: map-get($color, green);
-        }
+    .container {
+      width: auto;
+      margin: 0px .2em;
+      padding: 1em 1.2em;
+      max-height: 70vh;
+
+      &.active {
+        display: block;
       }
     }
   }

@@ -37,7 +37,6 @@ const $ = window.$;
 
   d3.csv('./src/data/population_xyz.csv', (data) => {
 
-    // Data list (Vue)
     const tableVm = new Vue({
       delimiters: ['${', '}'],
       el: '#table-list',
@@ -45,24 +44,76 @@ const $ = window.$;
         dataArray: data,
       },
       computed: {
-        descendPopulation: function() {
+        descendSexratio: function () {
           const newArray = [...this.dataArray]
           return newArray.sort((a, b) => (
-            parseFloat(b.population) - parseFloat(a.population)
+            parseFloat(b.sexRatio) - parseFloat(a.sexRatio)
           ))
         },
-        descendDensity: function() {
-          const newArray = [...this.dataArray]
-          newArray.sort((a, b) => (
-              parseFloat(b.density) - parseFloat(a.density)
-            ))
-            // 因為台南密度排在第13名，所以插一個台南的密度在最前面
-          return [newArray[13], ...newArray]
-        },
-        descendMan: function() {
+        descendRaiseratio: function () {
           const newArray = [...this.dataArray]
           return newArray.sort((a, b) => (
-            parseFloat(b.man) - parseFloat(a.man)
+            parseFloat(b.raiseRatio) - parseFloat(a.raiseRatio)
+          ))
+        },
+        descendZeroFourteen: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.zero_fourteen_percent) - parseFloat(a.zero_fourteen_percent)
+          ))
+        },
+        descendFifteenSixtyfour: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.fifteen_sixtyFour_percent) - parseFloat(a.fifteen_sixtyFour_percent)
+          ))
+        },
+        descendSixtyFive: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.sixtyFiveUp_percent) - parseFloat(a.sixtyFiveUp_percent)
+          ))
+        },
+        descendBorn: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.born_num.replace(/,/ig, '')) - parseFloat(a.born_num.replace(/,/ig, ''))
+          ))
+        },
+        descendDeath: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.death_num.replace(/,/ig, '')) - parseFloat(a.death_num.replace(/,/ig, ''))
+          ))
+        },
+        descendImmigration: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.immigration_num.replace(/,/ig, '')) - parseFloat(a.immigration_num.replace(/,/ig, ''))
+          ))
+        },
+        descendLeaving: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.leaving_num.replace(/,/ig, '')) - parseFloat(a.leaving_num.replace(/,/ig, ''))
+          ))
+        },
+        descendNatural: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.naturalIncrease_percent) - parseFloat(a.naturalIncrease_percent)
+          ))
+        },
+        descendSociety: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.society_percent) - parseFloat(a.society_percent)
+          ))
+        },
+        descendPopulationChange: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.population_change_percent) - parseFloat(a.population_change_percent)
           ))
         },
       },
@@ -81,7 +132,7 @@ const $ = window.$;
       },
       populationChangeSvg: {
         width: '100%',
-        height: 80,
+        height: 110,
       },
     }
 
@@ -535,6 +586,7 @@ const $ = window.$;
         const sixtyFiveUpPercent = parseFloat(value.sixtyFiveUp_percent)
         const sexRatio = parseFloat(value.sexRatio)
         const raiseRatio = parseFloat(value.raiseRatio)
+
         obj[value.area.replace(/\s/ig, '')] = {
           isDensityOver: (valueDensity > TAINAN.density),
           density: formatFloat(valueDensity, 0),
@@ -579,11 +631,8 @@ const $ = window.$;
         const density = DATA[areaName].density
         const sixtyFiveUpPercent = DATA[areaName].sixtyFiveUpPercent
 
-        d3.select(this)
-          .style({
-            'stroke': '#333',
-            'stroke-width': '6px',
-          })
+        d3.select(this).style('fill-opacity', .4)
+
         $('.intro-area').html(areaName)
         $('#intro-density').html(setDensity(density))
 
@@ -622,10 +671,7 @@ const $ = window.$;
       })
       .on('mouseleave', function(d) {
         d3.select(this)
-          .style({
-            'stroke': 'white',
-            'stroke-width': '1.5px',
-          })
+          .style('fill-opacity', 1)
       })
   })
 
@@ -672,6 +718,7 @@ const $ = window.$;
           // console.log(value, text, $selectedItem)
       },
     })
+  console.log(222)
   $('.ui.pointing.menu .item').click(function () {
     const showContainer = $(this).data('container')
     $('.container.active').removeClass('active')

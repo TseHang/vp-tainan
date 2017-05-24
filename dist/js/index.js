@@ -20,4 +20,6 @@
       return '';
     });
   });
+
+  $('.collapse-toggle').addClass('active');
 })();

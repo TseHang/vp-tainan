@@ -41,7 +41,6 @@ var $ = window.$;
 
   d3.csv('./src/data/population_xyz.csv', function (data) {
 
-    // Data list (Vue)
     var tableVm = new Vue({
       delimiters: ['${', '}'],
       el: '#table-list',
@@ -49,24 +48,76 @@ var $ = window.$;
         dataArray: data
       },
       computed: {
-        descendPopulation: function descendPopulation() {
+        descendSexratio: function descendSexratio() {
           var newArray = [].concat(_toConsumableArray(this.dataArray));
           return newArray.sort(function (a, b) {
-            return parseFloat(b.population) - parseFloat(a.population);
+            return parseFloat(b.sexRatio) - parseFloat(a.sexRatio);
           });
         },
-        descendDensity: function descendDensity() {
-          var newArray = [].concat(_toConsumableArray(this.dataArray));
-          newArray.sort(function (a, b) {
-            return parseFloat(b.density) - parseFloat(a.density);
-          });
-          // 因為台南密度排在第13名，所以插一個台南的密度在最前面
-          return [newArray[13]].concat(_toConsumableArray(newArray));
-        },
-        descendMan: function descendMan() {
+        descendRaiseratio: function descendRaiseratio() {
           var newArray = [].concat(_toConsumableArray(this.dataArray));
           return newArray.sort(function (a, b) {
-            return parseFloat(b.man) - parseFloat(a.man);
+            return parseFloat(b.raiseRatio) - parseFloat(a.raiseRatio);
+          });
+        },
+        descendZeroFourteen: function descendZeroFourteen() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.zero_fourteen_percent) - parseFloat(a.zero_fourteen_percent);
+          });
+        },
+        descendFifteenSixtyfour: function descendFifteenSixtyfour() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.fifteen_sixtyFour_percent) - parseFloat(a.fifteen_sixtyFour_percent);
+          });
+        },
+        descendSixtyFive: function descendSixtyFive() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.sixtyFiveUp_percent) - parseFloat(a.sixtyFiveUp_percent);
+          });
+        },
+        descendBorn: function descendBorn() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.born_num.replace(/,/ig, '')) - parseFloat(a.born_num.replace(/,/ig, ''));
+          });
+        },
+        descendDeath: function descendDeath() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.death_num.replace(/,/ig, '')) - parseFloat(a.death_num.replace(/,/ig, ''));
+          });
+        },
+        descendImmigration: function descendImmigration() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.immigration_num.replace(/,/ig, '')) - parseFloat(a.immigration_num.replace(/,/ig, ''));
+          });
+        },
+        descendLeaving: function descendLeaving() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.leaving_num.replace(/,/ig, '')) - parseFloat(a.leaving_num.replace(/,/ig, ''));
+          });
+        },
+        descendNatural: function descendNatural() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.naturalIncrease_percent) - parseFloat(a.naturalIncrease_percent);
+          });
+        },
+        descendSociety: function descendSociety() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.society_percent) - parseFloat(a.society_percent);
+          });
+        },
+        descendPopulationChange: function descendPopulationChange() {
+          var newArray = [].concat(_toConsumableArray(this.dataArray));
+          return newArray.sort(function (a, b) {
+            return parseFloat(b.population_change_percent) - parseFloat(a.population_change_percent);
           });
         }
       }
@@ -85,7 +136,7 @@ var $ = window.$;
       },
       populationChangeSvg: {
         width: '100%',
-        height: 80
+        height: 110
       }
     };
 
@@ -450,6 +501,7 @@ var $ = window.$;
         var sixtyFiveUpPercent = parseFloat(value.sixtyFiveUp_percent);
         var sexRatio = parseFloat(value.sexRatio);
         var raiseRatio = parseFloat(value.raiseRatio);
+
         obj[value.area.replace(/\s/ig, '')] = {
           isDensityOver: valueDensity > TAINAN.density,
           density: formatFloat(valueDensity, 0),
@@ -490,10 +542,8 @@ var $ = window.$;
       var density = DATA[areaName].density;
       var sixtyFiveUpPercent = DATA[areaName].sixtyFiveUpPercent;
 
-      d3.select(this).style({
-        'stroke': '#333',
-        'stroke-width': '6px'
-      });
+      d3.select(this).style('fill-opacity', .4);
+
       $('.intro-area').html(areaName);
       $('#intro-density').html(setDensity(density));
 
@@ -530,10 +580,7 @@ var $ = window.$;
         $('#intro-density').removeClass('p-size-big color-red');
       }
     }).on('mouseleave', function (d) {
-      d3.select(this).style({
-        'stroke': 'white',
-        'stroke-width': '1.5px'
-      });
+      d3.select(this).style('fill-opacity', 1);
     });
   });
 
@@ -576,6 +623,7 @@ var $ = window.$;
       // console.log(value, text, $selectedItem)
     }
   });
+  console.log(222);
   $('.ui.pointing.menu .item').click(function () {
     var showContainer = $(this).data('container');
     $('.container.active').removeClass('active');

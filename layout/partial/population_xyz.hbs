@@ -192,51 +192,225 @@
       </div>
     </section>
 
-    <section class="report-section">
+    <section id="table-list" class="report-section">
       <h2>資料詳細一覽表</h2>
       <p class="report-section-intro">看看這些資料，兩兩互相比較，有發現什麼有趣的事嗎？</p>
 
       <div class="ui secondary pointing menu">
-        <a class="right item" data-container="population">
-          人口總數
+        <a class="right item" data-container="sexRatio">
+          每100個女生對應到
         </a>
-        <a class="right item" data-container="land">
-          男生數量
+        <a class="right item" data-container="raiseRatio">
+          每10位壯年需負擔
         </a>
-        <a class="right item active" data-container="density">
-          人口密度
+      </div>
+      
+      <div class="ui secondary pointing menu">
+        <a class="right item" data-container="zeroFourteenPercent">
+          0 -14歲
+        </a>
+        <a class="right item" data-container="fifteenSixtyFourPercent">
+          15-64歲
+        </a>
+        <a class="right item" data-container="sixtyFiveUpPercent">
+          65歲以上
         </a>
       </div>
 
-      <div id="table-list" class="table-container">
-        <div class="container population">
-          <div class="table-cell" v-for="(sortedData, index) in descendPopulation">
-            <p v-if="index === 0" class="color-gray--dark">
-              ${sortedData.area}: ${sortedData.population} 人
-            </p>
-            <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.population}</span> 
-            </p>
+      <div class="ui secondary pointing menu">
+        <a class="right item" data-container="born">
+          出生
+        </a>
+        <a class="right item" data-container="death">
+          死亡
+        </a>
+        <a class="right item" data-container="immigration">
+          移入
+        </a>
+        <a class="right item" data-container="leaving">
+          移出
+        </a>
+      </div>
+
+      <div class="ui secondary pointing menu">
+        <a class="right item" data-container="natural">
+          自然增加
+        </a>
+        <a class="right item" data-container="society">
+          社會增加
+        </a>
+        <a class="right item" data-container="populationChange">
+          人口變化
+        </a>
+      </div>
+
+
+      <div class="table-container">
+        <div class="column">
+          <h4>性別比</h4>
+          <div class="container sexRatio">
+            <div class="table-cell" v-for="(sortedData, index) in descendSexratio">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.sexRatio} 位男生
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.sexRatio}</span> 
+              </p>
+            </div>
           </div>
         </div>
-        <div class="container land">
-          <div class="table-cell" v-for="(sortedData, index) in descendMan">
-            <p v-if="index === 0" class="color-gray--dark">
-              ${sortedData.area}: &nbsp;${sortedData.man} 男生數量
-            </p>
-            <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.man}</span>
-            </p>
+
+        <div class="column">
+          <h4>扶養比</h4>
+          <div class="container raiseRatio">
+            <div class="table-cell" v-for="(sortedData, index) in descendRaiseratio">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: &nbsp;${sortedData.raiseRatio  / 10} 位無生產能力人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.raiseRatio  / 10}</span>
+              </p>
+            </div>
           </div>
         </div>
-        <div class="container density active">
-          <div class="table-cell" v-for="(sortedData, index) in descendDensity">
-            <p v-if="index === 0" class="color-gray--dark">
-              ${sortedData.area}: &nbsp;${sortedData.density} 人 / 平方公里
-            </p>
-            <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 14)? 'red size-s highlight ': (index === 14)? 'tainan' : ' '">${sortedData.area}: &nbsp;${sortedData.density}</span>
-            </p>
+        
+        <div class="column">
+          <h4>0-14歲(%)</h4>
+          <div class="container zeroFourteenPercent">
+            <div class="table-cell" v-for="(sortedData, index) in descendZeroFourteen">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.zero_fourteen_percent} %
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.zero_fourteen_percent}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column">
+          <h4>15-64歲(%)</h4>
+          <div class="container fifteenSixtyFourPercent">
+            <div class="table-cell" v-for="(sortedData, index) in descendFifteenSixtyfour">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.fifteen_sixtyFour_percent} %
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.fifteen_sixtyFour_percent}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column">
+          <h4>65歲以上(%)</h4>
+          <div class="container sixtyFiveUpPercent">
+            <div class="table-cell" v-for="(sortedData, index) in descendSixtyFive">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.sixtyFiveUp_percent} %
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.sixtyFiveUp_percent}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column">
+          <h4>出生人數(%)</h4>
+          <div class="container born">
+            <div class="table-cell" v-for="(sortedData, index) in descendBorn">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.born_num} 人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.born_num}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <h4>死亡人數</h4>
+          <div class="container death">
+            <div class="table-cell" v-for="(sortedData, index) in descendDeath">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.death_num} 人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.death_num}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column">
+          <h4>移入人數</h4>
+          <div class="container immigration">
+            <div class="table-cell" v-for="(sortedData, index) in descendImmigration">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.immigration_num} 人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.immigration_num}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <h4>移出人數</h4>
+          <div class="container leaving">
+            <div class="table-cell" v-for="(sortedData, index) in descendDeath">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.leaving_num} 人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.leaving_num}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column">
+          <h4>自然增加</h4>
+          <div class="container natural">
+            <div class="table-cell" v-for="(sortedData, index) in descendNatural">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.naturalIncrease_percent} (‰)
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.naturalIncrease_percent}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column">
+          <h4>社會增加</h4>
+          <div class="container society">
+            <div class="table-cell" v-for="(sortedData, index) in descendSociety">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.society_percent} (‰)
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.society_percent}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column">
+          <h4>人口變化</h4>
+          <div class="container populationChange">
+            <div class="table-cell" v-for="(sortedData, index) in descendPopulationChange">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.population_change_percent} (‰)
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.population_change_percent}</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>

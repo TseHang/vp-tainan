@@ -30,7 +30,11 @@ var route = [
   }, {
     data: {
       path: './',
-      title: '用數據看台南',
+      title: '用數據看台南心路歷程',
+      chart_description: {
+        img: '//www.taiwanstat.com/vp-tainan/dist/img/index/logo.svg',
+        description: '用數據看台南是一場為期一個月的資訊號召，致力於讓人們「更加認識台南」。我們將利用台南市政府開放資料，每週發布一個主題並交予大家一個小小的任務，讓人們用資料的角度重新解讀台南。我們真心的希望身處在同一個社會的我們，能夠更加關心自己周遭的社會變化。這是用數據看台南的本意，更是用數據看台灣的初衷。',
+      },
     },
     partials: './partial.js',
     layout: './layout/articles/article-tainanstat.hbs',
