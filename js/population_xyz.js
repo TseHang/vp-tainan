@@ -186,7 +186,9 @@ const $ = window.$;
     sexRatioSvg
       .append('text')
       .attr({
-        'x': (parseFloat(data[0].man.replace(/,/ig, '')) / parseFloat(data[0].population.replace(/,/ig, ''))) * sexRatioSvgWidth - 130,
+        'x': isMobile
+        ? 10
+        : (parseFloat(data[0].man.replace(/,/ig, '')) / parseFloat(data[0].population.replace(/,/ig, ''))) * sexRatioSvgWidth - 130,
         'y': 20,
         'id': 'num-man',
       })
@@ -196,7 +198,7 @@ const $ = window.$;
       .append('text')
       .attr({
         'x': isMobile
-        ? (parseFloat(data[0].girl.replace(/,/ig, '')) / parseFloat(data[0].population.replace(/,/ig, ''))) * sexRatioSvgWidth - 130 
+        ? 10
         : sexRatioSvgWidth - 130,
         'y': isMobile ? 60 : 20,
         'id': 'num-girl',
@@ -279,12 +281,14 @@ const $ = window.$;
       .attr('dx', '.3em')
       .attr('dy', '.35em')
       .attr('x', (d, i) => {
-        if (i === 5) {
-          return isMobile ? (d.value * rectWidthRatio) + 100 : (d.value * rectWidthRatio) + 300
-        } else if (i === 2) {
-          return isMobile ? (d.value * rectWidthRatio) - 70 : (d.value * rectWidthRatio) + 300
+        if (i === 1 || i === 2) {
+          return isMobile ? (d.value * rectWidthRatio) - 130 : (d.value * rectWidthRatio) + 300
+        } else if (i === 3) {
+          return isMobile ? (d.value * rectWidthRatio) - 20 : (d.value * rectWidthRatio) + 300
+        } else if (i === 5) {
+          return isMobile ? (d.value * rectWidthRatio) + 60 : (d.value * rectWidthRatio) + 300
         }
-        return isMobile ? (d.value * rectWidthRatio) + 10 : (d.value * rectWidthRatio) + 140
+        return isMobile ? (d.value * rectWidthRatio) + 5 : (d.value * rectWidthRatio) + 140
       })
       .attr('y', (d, i) => {
         const restBlock = d.allBlocks - d.block
@@ -314,13 +318,12 @@ const $ = window.$;
 
         const x = d.value * rectWidthRatio
         const y = (restBlock * basicRectHeight) + (i * 4) + (d.block * basicRectHeight / 2) + separateY
-
-        if (i === 5) {
-          return isMobile ? `M ${x} ${y}, H ${x + 100}` : `M ${x} ${y}, H ${x + 290}`
-        } else if (i === 2) {
+        if (i === 1 || i === 2 || i === 3) {
           return isMobile ? '' : `M ${x} ${y}, H ${x + 290}`
-        }
-        return isMobile ? `M ${x} ${y}, H ${x + 10}` : `M ${x} ${y}, H ${x + 130}`
+        } else if (i === 5) {
+          return isMobile ? `M ${x} ${y}, H ${x + 60}` : `M ${x} ${y}, H ${x + 290}`
+        } 
+        return isMobile ? `M ${x} ${y}, H ${x + 5}` : `M ${x} ${y}, H ${x + 130}`
       })
       .attr('stroke', '#D7DAE1')
 
@@ -340,7 +343,7 @@ const $ = window.$;
     const barMax = d3.max([...populationData.naturalData, ...populationData.socialData], (d) => d.value) + 2000
     const populationX = d3.scale.linear()
       .domain([0, barMax])
-      .range([0, $('.populationChangeSvg').width() * 0.7])
+      .range([0, isMobile ? $('.populationChangeSvg').width() * 0.6 : $('.populationChangeSvg').width() * 0.7])
 
     newPopulationChart
       .append('rect')
@@ -767,7 +770,8 @@ const $ = window.$;
 
   window.setTimeout(() => {
     if (isMobile) {
-      $('.ui.pointing.menu .item').click(function () {
+      // 在 safari 中因為被綁到body上，所以要將 click事件綁到目標上可解決
+      $('body').on('click', '.ui.pointing.menu .item', function () {
         const showContainer = $(this).data('container')
         $('.column.active').removeClass('active')
         $('.container.active').removeClass('active')
