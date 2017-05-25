@@ -28,7 +28,7 @@ gulp.task('sass',function(){
 		}))
 		.pipe(minifyCSS())
 		.pipe(gulp.dest('dist/css'))
-    // .pipe(connect.reload())
+    .pipe(connect.reload())
 })
 
 gulp.task('js', function(){
@@ -37,18 +37,18 @@ gulp.task('js', function(){
     .pipe(babel({
       presets: ['es2015']
     }))
-		// .pipe(uglify())
+		.pipe(uglify())
 		.pipe(rename(function(path){
 			logPath(path , "yellow");
     }))
 		.pipe(gulp.dest('dist/js'))
-    // .pipe(connect.reload())
+    .pipe(connect.reload())
 })
 
 gulp.task('server', function () {
   connect.server({
     root: './',
-    // livereload: true,
+    livereload: true,
     port: 8000,
     /*
     TODO: Use middleware to transfer 'index.html' to 'index'
@@ -128,7 +128,7 @@ gulp.task('minify-js', function(){
 	When your project is completed , you can compress images
 */
 gulp.task('image', function () {
-  gulp.src('dist/img/**/**')
+  gulp.src('src/img/**/**')
   	.pipe(plumber())
    	.pipe(imagemin())
     .pipe(gulp.dest('dist/img/'));

@@ -30,7 +30,12 @@ var route = [
   }, {
     data: {
       path: './',
-      title: '用數據看台南',
+      title: '我們是用數據看台南',
+      chart_description: {
+        img: 'https://www.taiwanstat.com/vp-tainan/dist/img/index/logo-color(1081x200).png',
+        description: '用數據看台南是一場為期一個月的資訊號召，致力於讓人們「更加認識台南」。我們將利用台南市政府開放資料，每週發布一個主題並交予大家一個小小的任務，讓人們用資料的角度重新解讀台南。我們真心的希望身處在同一個社會的我們，能夠更加關心自己周遭的社會變化。這是用數據看台南的本意，更是用數據看台灣的初衷。',
+        href: 'https://www.taiwanstat.com/vp-tainan/articles/article-tainanstat.html',
+      },
     },
     partials: './partial.js',
     layout: './layout/articles/article-tainanstat.hbs',
@@ -42,6 +47,7 @@ var route = [
       chart_description: {
         img: '//www.taiwanstat.com/vp-tainan/dist/img/population/img_population_num_report.png',
         description: '這是人口篇的第一篇，藉由人口總數與土地面積來回想小學地理最常算的一個數字 - 「人口密度」。配上比較各區之間的地圖，看出區域之間的差異性有多大，最後期盼大家想一下，對於我們人類來說，你自身會選擇居住在大城市還是小城市呢？為什麼？',
+        href: 'https://www.taiwanstat.com/vp-tainan/population_num_report.html',
       },
     },
     partials: './partial.js',
@@ -61,6 +67,8 @@ var route = [
       title: 'XYZ 三元素 - 台南市人口診斷書',
       chart_description: {
         img: '//www.taiwanstat.com/vp-tainan/dist/img/population/img_population_xyz_report.png',
+        description: '這是人口篇的第二篇，藉由性別、年齡、人口變化，讓我們一起一窺究竟到底台南的人口現在有著什麼樣的變化？其中要請大家仔細觀察年齡結構的轉變，高齡社會已經是勢不可擋的趨勢，而對於我們自身來說要怎麼因應呢？最後的小任務是一場關於自身歷史的脈絡探索。希望大家喜歡^^',
+        href: 'https://www.taiwanstat.com/vp-tainan/population_xyz_report.html',
       },
     },
     partials: './partial.js',

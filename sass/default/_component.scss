@@ -15,6 +15,15 @@ ul.number-type {
   list-style-type: decimal;
 }
 
+.collapse-toggle {
+  &.active {
+    i {
+      @include transition(all .1s linear);
+      color: map-get($color, orange);
+      transform: translateY(4px) rotateZ(90deg);
+    }
+  }
+}
 .collapse{
   display: none;
   margin: .3em 0px 1.3em 0px !important;

@@ -82,6 +82,7 @@ const formatFloat = (num, pos) => {
   $('.collapse-toggle').click(function (e) {
     e.preventDefault()
     const id = $(this).data('id')
+    $(this).toggleClass('active')
     $(`#${id}`).slideToggle(200)
   })
 })(window)

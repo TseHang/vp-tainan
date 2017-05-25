@@ -16,7 +16,7 @@ const $ = window.$;
   const densityScope = {
     high: 10000,
     middle: 1000,
-    little: 750,
+    little: 860,
   }
 
   const setDensity = (density) => {
@@ -37,7 +37,6 @@ const $ = window.$;
 
   d3.csv('./src/data/population_xyz.csv', (data) => {
 
-    // Data list (Vue)
     const tableVm = new Vue({
       delimiters: ['${', '}'],
       el: '#table-list',
@@ -45,33 +44,93 @@ const $ = window.$;
         dataArray: data,
       },
       computed: {
-        descendPopulation: function() {
-          const newArray = [...this.dataArray]
-          return newArray.sort((a, b) => (
-            parseFloat(b.population) - parseFloat(a.population)
-          ))
-        },
-        descendDensity: function() {
+        descendSexratio: function () {
           const newArray = [...this.dataArray]
           newArray.sort((a, b) => (
-              parseFloat(b.density) - parseFloat(a.density)
-            ))
-            // 因為台南密度排在第13名，所以插一個台南的密度在最前面
-          return [newArray[13], ...newArray]
+            parseFloat(b.sexRatio) - parseFloat(a.sexRatio)
+          ))
+          return [newArray[29], ...newArray]
         },
-        descendMan: function() {
+        descendRaiseratio: function () {
+          const newArray = [...this.dataArray]
+          newArray.sort((a, b) => (
+            parseFloat(b.raiseRatio) - parseFloat(a.raiseRatio)
+          ))
+          return [newArray[26], ...newArray]
+        },
+        descendZeroFourteen: function () {
+          const newArray = [...this.dataArray]
+          newArray.sort((a, b) => (
+            parseFloat(b.zero_fourteen_percent) - parseFloat(a.zero_fourteen_percent)
+          ))
+          return [newArray[10], ...newArray]
+        },
+        descendFifteenSixtyfour: function () {
+          const newArray = [...this.dataArray]
+          newArray.sort((a, b) => (
+            parseFloat(b.fifteen_sixtyFour_percent) - parseFloat(a.fifteen_sixtyFour_percent)
+          ))
+          return [newArray[10], ...newArray]
+        },
+        descendSixtyFive: function () {
+          const newArray = [...this.dataArray]
+          newArray.sort((a, b) => (
+            parseFloat(b.sixtyFiveUp_percent) - parseFloat(a.sixtyFiveUp_percent)
+          ))
+          return [newArray[28], ...newArray]
+        },
+        descendBorn: function () {
           const newArray = [...this.dataArray]
           return newArray.sort((a, b) => (
-            parseFloat(b.man) - parseFloat(a.man)
+            parseFloat(b.born_num.replace(/,/ig, '')) - parseFloat(a.born_num.replace(/,/ig, ''))
           ))
         },
+        descendDeath: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.death_num.replace(/,/ig, '')) - parseFloat(a.death_num.replace(/,/ig, ''))
+          ))
+        },
+        descendImmigration: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.immigration_num.replace(/,/ig, '')) - parseFloat(a.immigration_num.replace(/,/ig, ''))
+          ))
+        },
+        descendLeaving: function () {
+          const newArray = [...this.dataArray]
+          return newArray.sort((a, b) => (
+            parseFloat(b.leaving_num.replace(/,/ig, '')) - parseFloat(a.leaving_num.replace(/,/ig, ''))
+          ))
+        },
+        descendNatural: function () {
+          const newArray = [...this.dataArray]
+          newArray.sort((a, b) => (
+            parseFloat(b.naturalIncrease_percent) - parseFloat(a.naturalIncrease_percent)
+          ))
+          return [newArray[9], ...newArray]
+        },
+        descendSociety: function () {
+          const newArray = [...this.dataArray]
+          newArray.sort((a, b) => (
+            parseFloat(b.society_percent) - parseFloat(a.society_percent)
+          ))
+          return [newArray[13], ...newArray]
+        },
+        descendPopulationChange: function () {
+          const newArray = [...this.dataArray]
+          newArray.sort((a, b) => (
+            parseFloat(b.population_change_percent) - parseFloat(a.population_change_percent)
+          ))
+          return [newArray[9], ...newArray]
+        },
       },
-    })
+    }) 
 
     const settings = {
       sexRatioSvg: {
-        width: '80%',
-        height: 30,
+        width: isMobile ? '100%' : '80%',
+        height: isMobile ? 80 : 40,
       },
       agesPramidSvg: {
         width: '100%',
@@ -81,7 +140,7 @@ const $ = window.$;
       },
       populationChangeSvg: {
         width: '100%',
-        height: 80,
+        height: 110,
       },
     }
 
@@ -103,7 +162,7 @@ const $ = window.$;
     //
     // sexRatioChart
     // ---------------
-    const sexRatioSvgWidth = $('.sexRatioSvg').width() * 0.7
+    const sexRatioSvgWidth = isMobile ? $('.sexRatioSvg').width() : $('.sexRatioSvg').width() * 0.7
     const manRatioBar = sexRatioSvg
       .append('rect')
       .attr({
@@ -120,27 +179,31 @@ const $ = window.$;
         'fill': 'rgb(243,71,8)',
         'width': '0px',
         'height': 30,
-        'x': parseFloat(data[0].man.replace(/,/ig, '')) / parseFloat(data[0].population.replace(/,/ig, '')) * sexRatioSvgWidth + 5,
-        'y': 0,
+        'x': isMobile ? 0 : parseFloat(data[0].man.replace(/,/ig, '')) / parseFloat(data[0].population.replace(/,/ig, '')) * sexRatioSvgWidth + 5,
+        'y': isMobile ? 40 : 0,
       })
 
     sexRatioSvg
       .append('text')
       .attr({
-        'x': (parseFloat(data[0].man.replace(/,/ig, '')) / parseFloat(data[0].population.replace(/,/ig, ''))) * sexRatioSvgWidth - 130,
+        'x': isMobile
+        ? 10
+        : (parseFloat(data[0].man.replace(/,/ig, '')) / parseFloat(data[0].population.replace(/,/ig, ''))) * sexRatioSvgWidth - 130,
         'y': 20,
         'id': 'num-man',
       })
-      .text('男生約佔 50.01%')
+      .text('男生約佔 50%')
 
     sexRatioSvg
       .append('text')
       .attr({
-        'x': sexRatioSvgWidth - 125,
-        'y': 20,
+        'x': isMobile
+        ? 10
+        : sexRatioSvgWidth - 130,
+        'y': isMobile ? 60 : 20,
         'id': 'num-girl',
       })
-      .text('女生約佔 49.99%')
+      .text('女生約佔 50%')
 
     //
     // agesPramidChart
@@ -150,7 +213,7 @@ const $ = window.$;
 
     const pramidChartRow = agesPramidSvg.selectAll('g.pramidRow')
       .data(agesData)
-
+    const rectWidthRatio = isMobile ? 7 : 10
     const newPramidRow = pramidChartRow
       .enter()
       .append('g')
@@ -160,9 +223,7 @@ const $ = window.$;
       .append('rect')
       .attr('class', 'pramidBar')
       .attr('width', 0)
-      .attr('height', (d) => {
-        return d.block * basicRectHeight
-      })
+      .attr('height', (d) => d.block * basicRectHeight)
       .attr('y', (d, i) => {
         const restBlock = d.allBlocks - d.block
         let separateY = 0
@@ -220,10 +281,14 @@ const $ = window.$;
       .attr('dx', '.3em')
       .attr('dy', '.35em')
       .attr('x', (d, i) => {
-        if (i === 5) {
-          return (d.value * 10) + 300
+        if (i === 1 || i === 2) {
+          return isMobile ? (d.value * rectWidthRatio) - 130 : (d.value * rectWidthRatio) + 300
+        } else if (i === 3) {
+          return isMobile ? (d.value * rectWidthRatio) - 20 : (d.value * rectWidthRatio) + 300
+        } else if (i === 5) {
+          return isMobile ? (d.value * rectWidthRatio) + 60 : (d.value * rectWidthRatio) + 300
         }
-        return (d.value * 10) + 140
+        return isMobile ? (d.value * rectWidthRatio) + 5 : (d.value * rectWidthRatio) + 140
       })
       .attr('y', (d, i) => {
         const restBlock = d.allBlocks - d.block
@@ -251,13 +316,14 @@ const $ = window.$;
           separateY = 24
         }
 
-        const x = d.value * 10
+        const x = d.value * rectWidthRatio
         const y = (restBlock * basicRectHeight) + (i * 4) + (d.block * basicRectHeight / 2) + separateY
-
-        if (i === 5) {
-          return `M ${x} ${y}, H ${x + 290}`
-        }
-        return `M ${x} ${y}, H ${x + 130}`
+        if (i === 1 || i === 2 || i === 3) {
+          return isMobile ? '' : `M ${x} ${y}, H ${x + 290}`
+        } else if (i === 5) {
+          return isMobile ? `M ${x} ${y}, H ${x + 60}` : `M ${x} ${y}, H ${x + 290}`
+        } 
+        return isMobile ? `M ${x} ${y}, H ${x + 5}` : `M ${x} ${y}, H ${x + 130}`
       })
       .attr('stroke', '#D7DAE1')
 
@@ -277,7 +343,7 @@ const $ = window.$;
     const barMax = d3.max([...populationData.naturalData, ...populationData.socialData], (d) => d.value) + 2000
     const populationX = d3.scale.linear()
       .domain([0, barMax])
-      .range([0, $('.populationChangeSvg').width() * 0.7])
+      .range([0, isMobile ? $('.populationChangeSvg').width() * 0.6 : $('.populationChangeSvg').width() * 0.7])
 
     newPopulationChart
       .append('rect')
@@ -344,7 +410,7 @@ const $ = window.$;
             const random = Math.random() + 0.3
             return random * 900
           })
-          .attr('width', (d) => (d.value * 10))
+          .attr('width', (d) => (d.value * rectWidthRatio))
 
         newPramidRow.selectAll('path')
           .transition()
@@ -373,7 +439,7 @@ const $ = window.$;
 
     // transform data
     DATA = _transformData(data)
-    console.log(DATA, TAINAN)
+    // console.log(DATA, TAINAN)
 
     function _transitionPopulationBar(populationData, isBorn) {
       const newData = (isBorn) ? populationData.naturalData : populationData.socialData
@@ -535,6 +601,7 @@ const $ = window.$;
         const sixtyFiveUpPercent = parseFloat(value.sixtyFiveUp_percent)
         const sexRatio = parseFloat(value.sexRatio)
         const raiseRatio = parseFloat(value.raiseRatio)
+
         obj[value.area.replace(/\s/ig, '')] = {
           isDensityOver: (valueDensity > TAINAN.density),
           density: formatFloat(valueDensity, 0),
@@ -579,11 +646,8 @@ const $ = window.$;
         const density = DATA[areaName].density
         const sixtyFiveUpPercent = DATA[areaName].sixtyFiveUpPercent
 
-        d3.select(this)
-          .style({
-            'stroke': '#333',
-            'stroke-width': '6px',
-          })
+        d3.select(this).style('fill-opacity', .4)
+
         $('.intro-area').html(areaName)
         $('#intro-density').html(setDensity(density))
 
@@ -622,19 +686,14 @@ const $ = window.$;
       })
       .on('mouseleave', function(d) {
         d3.select(this)
-          .style({
-            'stroke': 'white',
-            'stroke-width': '1.5px',
-          })
+          .style('fill-opacity', 1)
       })
   })
 
   // Mobile select map func.
-  const selectAreaMap = (area) => {
+  const selectAreaMap = (areaName) => {
     mobileMapVis.selectAll('*').remove()
-
     const path = d3.geo.path().projection(
-      // 路徑產生器
       d3.geo.mercator().center([121.55, 22.58]).scale(16000),
     )
     mobileMapVis.selectAll('path').data(features)
@@ -642,42 +701,103 @@ const $ = window.$;
       .attr({
         'd': path,
         'fill': (d) => {
-          const areaName = d.properties.TOWNNAME
-          if (areaName === area) {
+          const area = d.properties.TOWNNAME
+          if (area === areaName) {
             return '#FFAA0A'
           }
           return '#D7DAE1'
         },
         'stroke': 'white',
-        'stroke-width': '1.5px',
+        'stroke-width': '1px',
       })
 
-    const density = DATA[area].density
-    $('#mobile-area').text(area)
-    $('#mobile-population-percent').html(`&nbsp;${DATA[area].populationPercent}%&nbsp;`)
-    $('#mobile-density').html(`&nbsp;${density}&nbsp;`)
+    d3.select(this).style('fill-opacity', .4)
 
-    if (DATA[area].isDensityOver) {
-      $('#mobile-density').addClass('p-size-big color-red')
+    const density = DATA[areaName].density
+    const sixtyFiveUpPercent = DATA[areaName].sixtyFiveUpPercent
+
+    $('#mobile-area').text(areaName)
+    $('#mobile-intro-density').html(`&nbsp;${density}`)
+
+    $('.intro-area').html(areaName)
+    $('#intro-density').html(setDensity(density))
+
+    $('#mobile-sex-ratio').html(DATA[areaName].sexRatio)
+    $('#mobile-sixtyFiveUp').html(`${sixtyFiveUpPercent} %`)
+    $('#mobile-fifteen-sixtyFour').html(`${DATA[areaName].fifteenSixtyFourPercent} %`)
+    $('#mobile-zero-fourteen').html(`${DATA[areaName].zeroFourteenPercent} %`)
+
+    $('#mobile-intro-num').html(() => {
+      const raiseRatio = DATA[areaName].raiseRatio
+      const numberNoProductive = parseFloat(raiseRatio / 10)
+      if (numberNoProductive > 4) {
+        $('#mobile-intro-word').text('社會中的無生產能力人口比例將會越來越重...')
+        $('#mobile-intro-num').addClass(' color-red p-size-big')
+      } else {
+        $('#mobile-intro-word').text('年輕人的負擔將越變越大...')
+        $('#mobile-intro-num').removeClass(' color-red p-size-big')
+      }
+      return numberNoProductive
+    })
+
+    $('#mobile-ages-text').html(() => {
+      const diffNum = formatFloat(parseFloat(14 - sixtyFiveUpPercent), 1) 
+      if (sixtyFiveUpPercent > 20) {
+        return 'OMG 已經達到<span class="color-red">超高齡社會</span> 的標準了！老年人口佔人口的 20%以上了！'
+      } else if (sixtyFiveUpPercent > 14) {
+        return '已達到 <span class="color-red">高齡社會</span> 的標準！老年人口佔人口的 14%以上。'
+      } return `離高齡化社會只差 <span class="color-red">${diffNum} %</span>，要注意啊！`
+    })
+
+    if (DATA[areaName].isDensityOver) {
+      $('#mobile-intro-density').addClass('p-size-big color-red')
     } else {
-      $('#mobile-density').removeClass('p-size-big color-red')
+      $('#mobile-intro-density').removeClass('p-size-big color-red')
     }
   }
 
   $('.ui.dropdown')
     .dropdown({
       onChange: (value, text) => {
-        $('#map-modal').modal('show')
+        $('#map-modal')
+          .modal({
+            offset: $('#tainan-every-area').offset().top - 200,
+          })
+          .modal('show')
         selectAreaMap(text)
-          // console.log(value, text, $selectedItem)
       },
     })
-  $('.ui.pointing.menu .item').click(function () {
-    const showContainer = $(this).data('container')
-    $('.container.active').removeClass('active')
-    $(`.${showContainer}`).addClass('active')
 
-    $('.item.active').removeClass('active')
-    $(this).addClass('active')
-  })
+  window.setTimeout(() => {
+    if (isMobile) {
+      // 在 safari 中因為被綁到body上，所以要將 click事件綁到目標上可解決
+      $('body').on('click', '.ui.pointing.menu .item', function () {
+        const showContainer = $(this).data('container')
+        $('.column.active').removeClass('active')
+        $('.container.active').removeClass('active')
+        $(`.${showContainer}`).addClass('active')
+
+        $('.item.active').removeClass('active')
+        $(this).addClass('active')
+
+        if ($('.right.item').hasClass('active')) {
+          $('.table-container').removeClass('disable')
+        } else {
+          $('.table-container').addClass('disable')
+        }
+      })
+    } else {
+      $('.ui.pointing.menu .item').click(function () {
+        const showContainer = $(this).data('container')
+        $(`.${showContainer}`).toggleClass('active')
+        $(this).toggleClass('active')
+
+        if ($('.right.item').hasClass('active')) {
+          $('.table-container').removeClass('disable')
+        } else {
+          $('.table-container').addClass('disable')
+        }
+      })
+    }
+  }, 100)
 })(window)

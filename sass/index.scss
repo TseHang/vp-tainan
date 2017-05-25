@@ -71,7 +71,7 @@
   white-space: nowrap;
 
   > a {
-    margin-left: 1rem;
+    margin-left: 1.3rem;
   }
 
   &.fixed {
@@ -83,13 +83,47 @@
 
 .news-container {
   display: flex;
+  flex-direction: column;
   background-color: white;
   width: 100vw;
   text-align: center;
 }
 
 .news-right {
-  display: none;
+  display: block;
+  margin-top: 1em;
+  text-align: left;
+  padding-left: 1rem; 
+
+  .news-right-title {
+    position: relative;
+    padding: 5px .3em;
+    font-size: 1.3rem;
+    font-weight: 400;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 35%;
+      height: 2px;
+      left: 0px;
+      bottom: 0px;
+      background-color: map-get($color, orange);
+    }
+  }
+}
+
+.recommend-article {
+  margin: 1em 0px 2em;
+  cursor: pointer;
+  > h3 {
+    font-weight: 400;
+    margin-bottom: .3em;
+  }
+  > p {
+    font-size: .9rem;
+    color: map-get($color, gray--dark);
+  }
 }
 
 .news-left {
@@ -137,9 +171,7 @@
     cursor: pointer;
     width: 100%;
     height: 30vh;
-    background: url(../img/index/news-section-1.jpg) no-repeat center;
-    background-size: cover;
-
+    background: url(../img/index/news-section-1.png) no-repeat center top;
     box-shadow: inset 0px 0px 15px 2px;
   }
 }
@@ -147,6 +179,17 @@
 #img_population_num_report {
   background: url(../img/population/img_population_num_report.png) no-repeat center top;
   background-size: cover;
+}
+#img_population_xyz_report {
+  background: url(../img/population/img_population_xyz_report.png) no-repeat center top;
+  background-size: cover;
+}
+
+.ui.list.list-box {
+  > .item {
+    color: map-get($color, black--default);
+
+  }
 }
 
 @media (min-width: map-get($break-point, break-xs)) {
@@ -168,7 +211,10 @@
     justify-content: space-around;
     padding: .3em 0px;
   }
-  
+    
+  .news-container {
+    flex-direction: row; 
+  }
   .news-left {
     padding-left: 10vw;
   }
@@ -194,27 +240,17 @@
   }
 
   .news-right {
-    display: block;
     order: 2;
     width: 30%;
-    text-align: left;
     padding-right: 10vw;
 
-    > h3 {
-      position: relative;
+    .news-right-title {
       margin: 4rem 0px 1.3em;
-      padding: 5px .3em;
-      font-size: 1.3rem;
-      font-weight: 400;
-
       &:after {
-        content: '';
-        position: absolute;
         width: 65%;
-        height: 2px;
-        background-color: map-get($color, orange);
-        left: 0px;
-        bottom: 0px;
+      }
+      > i {
+        color: map-get($color, gray--light);
       }
     }
 
@@ -224,23 +260,13 @@
       top: 2em;
     }
   }
+  .collapse {
+    display: block;
+  }
 
   .news-left {
     order: 1;
     width: 70%;
-  }
-
-  .recommend-article {
-    margin: 1em 0px 2em;
-    cursor: pointer;
-    > h3 {
-      font-weight: 400;
-      margin-bottom: .3em;
-    }
-    > p {
-      font-size: .9rem;
-      color: map-get($color, gray--dark);
-    }
   }
   .ui.button {
     font-size: .9rem;

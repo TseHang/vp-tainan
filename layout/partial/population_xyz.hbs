@@ -84,26 +84,26 @@
       <p class="report-section-intro">仔細想想，人口的概況或許是最關乎於社會本質的事實。<br>因為有人的組成，才有了社會，進而發展成國家，組織政府與各種團體...</p>
       <div class="report-basic">
         <div class="content conclusion">
-          <p>台南市目前人口數量相比其他直轄市確實較為寬敞與舒適，但要擔心的是人口密集區域依地域皆屬舊台南市，而舒適區域幾乎為舊臺南縣<span class="link">（原因為 2010 年台南縣市合併升格直轄市為台南市）</span>。
-          <br>
-          <span class="p-size-big">這現象點出台南市正面臨著合併後帶來顯著的城鄉差距與貧富不均等諸多問題。</span>希望大家能一起意識，參與共同解決問題！</p>
+          <p>這次我們針對年齡、性別、變化狀況來分析，呈現出的是更真實與多元的面相。以這次結構分析來看其中<span class="p-size-big"> 最需要關注的還是老年化與少子化問題。</span>（而今年最新的報告結果<span class="p-font-bold link" onclick="window.open('http://www.commonhealth.com.tw/article/article.action?nid=74370')">今年2月已經公佈台灣最新的老化指標已經破百，也就是說老年人口數正式超越幼童人口數！）</span></p>
+          <p>另外可以看出台南市幾個最繁華、密集的區域已開始呈現人口外流的現象（ex:東區）。而性別比反而是越繁華的地區較低，經濟發展程度相對低點的地區較高，也可以從這看出上一篇講出的城鄉差距現象，需要我們共同面對解決。
+          </p>
         </div>
 
         <p>下面是針對台南市各區所做的人口各區分析，從線索中可以找到幾個可怕的現象，你發現了嗎？(點擊看答案）</p>
         <ul class="number-type">
-          <li><a class="collapse-toggle" href="#question-1" data-id="question-1">尋找東區</a><p id = "question-1" class="color-green collapse">東區屬於台南市人口密度第一高的地方，也可以說是台南最為繁華的地帶，大約 0.6%的土地面積中卻佔了10％ 的人口數，人口密度飆破 10000，實在是有點可怕。</p></li>
-          <li><a class="collapse-toggle" href="#question-2" data-id="question-2">尋找南化區</a><p id = "question-2"  class="color-green collapse">南化區為台南市人口密度最低的地方。</p></li>
-          <li><a class="collapse-toggle" href="#question-3" data-id="question-3">觀察地圖中有顏色所代表的意義</a><p id = "question-3" class="color-green collapse">區塊顏色意義為人口密度超過台南市平均的區域，象徵發展程度較高，也較為擁擠的市區，可以看出確實集中在舊台南市居多，城鄉差距大。</p></li>
+          <li><a class="collapse-toggle" href="#question-1" data-id="question-1">觀察每個地區的性別比例</a><p id = "question-1" class="color-green collapse">你會發現顏色越深（人口密度高、經濟發展程度較高）的地方女生「相對」來說較多，而男生相對來說較少，為什麼呢？</p></li>
+          <li><a class="collapse-toggle" href="#question-2" data-id="question-2">尋找左鎮區</a><p id = "question-2"  class="color-green collapse">是全台南老年人口比例最高的地方，以老年人口指標的標準來說已經屬於一個小型的超高齡社會縮影。</p></li>
+          <li><a class="collapse-toggle" href="#question-3" data-id="question-3">觀察地圖中有顏色所代表的意義</a><p id = "question-3" class="color-green collapse">區塊顏色意義為人口密度超過台南市平均的區域，象徵發展程度較高，也較為擁擠的市區，可以看出比較沒有顏色區塊的男女比、扶養比將會非常有意思。</p></li>
         </ul>
 
         <p class="conclusion-text p-font-bold">身為這片土地的使用者兼參與者與破壞者，我們應該更了解自己所組成、所參與的這個社會，關懷周遭所發生大大小小的事件，為了我們的下一代。</p>
-        <a class="link" target="_blank" href=";javascript"><p>Next: 台南市人口診斷報告書 - XYZ三元素</p></a>
+        <a class="link" target="_blank" href="./population_num.html"><p>Last: 台南市人口診斷報告書 - 概況說明</p></a>
       </div>
     </section>
 
     <section class="report-section">
       <h2>各區診斷情況</h2>
-      <p id = "tainan-every-area" class="report-section-intro">選擇你的區域，點即點擊，你看出什麼了嗎？</p>
+      <p id = "tainan-every-area" class="report-section-intro">圖中的顏色區塊代表人口密度高於平均值的地區</p>
 
       <!--
         Desktop 
@@ -112,7 +112,7 @@
         <div class="area-desktop-map"></div>
         <div class="area-intro">
           <h2 class="intro-area">台南市</h2>
-          <p>人口密度&nbsp;<span id="intro-density">&nbsp;860.5</span></p>
+          <p>人口密度&nbsp;<span id="intro-density">&nbsp;860.5</span>人 / 平方公里</p>
           <p>每 100個女生對應到&nbsp;<span class="color-green p-size-big" id="deskMap-sex-ratio">100.01</span>&nbsp;個男生</p>
           <p>65 以上，國家的文化瑰寶約佔&nbsp;<span class="color-green" id="deskMap-sixtyFiveUp">13.8%</span>
           <br>15 - 64，社會的中流砥柱約佔&nbsp;<span class="color-green" id="deskMap-fifteen-sixtyFour">73.7%</span>
@@ -179,9 +179,16 @@
         </div>
         <div class="content">
           <div class="area-mobile-map"></div>
-          <p>約佔有台南市<span id="mobile-population-percent" class="color-green p-font-bold">1,886,033 人</span>的人口數<br>約擁有台南市<span id="mobile-land-percent" class="color-green p-font-bold">2,191.6 平方公里</span>的土地面積</p>
-          <p><span id="mobile-comment">就像是剛做好的鮪魚蛋土司，不油不膩，空間舒適度相對來說</span>&nbsp;<span id="mobile-word" class="color-green p-font-bold">相當不錯呢！</span>&nbsp;</p>
-          <p>人口密度約為<span id="mobile-density">860.5</span>人/平方公里</p>
+          <p>人口密度&nbsp;<span id="mobile-intro-density">&nbsp;860.5</span>人 / 平方公里</p>
+          <p>每 100個女生對應到&nbsp;<span class="color-green p-size-big" id="mobile-sex-ratio">100.01</span>&nbsp;個男生</p>
+          <p>65 以上，國家的文化瑰寶約佔&nbsp;<span class="color-green" id="mobile-sixtyFiveUp">13.8%</span>
+          <br>15 - 64，社會的中流砥柱約佔&nbsp;<span class="color-green" id="mobile-fifteen-sixtyFour">73.7%</span>
+          <br>14 以下，未來的青年棟樑約佔&nbsp;<span class="color-green" id="mobile-zero-fourteen">12.5%</span>
+          </p>
+
+          <p>每&nbsp;10&nbsp;位壯年需負擔&nbsp;<span id="mobile-intro-num">3.6</span>&nbsp;位沒有收入的夥伴們&nbsp;<span id="mobile-intro-word" class="color-green">年輕人的負擔將越變越大...</span>&nbsp;</p>
+
+          <p id="mobile-ages-text">離高齡化社會<span class="color-red">只差 0.23%，要注意！</span></p>
         </div>
         <div class="actions">
           <div class="ui positive right labeled icon button">
@@ -192,54 +199,230 @@
       </div>
     </section>
 
-    <section class="report-section">
+    <section id="table-list" class="report-section">
       <h2>資料詳細一覽表</h2>
       <p class="report-section-intro">看看這些資料，兩兩互相比較，有發現什麼有趣的事嗎？</p>
 
       <div class="ui secondary pointing menu">
-        <a class="right item" data-container="population">
-          人口總數
+        <a class="right item" data-container="sexRatio">
+          每100個女生對應到
         </a>
-        <a class="right item" data-container="land">
-          男生數量
+        <a class="right item" data-container="raiseRatio">
+          每10位壯年需負擔
         </a>
-        <a class="right item active" data-container="density">
-          人口密度
+      </div>
+      
+      <div class="ui secondary pointing menu">
+        <a class="right item" data-container="zeroFourteenPercent">
+          0 -14歲
+        </a>
+        <a class="right item" data-container="fifteenSixtyFourPercent">
+          15-64歲
+        </a>
+        <a class="right item" data-container="sixtyFiveUpPercent">
+          65歲以上
         </a>
       </div>
 
-      <div id="table-list" class="table-container">
-        <div class="container population">
-          <div class="table-cell" v-for="(sortedData, index) in descendPopulation">
-            <p v-if="index === 0" class="color-gray--dark">
-              ${sortedData.area}: ${sortedData.population} 人
-            </p>
-            <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.population}</span> 
-            </p>
+      <div class="ui secondary pointing menu">
+        <a class="right item" data-container="born">
+          出生
+        </a>
+        <a class="right item" data-container="death">
+          死亡
+        </a>
+        <a class="right item" data-container="immigration">
+          移入
+        </a>
+        <a class="right item" data-container="leaving">
+          移出
+        </a>
+      </div>
+
+      <div class="ui secondary pointing menu">
+        <a class="right item" data-container="natural">
+          自然增加
+        </a>
+        <a class="right item" data-container="society">
+          社會增加
+        </a>
+        <a class="right item" data-container="populationChange">
+          人口變化
+        </a>
+      </div>
+
+
+      <div class="table-container disable">
+
+        <div class="column sexRatio">
+          <h4>每100個女生對應到</h4>
+          <div class="container sexRatio">
+            <div class="table-cell" v-for="(sortedData, index) in descendSexratio">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.sexRatio} 位男生
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.sexRatio}</span> 
+              </p>
+            </div>
           </div>
         </div>
-        <div class="container land">
-          <div class="table-cell" v-for="(sortedData, index) in descendMan">
-            <p v-if="index === 0" class="color-gray--dark">
-              ${sortedData.area}: &nbsp;${sortedData.man} 男生數量
-            </p>
-            <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.man}</span>
-            </p>
+
+        <div class="column raiseRatio">
+          <h4>每10位壯年須負擔</h4>
+          <div class="container raiseRatio">
+            <div class="table-cell" v-for="(sortedData, index) in descendRaiseratio">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: &nbsp;${sortedData.raiseRatio  / 10} 位無生產能力人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.raiseRatio  / 10}</span>
+              </p>
+            </div>
           </div>
         </div>
-        <div class="container density active">
-          <div class="table-cell" v-for="(sortedData, index) in descendDensity">
-            <p v-if="index === 0" class="color-gray--dark">
-              ${sortedData.area}: &nbsp;${sortedData.density} 人 / 平方公里
-            </p>
-            <p v-else>
-              <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 14)? 'red size-s highlight ': (index === 14)? 'tainan' : ' '">${sortedData.area}: &nbsp;${sortedData.density}</span>
-            </p>
+        
+        <div class="column zeroFourteenPercent">
+          <h4>0-14歲(%)</h4>
+          <div class="container zeroFourteenPercent">
+            <div class="table-cell" v-for="(sortedData, index) in descendZeroFourteen">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.zero_fourteen_percent} %
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.zero_fourteen_percent}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column fifteenSixtyFourPercent">
+          <h4>15-64歲(%)</h4>
+          <div class="container fifteenSixtyFourPercent">
+            <div class="table-cell" v-for="(sortedData, index) in descendFifteenSixtyfour">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.fifteen_sixtyFour_percent} %
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.fifteen_sixtyFour_percent}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column sixtyFiveUpPercent">
+          <h4>65歲以上(%)</h4>
+          <div class="container sixtyFiveUpPercent">
+            <div class="table-cell" v-for="(sortedData, index) in descendSixtyFive">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.sixtyFiveUp_percent} %
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.sixtyFiveUp_percent}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column born">
+          <h4>出生人數(%)</h4>
+          <div class="container born">
+            <div class="table-cell" v-for="(sortedData, index) in descendBorn">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.born_num} 人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.born_num}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column death">
+          <h4>死亡人數</h4>
+          <div class="container death">
+            <div class="table-cell" v-for="(sortedData, index) in descendDeath">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.death_num} 人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.death_num}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column immigration">
+          <h4>移入人數</h4>
+          <div class="container immigration">
+            <div class="table-cell" v-for="(sortedData, index) in descendImmigration">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.immigration_num} 人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.immigration_num}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column leaving">
+          <h4>移出人數</h4>
+          <div class="container leaving">
+            <div class="table-cell" v-for="(sortedData, index) in descendDeath">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.leaving_num} 人
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.leaving_num}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column natural">
+          <h4>自然增加</h4>
+          <div class="container natural">
+            <div class="table-cell" v-for="(sortedData, index) in descendNatural">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.naturalIncrease_percent} (‰)
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.naturalIncrease_percent}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column society">
+          <h4>社會增加</h4>
+          <div class="container society">
+            <div class="table-cell" v-for="(sortedData, index) in descendSociety">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.society_percent} (‰)
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.society_percent}</span> 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column populationChange">
+          <h4>人口變化</h4>
+          <div class="container populationChange">
+            <div class="table-cell" v-for="(sortedData, index) in descendPopulationChange">
+              <p v-if="index === 0" class="color-gray--dark">
+                ${sortedData.area}: ${sortedData.population_change_percent} (‰)
+              </p>
+              <p v-else>
+                <span v-if="index < 10">&nbsp;</span>${index}.&nbsp;<span class="table-data " :class="(index < 4)? 'size-l highlight ': ' '">${sortedData.area}: &nbsp;${sortedData.population_change_percent}</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
+      <p class="table-hint p-size-s color-gray--dark">*點擊即出現詳細列表，若是沒找到可以向右滑動看看喔！</p>
     <section>
 
     <section class="report-section">
@@ -250,3 +433,5 @@
     </section>
   </div>
 </div>
+
+<div class="fb-share-button" data-href="{{chart_description.href}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.taiwanstat.com%2F&amp;src=sdkpreparse">Share</a></div>
