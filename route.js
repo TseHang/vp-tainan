@@ -71,7 +71,7 @@ var route = [
       paht: './',
       title: '台南災害潛勢地圖',
       chart_description: {
-        img: '//www.taiwanstat.com/vp-tainan/dist/img/population/img_population_xyz_report.png',
+        img: '//www.taiwanstat.com/vp-tainan/src/img/disaster/disaster_hero.jpg',
       },
     },
     partials: './partial.js',
