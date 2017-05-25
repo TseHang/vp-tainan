@@ -44,8 +44,8 @@
 }
 
 .area-map {
-  display: none;
   @extend %position_relative;
+  display: none;
 }
 
 .area-mobile-map {
@@ -57,7 +57,7 @@
   height: 60vh;
   overflow: hidden;
 
-  h4 {
+  &.disable {
     display: none;
   }
 
@@ -80,19 +80,21 @@
   }
 }
 
+.table-hint {
+  display: none;
+}
 // Semantic Ui reset
 .ui.selection.active.dropdown{
   border-color: map-get($color, green);
-  .menu {
-    border-color: map-get($color, green);
-    max-height: 10.01428571rem;
-  }
-
   &:hover {
     border-color: map-get($color, green);
     .menu {
       border-color: map-get($color, green);
     }
+  }
+  .menu {
+    border-color: map-get($color, green);
+    max-height: 10.01428571rem;
   }
 }
 
@@ -105,6 +107,9 @@
 
     &.active {
       border-color: map-get($color, green);
+      &:hover {
+        border-color: map-get($color, green);
+      }
     }
   }
 }
@@ -157,21 +162,22 @@
       &:hover {
         border-color: map-get($color, green);
       }
+      &.active {
+        &:hover {
+          border-color: map-get($color, green);
+        }
+      }
     }
   }
 
   .table-container {
-    display: inline-block;
     overflow: scroll;
     white-space: nowrap;
     height: 70vh;
-    h4 {
-      display: block;
-    }
-
     > .column {
       display: none;
       text-align: center;
+      height: 70vh;
 
       &.active {
         display: inline-block;
@@ -182,12 +188,15 @@
       width: auto;
       margin: 0px .2em;
       padding: 1em 1.2em;
-      max-height: 70vh;
 
       &.active {
         display: block;
       }
     }
+  }
+
+  .table-hint {
+    display: block;
   }
 }
 
