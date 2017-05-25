@@ -32,6 +32,7 @@
   map.scrollWheelZoom.disable();
   L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
     maxZoom: 18,
+    minZoom: 10,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
 
@@ -108,23 +109,6 @@
       }
     }).addTo(map);
   });
-  var info = L.control();
-  info.onAdd = function () {
-    this._div = L.DomUtil.create('table', 'ui table');
-    this.update();
-    return this._div;
-  };
-
-  info.update = function (props) {
-    if (props) {
-      if (isLoadSensitiveData) {
-        this._div.innerHTML = '<tbody>\n        <thead><tr><th colspan="2">' + props.name + '</th></tr></thead>\n        <tr><td>\u5730\u8CEA\u654F\u611F\u5340</td><td>' + props.s + '</td></tr>\n        <tr><td>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2</td><td>' + props.l + '</td></tr>\n        <tr><td>\u6DF9\u6C34\u6F5B\u52E2</td><td>' + props.w + '</td></tr>\n        </tbody>';
-      } else {
-        this._div.innerHTML = '<tbody>\n        <thead><tr><th colspan="2">' + props.name + '</th></tr></thead>\n        <tr><td>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2</td><td>' + props.l + '</td></tr>\n        <tr><td>\u6DF9\u6C34\u6F5B\u52E2</td><td>' + props.w + '</td></tr>\n        </tbody>';
-      }
-    }
-  };
-  info.addTo(map);
 
   /* api key shall be protext */
   L.Control.geocoder({
@@ -192,6 +176,38 @@
     }
   }).addTo(map);
 
+  var focusButton = L.control().setPosition('topleft');
+
+  focusButton.onAdd = function () {
+    var container = L.DomUtil.create('button', 'ui compact icon button');
+    var icon = L.DomUtil.create('i', 'map outline icon', container);
+    $(icon).on('click', function () {
+      map.setView([23.1, 120.3], 11);
+    });
+    $(icon).attr('title', '縮放至整個台南市');
+    return container;
+  };
+
+  focusButton.addTo(map);
+
+  var info = L.control();
+  info.onAdd = function () {
+    this._div = L.DomUtil.create('table', 'ui table');
+    this.update();
+    return this._div;
+  };
+
+  info.update = function (props) {
+    if (props) {
+      if (isLoadSensitiveData) {
+        this._div.innerHTML = '<tbody>\n        <thead><tr><th colspan="2">' + props.name + '</th></tr></thead>\n        <tr><td>\u5730\u8CEA\u654F\u611F\u5340</td><td>' + props.s + '</td></tr>\n        <tr><td>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2</td><td>' + props.l + '</td></tr>\n        <tr><td>\u6DF9\u6C34\u6F5B\u52E2</td><td>' + props.w + '</td></tr>\n        </tbody>';
+      } else {
+        this._div.innerHTML = '<tbody>\n        <thead><tr><th colspan="2">' + props.name + '</th></tr></thead>\n        <tr><td>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2</td><td>' + props.l + '</td></tr>\n        <tr><td>\u6DF9\u6C34\u6F5B\u52E2</td><td>' + props.w + '</td></tr>\n        </tbody>';
+      }
+    }
+  };
+  info.addTo(map);
+
   $('#s-loadin').on('click', function () {
     if (isLoadSensitiveData) {
       return;
@@ -201,6 +217,9 @@
       sensitiveArea = json;
       sLayer = L.geoJSON(sensitiveArea, { style: sStyle }).addTo(map);
       $('#s-loadin').removeClass('loading');
+      $('#s-loadin').removeClass('basic');
+      $('#s-loadin').addClass('disabled');
+      $('#s-loadin').text('已載入地質敏感資料');
 
       mapInfo = '<span><span class="info-block" style="background-color: ' + sStyle.color + ' "></span><strong>\u5730\u8CEA\u654F\u611F\u5340</strong></span>\n      <span><span class="info-block bg-liquefaction"></span><strong>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2\u5340</strong></span>\n      <span><span class="info-block bg-water"></span><strong>\u6DF9\u6C34\u6F5B\u52E2\u5340</strong></span>';
 
