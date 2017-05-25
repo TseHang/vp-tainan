@@ -65,6 +65,10 @@ p {
   z-index: 999;
 }
 
+em {
+  font-weight: 900;
+}
+
 @media (max-width: map-get($break-point, break-xs)) {
   .disaster-container .ui.table{
     opacity: 0.8;
