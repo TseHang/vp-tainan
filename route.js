@@ -80,6 +80,8 @@ var route = [
       title: '台南災害潛勢地圖',
       chart_description: {
         img: '//www.taiwanstat.com/vp-tainan/src/img/disaster/disaster_hero.jpg',
+        description: '每當遇上地震、颱風、暴雨，你會不會擔心自己家園的安全呢？台灣位處於自然災害頻繁的環境，儘管每每做好了準備，卻仍然有災情發生，這是台灣人民永遠的隱憂。這次我們將以台南市政府公布的開放資料，製作台南的災害潛勢地圖，讓您知道家園是否有潛在的危機，同時，有什麼事是我們可以做的，去避免下一次的遺憾發生！',
+        href: 'https://www.taiwanstat.com/vp-tainan/disaster_report.html',
       },
     },
     partials: './partial.js',
