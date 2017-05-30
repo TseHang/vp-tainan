@@ -32,13 +32,13 @@ $color-default--bg: map-get($color, white);
  *  Font
  */
 $font-size--base: 1em;
-$font-ming: 'cwTeXMing', serif;
-$font-default: "Roboto Condensed",
-"Georgia",
-"Xin Gothic",
-"Hiragino Sans GB",
-"Droid Sans Fallback",
-"Microsoft YaHei",
+$font-ming: 'cwTeXMing', 'Roboto Condensed', serif;
+$font-default: 'Roboto Condensed',
+'Georgia',
+'Xin Gothic',
+'Hiragino Sans GB',
+'Droid Sans Fallback',
+'Microsoft YaHei',
 sans-serif;
 
 $letter-spacing:(

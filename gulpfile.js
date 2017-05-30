@@ -50,7 +50,6 @@ gulp.task('server', function () {
     root: './',
     livereload: true,
     port: 8000,
-    fallback: 'index.html'
     /*
     TODO: Use middleware to transfer 'index.html' to 'index'
 
@@ -129,7 +128,7 @@ gulp.task('minify-js', function(){
 	When your project is completed , you can compress images
 */
 gulp.task('image', function () {
-  gulp.src('dist/img/**/**')
+  gulp.src('src/img/**/**')
   	.pipe(plumber())
    	.pipe(imagemin())
     .pipe(gulp.dest('dist/img/'));

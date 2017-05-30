@@ -1,0 +1,34 @@
+@import 'default/default';
+@import 'partials/header';
+@import 'partials/footer';
+@import 'layout/article';
+
+.card {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+
+  .head-img {
+    background: url(../img/index/logo.svg) no-repeat center;
+    height: 10vh;
+  }
+
+  .content {
+    align-self: center;
+    > p {
+      margin-top: 1em;
+    }
+  }
+}
+
+@media(min-width: map-get($break-point, break-xs)) {
+  .card {
+    flex-direction: row;
+    height: 25vh;
+
+    .head-img {
+      width: 40%;
+      height: auto;
+    }
+  }
+}

@@ -152,11 +152,11 @@ const $ = window.$;
         const areaName = d.properties.TOWNNAME
         const density = DATA[areaName].density
 
-        d3.select(this)
-          .style({
-            'stroke': '#333',
-            'stroke-width': '6px',
-          })
+        d3.select(this).style('fill-opacity', .4)
+          // .style({
+          //   'stroke': '#333',
+          //   'stroke-width': '6px',
+          // })
         $('.intro-area').html(areaName)
         $('#intro-population-percent').html(`${DATA[areaName].populationPercent}%`)
         $('#intro-land-percent').html(`${DATA[areaName].landPercent}%`)
@@ -173,10 +173,7 @@ const $ = window.$;
       })
       .on('mouseleave', function (d) {
         d3.select(this)
-          .style({
-            'stroke': 'white',
-            'stroke-width': '1.5px',
-          })
+          .style('fill-opacity', 1)
       })
   })
 
@@ -221,11 +218,16 @@ const $ = window.$;
   $('.ui.dropdown')
     .dropdown({
       onChange: (value, text) => {
-        $('#map-modal').modal('show')
+        $('#map-modal')
+          .modal({
+            offset: $('#every-area').offset().top - 200,
+          })
+          .modal('show')
         selectAreaMap(text)
         // console.log(value, text, $selectedItem)
       },
     })
+
   $('.ui.pointing.menu .item').click(function () {
     const showContainer = $(this).data('container')
     $('.container.active').removeClass('active')

@@ -1,0 +1,222 @@
+@import 'default/default';
+@import 'partials/header';
+@import 'partials/footer';
+@import 'layout/layout_report_population';
+
+.sexRatioSvg{
+  text {
+    fill: white;
+    text-shadow: 2px 2px 1px rgba(51, 51, 51, 0.8);
+  }
+}
+
+.pramidRow {
+  rect {
+    fill: map-get($color, green);
+  }
+  
+  .label {
+    font-size: .8em;
+    text-overflow: ellipsis;
+  }
+
+  .label, path {
+    opacity: 0;
+  }
+}
+
+.pramidIntroText{
+  font-weight: bold;
+}
+
+.populationChangeSvg {
+  .population-name-text {
+    fill: white;
+  }
+
+  .num-text {
+    fill: map-get($color, black--default);
+  }
+}
+
+.area-list {
+  margin-bottom: 5em;
+}
+
+.area-map {
+  @extend %position_relative;
+  display: none;
+}
+
+.area-mobile-map {
+  width: 100%;
+}
+
+.table-container {
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+
+  &.disable {
+    display: none;
+  }
+
+  .column {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+
+  .container { 
+    display: block;
+    width: 100%;
+    margin: 0px auto;
+    max-height: 60vh;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+.table-hint {
+  display: none;
+}
+// Semantic Ui reset
+.ui.selection.active.dropdown{
+  border-color: map-get($color, green);
+  &:hover {
+    border-color: map-get($color, green);
+    .menu {
+      border-color: map-get($color, green);
+    }
+  }
+  .menu {
+    border-color: map-get($color, green);
+    max-height: 10.01428571rem;
+  }
+}
+
+.ui.secondary.pointing.menu{
+  border: none;
+  .item {
+    margin: auto;
+    padding: .5em .2em;
+    border-color: map-get($color, gray--light);
+
+    &.active {
+      border-color: map-get($color, green);
+      &:hover {
+        border-color: map-get($color, green);
+      }
+    }
+  }
+}
+
+.ui.modal .actions {
+  > .button {
+    color: white;
+    background-color: map-get($color, green);
+  }
+}
+
+.ui.basic.button, .ui.basic.buttons .button {
+  margin-bottom: 1em;
+  &:hover {
+    background-color: rgba(215, 218, 225, .2) !important;
+  }
+}
+
+@media (min-width: map-get($break-point, break-xs)) {
+  .sexRatioSvg {
+    text {
+      text-shadow: 4px 4px 1px rgba(51, 51, 51, 0.8);
+    }
+  }
+  .area-map {
+    display: flex;
+    width: 100%;
+  }
+
+  .area-list {
+    display: none;
+  }
+
+  .area-desktop-map {
+    width: 60%;
+  }
+
+  .area-intro {
+    width: 40%;
+    height: 70vh;
+    max-height: 600px;
+    padding: 1em .5em;
+
+    > .intro-area {
+      margin-top: 1em;
+    } 
+  }
+
+  .ui.secondary.pointing.menu{
+    .item {
+      &:nth-child(2) {
+        position: relative;
+        left: -2%;
+      }
+      &:hover {
+        border-color: map-get($color, green);
+      }
+      &.active {
+        &:hover {
+          border-color: map-get($color, green);
+        }
+      }
+    }
+  }
+
+  .table-container {
+    overflow: scroll;
+    white-space: nowrap;
+    height: 70vh;
+    > .column {
+      display: none;
+      text-align: center;
+      height: 70vh;
+
+      &.active {
+        display: inline-block;
+      }
+    }
+
+    .container {
+      width: auto;
+      margin: 0px .2em;
+      padding: 1em 1.2em;
+
+      &.active {
+        display: block;
+      }
+    }
+  }
+
+  .table-hint {
+    display: block;
+  }
+}
+
+@media (min-width: map-get($break-point, break-xs)) and (max-width: map-get($break-point, break-md)) {
+  .area-desktop-map {
+    width: 100%;
+  }
+  .area-intro {
+    > .intro-area {
+      margin-top: 0em;
+    }
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: rgba(152, 151, 151, 0.15);
+    border-radius: 20px;
+  }
+}

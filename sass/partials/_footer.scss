@@ -1,0 +1,29 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: map-get($color, black--default);
+  width: 80%;
+  margin: 5% auto auto;
+  padding: 1em;
+  border-top: solid 1px map-get($color, gray--light);
+  border-radius: 2px;
+  text-align:center;
+  a {
+    padding: 0px 1em;
+    font-weight: 300;
+    text-decoration: none;
+    color: map-get($color, gray--light);
+    &:hover {
+      color: map-get($color, black--default);
+    }
+  }
+
+  @media (min-width: map-get($break-point, break-xs)) {
+    width: 50%;
+  }
+}
+
+.fb-share-button {
+  margin-top: 1em;
+}
