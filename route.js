@@ -85,6 +85,17 @@ var route = [
     partials: './partial.js',
     layout: './layout/disaster_report.hbs',
     filename: './disaster_report.html',
+  }, {
+    data: {
+      paht: './',
+      title: '台南道路潛藏危機地圖',
+      chart_description: {
+        img: '//www.taiwanstat.com/vp-tainan/dist/img/population/img_population_xyz_report.png',
+      },
+    },
+    partials: './partial.js',
+    layout: './layout/traffic_report.hbs',
+    filename: './traffic_report.html',
   },
 ]
 module.exports = route

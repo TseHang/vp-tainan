@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html style="height:100%;width:100%;margin:0px;">
+
+<head>
+  {{> head}}
+  <title> {{title}} || 用數據看台南</title>
+  <link rel="stylesheet" href="./dist/css/traffic.css">
+  <link rel="stylesheet" href="./src/leaflet-control-geocoder/Control.Geocoder.css">
+</head>
+
+<body>
+  {{> header}}
+  <section class="section main">
+    {{> traffic}}
+  </section>
+  {{> footerGA}}
+</body>
+{{> inner_script}}
+<script type="text/javascript" src="./src/leaflet-control-geocoder/Control.Geocoder.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@mapbox/leaflet-pip@latest/leaflet-pip.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
+<script type="text/javascript" src="./dist/js/traffic.js"></script>
+</html>

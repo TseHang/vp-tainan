@@ -1,0 +1,15 @@
+@import 'default/default';
+@import 'partials/header';
+@import 'partials/footer';
+
+.traffic-container {
+	section {
+    	margin-bottom: 100px;
+  	}
+  	
+	#accidentMap{
+		width: 100%;
+    	height: 400px;
+	}
+
+}
