@@ -26,11 +26,8 @@ hr {
 li {
     color: #222;
 }
-a {
-    color: #0083e8;
-}
 
-b, strong {
+a, b, strong {
     color: #0083e8;
 /*    font-weight: bolder;*/
     font-weight: 700;
@@ -100,7 +97,7 @@ border-style: solid;
 border-width: 1px;
 background-color: white;
 border-radius: 5px;
-z-index: 999;
+
 }
 
 .red {

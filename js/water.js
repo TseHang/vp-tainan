@@ -804,11 +804,15 @@ function rain() {
                 'left': (d3.event.pageX) + 'px',
                 'top': (d3.event.pageY) + 'px',
                 'opacity': 1.0,
+                'z-index': 999,
               })
               lastClicked = d3.select(this).attr('id')
             } else {
               lastClicked = 0
-              info.style('opacity', 0)
+              info.style({
+                'opacity': 0,
+                'z-index': -1,
+              })
             }
           })
     })
