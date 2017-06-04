@@ -43,42 +43,67 @@ svg {
 
 
 
-#reservoirMap {
-  width: 65%;
-  height: 400px;
+#groundWater {
+  width: 50%;
+  height: 500px;
+  transform:translateX(50%);
 }
 
-#siteMap {
-  width: 60%;
+#siteMap, {
+  width: 50%;
   height: 500px;
+  transform:translateX(50%);
 }
 
 
 #RiverMap {
   width: 100%;
-  height: 700px;
+  height: 500px;
 }
-.info {
+
+.riverInfo, .siteInfo {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
     background: rgba(255,255,255,0.8);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
-}
-.info h4 {
-    margin: 0 0 5px;
-    color: #777;
+    h4 {
+        margin: 0 0 5px;
+        color: #777;
+    }
 }
 
 .legend {
     line-height: 18px;
     color: #555;
+    i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+    }
 }
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
+
+
+
+
+.info{
+position: absolute;
+width: 120;
+height: auto;
+font-family: simsun;
+font-size: 14px;
+text-align: center;
+border-style: solid;
+border-width: 1px;
+background-color: white;
+border-radius: 5px;
+z-index: 999;
+}
+
+.red {
+  color: red;
+  font-weight: 700;
 }
