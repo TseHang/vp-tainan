@@ -1,146 +1,3 @@
-
-
-function reservoir() {
-  let reservoirCsv = null
-  let reservoirMap
-  let reservoirMapClick = false
-  let reservoirInfo = L.control({ position: 'topleft' })
-  let reservoirlegend = L.control({ position: 'bottomleft' })
-
-  $.ajax({
-    type: 'GET',
-    url: './src/data/水庫水質.csv',
-    dataType: 'text',
-    success: function (data) { reservoirCsv = $.csv.toObjects(data) }
-  });
-
-  $(document).ready(function () {
-    initReservoirMap()
-    reservoirInfo.onAdd = function (map) {
-      this._div = L.DomUtil.create('div', 'info')
-      this.update()
-      return this._div
-    }
-
-    reservoirInfo.update = function (props) {
-      this._div.innerHTML = '<h4>水庫名稱</h4>' + (props ? '<b>' + '\t' + props.name + '\t' + '</b><br/>' : '請選擇')
-    }
-    reservoirInfo.addTo(reservoirMap)
-
-    reservoirlegend.onAdd = function (map) {
-
-      let div = L.DomUtil.create('div', 'info legend')
-      const grades = [0, 40, 50]
-
-      // loop through our density intervals and generate a label with a colored square for each interval
-      for (let i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-          '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '')
-      }
-
-      return div
-    }
-
-    reservoirlegend.addTo(reservoirMap)
-    // initSiteMap();
-  })
-
-  function getColor(d) {
-    return d > 50 ? '#2BF888' :
-      d > 40 ? '#2BAD88' :
-      (d !== d) === false ? '#288' :
-      '#333'
-  }
-
-  function initReservoirMap() {
-    reservoirMap = new L.Map('reservoirMap', { center: new L.LatLng(23.25, 120.3), zoom: 10.2, zoomControl: false })
-    reservoirMap.touchZoom.disable()
-    reservoirMap.doubleClickZoom.disable()
-    reservoirMap.scrollWheelZoom.disable()
-    reservoirMap.boxZoom.disable()
-    reservoirMap.keyboard.disable()
-    reservoirMap.dragging.disable()
-    const url = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicmFwaXJlbnQiLCJhIjoiY2oybXBsc2ZvMDE2YjMycGg4NzNkYXI0OSJ9.xC8TBirQ2os2eQ65hwTCMA'
-    const attrib = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    let osm = new L.TileLayer(url, { minZoom: 1, maxZoom: 20, attribution: attrib })
-    osm.addTo(reservoirMap)
-    // reservoirMap.addLayer(layer);
-    $.getJSON('./src/data/jishuei.geojson', function (data) {
-      let geojson = L.geoJSON(data, {
-        style: ReservoirStyle,
-        onEachFeature: function(feature, layer) {
-          layer.on('mouseover', function(e) {
-            highlightTitle(e)
-          })
-          layer.on('mouseout', function(e) {
-            geojson.resetStyle(e.target)
-          })
-          layer.on('click', function(e) {
-            changeIntro(e, reservoirMapClick)
-            reservoirMapClick = !reservoirMapClick
-          })
-        },
-      }).addTo(reservoirMap)
-    })
-
-    function ReservoirStyle(feature) {
-      return {
-        fillColor: getReservoirColor(feature.properties.name),
-        weight: 1,
-        opacity: 1,
-        color: '#333',
-        dashArray: '3',
-        fillOpacity: 0.7
-      }
-    }
-  }
-
-
-  function getReservoirColor(name) {
-    let sum = 0.0
-    let count = 0
-    for (let foo in reservoirCsv) {
-      if (reservoirCsv[foo].Site == name) {
-        sum += parseFloat(reservoirCsv[foo].CTSI)
-        count++
-      }
-    }
-    return getColor(sum / count);
-  }
-
-  function changeIntro(e, clicked) {
-    var layer = e.target
-    if (clicked === false) {
-      var task = new Promise(function() {
-        reservoirMap.fitBounds(e.target.getBounds())
-      })
-
-      // task.then(function() {
-      // $('#reservoirMap').css({'width': '65%'});
-      // })0
-    } else {
-      // $('#reservoirMap').css({'width': '100%'});
-      reservoirMap.setView(new L.LatLng(23.25, 120.3), 10.2)
-    }
-  }
-
-  function highlightTitle(e) {
-    var layer = e.target
-    layer.setStyle({
-      fillColor: '#2B59FF',
-      weight: 2,
-      color: '#000',
-      fillOpacity: 0.7,
-      zoom: 20,
-    })
-    reservoirInfo.update(layer.feature.properties)
-  }
-
-
-
-}
-
 function site() {
 
   let geoData
@@ -148,6 +5,7 @@ function site() {
   let siteMap
   const siteInfo = L.control()
   const focusButton = L.control().setPosition('topleft')
+  const resetButton = L.control().setPosition('topleft')
   let markerArray = []
 
   $.getJSON('./src/data/tainan-town.geojson', function(data) {
@@ -168,7 +26,7 @@ function site() {
       mouseover: highlightFeature,
       mouseout: resetHighlight,
       // click: zoomToFeature
-    });
+    })
   }
 
   function highlightFeature(e) {
@@ -183,7 +41,7 @@ function site() {
           for (var foobar2 in geoJson._layers) {
             if (geoJson._layers[foobar2].feature.properties.TOWNNAME === town.options.town[foobar]) {
               geoJson._layers[foobar2].setStyle({
-                weight: 5,
+                weight: 2,
                 color: '#758de5',
                 fillColor: '#758de5',
                 fillOpacity: 0.7,
@@ -196,7 +54,7 @@ function site() {
 
 
     layer.setStyle({
-      weight: 5,
+      weight: 2,
       color: '#666',
       fillOpacity: 0.7,
     })
@@ -218,13 +76,13 @@ function site() {
   }
 
   function initSiteMap() {
-    siteMap = new L.Map('siteMap', { center: new L.LatLng(23.13, 120.3), zoom: 10.2, zoomControl: false })
+    siteMap = new L.Map('siteMap', { center: new L.LatLng(23.13, 120.3), zoom: 10.2})//, zoomControl: false })
     siteMap.touchZoom.disable()
     siteMap.doubleClickZoom.disable()
     siteMap.scrollWheelZoom.disable()
     siteMap.boxZoom.disable()
     siteMap.keyboard.disable()
-    siteMap.dragging.disable()
+    // siteMap.dragging.disable()
 
     const url = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicmFwaXJlbnQiLCJhIjoiY2oybXBsc2ZvMDE2YjMycGg4NzNkYXI0OSJ9.xC8TBirQ2os2eQ65hwTCMA'
     const attrib = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -232,6 +90,7 @@ function site() {
     osm.addTo(siteMap)
     siteInfo.addTo(siteMap)
     focusButton.addTo(siteMap)
+    resetButton.addTo(siteMap)
     $.ajax({
       type: 'GET',
       url: './src/data/淨水廠.csv',
@@ -285,7 +144,7 @@ function site() {
                 if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
                   let layer = geoJson._layers[bar]
                   layer.setStyle({
-                    weight: 5,
+                    weight: 2,
                     color: '#758de5',
                     fillColor: '#758de5',
                     fillOpacity: 0.7,
@@ -363,6 +222,20 @@ function site() {
     $(icon).attr('title', '回到台南')
     return container
   }
+  resetButton.onAdd = function() {
+    const container = L.DomUtil.create('button', 'ui compact icon button')
+    const icon = L.DomUtil.create('i', 'compass icon', container)
+    $(icon).on('click', function() {
+      if (navigator.geolocation) {
+        return navigator.geolocation.getCurrentPosition(function (position){
+          siteMap.setView(new L.LatLng(position.coords.latitude,
+                              position.coords.longitude), 12)
+        })
+      }
+    })
+    $(icon).attr('title', '取得您的位置')
+    return container
+  }
 }
 
 function river() {
@@ -376,7 +249,8 @@ function river() {
   let geoData = null
   const RiverInfo = L.control()
   const resetLocate = L.control().setPosition('topleft')
-
+  const setLocate = L.control().setPosition('topleft')
+  const legend = L.control({ position: 'bottomleft' })
 
   const geoJSONStyle = {
     "color": "#ff7800",
@@ -393,10 +267,8 @@ function river() {
         dashArray: '3',
         fillOpacity: 0.4,
       },
-      // onEachFeature: onEachFeature
     })
     data.addTo(RiverMap)
-    // siteInfo.update()
   })
 
   $.getJSON('./src/data/river.geojson', function (data) {
@@ -499,6 +371,7 @@ function river() {
     RiverInfo.addTo(RiverMap)
     legend.addTo(RiverMap)
     resetLocate.addTo(RiverMap)
+    setLocate.addTo(RiverMap)
   }
 
   function style(feature) {
@@ -575,9 +448,6 @@ function river() {
         props.name + '</h4>流域內無測站資料' : '</h4>請點選畫面區塊')
     }
   }
-
-  var legend = L.control({ position: 'bottomleft' })
-
   legend.onAdd = function (map) {
 
     const div = L.DomUtil.create('div', 'riverInfo legend')
@@ -611,6 +481,20 @@ function river() {
       RiverMap.setView([23.13, 120.3], 10.2)
     })
     $(icon).attr('title', '縮放至整個台南市')
+    return container
+  }
+  setLocate.onAdd = function() {
+    const container = L.DomUtil.create('button', 'ui compact icon button')
+    const icon = L.DomUtil.create('i', 'compass icon', container)
+    $(icon).on('click', function() {
+      if (navigator.geolocation) {
+        return navigator.geolocation.getCurrentPosition(function (position){
+          RiverMap.setView(new L.LatLng(position.coords.latitude,
+                              position.coords.longitude), 12)
+        })
+      }
+    })
+    $(icon).attr('title', '取得您的位置')
     return container
   }
 }
@@ -838,31 +722,32 @@ function groundwater() {
     '總有機碳 Total Organic Carbon (mg/L)': 10,
     // '總酚': 0.14,
   }
-  $(document).ready(function() {
-    initMap()
-  })
   const focusButton = L.control().setPosition('topleft')
-
+  const setButton = L.control().setPosition('topleft')
   let waterMap
   let geoJson // basin layer
-
   let geoData = null
-  // const RiverInfo = L.control()
-  // const resetLocate = L.control().setPosition('topleft')
-  $.getJSON('./src/data/tainanCounty2010merge.json', function(data) {
-    geoData = data
-    geoJson = L.geoJson(geoData, {
-      style:  {
-        fillColor: '#333',
-        weight: 2,
-        opacity: 1,
-        color: '#eee',
-        dashArray: '3',
-        fillOpacity: 0.2,
-      },
+
+  $(document).ready(function() {
+    $.getJSON('./src/data/tainanCounty2010merge.json', function(data) {
+      geoData = data
+      geoJson = L.geoJson(geoData, {
+        style:  {
+          fillColor: '#333',
+          weight: 2,
+          opacity: 1,
+          color: '#eee',
+          dashArray: '3',
+          fillOpacity: 0.2,
+        },
+      })
+
+      geoJson.addTo(waterMap)
+      focusButton.addTo(waterMap)
+      setButton.addTo(waterMap)
     })
-    geoJson.addTo(waterMap)
   })
+  initMap()
   function siteColor(d) {
     for(var i in constrain) {
       if(d[i] > constrain[i]) {
@@ -896,8 +781,6 @@ function groundwater() {
     const osm = new L.TileLayer(url, { minZoom: 1, maxZoom: 16, attribution: attrib })
 
     osm.addTo(waterMap)
-    focusButton.addTo(waterMap)
-
     d3.csv('./src/data/地下水水質監測與指標資料.csv', function(error, data){
       if(error) {
         console.log(error)
@@ -931,6 +814,7 @@ function groundwater() {
                     data[foo]['SiteAddress'] +
                     '</strong><br>最後採樣日期:<strong>' +
                     data[foo]['採樣日期'] + '</strong>' +
+                    '<hr>超標項目' +
                     (text === '' ? '' : '<span>') +
                     text)
       }
@@ -943,6 +827,20 @@ function groundwater() {
       waterMap.setView([23.13, 120.3], 10.2)
     })
     $(icon).attr('title', '回到台南')
+    return container
+  }
+  setButton.onAdd = function() {
+    const container = L.DomUtil.create('button', 'ui compact icon button')
+    const icon = L.DomUtil.create('i', 'compass icon', container)
+    $(icon).on('click', function() {
+      if (navigator.geolocation) {
+        return navigator.geolocation.getCurrentPosition(function (position){
+          waterMap.setView(new L.LatLng(position.coords.latitude,
+                              position.coords.longitude), 12)
+        })
+      }
+    })
+    $(icon).attr('title', '取得您的位置')
     return container
   }
 }
