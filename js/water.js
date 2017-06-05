@@ -5,8 +5,10 @@ const height = 450,
 let axisPadding = 80
 let trigger = false
 let width = 800 + axisPadding
-function site() {
 
+function site() {
+  let siteClicked = false
+  let lastTown = null
   let geoData
   let geoJson
   let siteMap
@@ -30,46 +32,59 @@ function site() {
 
   function onEachFeature(feature, layer) {
     layer.on({
-      mouseover: highlightFeature,
-      mouseout: resetHighlight,
-      // click: zoomToFeature
+      mouseover: trigger !== true ? highlightFeature : function() {return 0},
+      mouseout: trigger !== true ? resetHighlight : function() {return 0},
+      click: trigger === true ? highlightFeature: function() {return 0},
     })
   }
 
   function highlightFeature(e) {
-    let layer = e.target
+    const layer = e.target
 
-    for(var foo in markerArray) {
-      for(var boo in markerArray[foo].options.town)
-      if(layer.feature.properties.TOWNNAME===markerArray[foo].options.town[boo]) {
-        const town = markerArray[foo]
-        town.setOpacity(1)
-        for (var foobar in town.options.town) {
-          for (var foobar2 in geoJson._layers) {
-            if (geoJson._layers[foobar2].feature.properties.TOWNNAME === town.options.town[foobar]) {
-              geoJson._layers[foobar2].setStyle({
-                weight: 2,
-                color: '#758de5',
-                fillColor: '#758de5',
-                fillOpacity: 0.7,
-              })
+    siteInfo.update(layer.feature.properties)
+    for (var foo in markerArray) {
+      for (var boo in markerArray[foo].options.town) {
+        if (layer.feature.properties.TOWNNAME===markerArray[foo].options.town[boo]) {
+          const town = markerArray[foo]
+          town.setOpacity(1)
+          console.log(town)
+          console.log(foo)
+          console.log(lastTown)
+          if (trigger === true &&
+              lastTown === foo &&
+              siteClicked === true) {
+            console.log('fcuk')
+            siteClicked = false
+            return resetHighlight(e)
+          }else {
+            console.log('ya')
+            lastTown = foo
+            siteClicked = true
+            for (var foobar in town.options.town) {
+              for (var foobar2 in geoJson._layers) {
+                if (geoJson._layers[foobar2].feature.properties.TOWNNAME === town.options.town[foobar]) {
+                  geoJson._layers[foobar2].setStyle({
+                    weight: 2,
+                    color: '#758de5',
+                    fillColor: '#758de5',
+                    fillOpacity: 0.7,
+                  })
+                }
+              }
             }
+            layer.setStyle({
+              weight: 2,
+              color: '#666',
+              fillOpacity: 0.7,
+            })
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+              layer.bringToFront()
+            }
+            return null
           }
         }
       }
     }
-
-
-    layer.setStyle({
-      weight: 2,
-      color: '#666',
-      fillOpacity: 0.7,
-    })
-
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      layer.bringToFront()
-    }
-    siteInfo.update(layer.feature.properties)
   }
 
   function resetHighlight(e) {
@@ -537,7 +552,7 @@ function rain() {
               .scale(yScale2)
               .tickSize(1)
               .orient('left')
-      if($(window).width() < 900) {
+      if($(window).width() < 786) {
         xAxis = d3.svg.axis()
             .scale(xScale)
             .tickFormat('')
@@ -588,14 +603,13 @@ function rain() {
         .attr({
           'transform': 'rotate(45)',
         })
-      if($(window).width() >= 900) {
-
-      }
       const line = d3.svg.line()
-                  .x(function(d, i) {
-                    return xScale(i)
+                  .x(function() {
+                    return xScale(1)
                   })
-                  .y(1)
+                  .y( function() {
+                    return yScale2(yMin)
+                  })
                   .interpolate('linear')
       const line2 = d3.svg.line()
                   .x( function(d, i) {
@@ -616,7 +630,7 @@ function rain() {
           'fill': 'none',
         })
         .transition()
-        .duration(1000)
+        .duration(1500)
         .attr('d', line2(data))
       const info = d3.select('body').append('div')
                   .attr('class', 'info')
@@ -627,11 +641,11 @@ function rain() {
                       .enter()
                       .append('circle')
                       .attr({
-                        'cx': function(d, i) {
-                          return xScale(i)
+                        'cx': function() {
+                          return xScale(1)
                         },
                         'cy': function(d) {
-                          return yScale2(d['酸雨pH值'])
+                          return yScale2(yMin)
                         },
                         'r': function(d) {
                           if(trigger === true) {
@@ -671,7 +685,17 @@ function rain() {
                           return d['測站']
                         },
                       })
-      if($(window).width() >= 900) {
+      point.transition()
+            .duration(1500)
+            .attr({
+              'cx': function(d, i) {
+                return xScale(i)
+              },
+              'cy': function(d) {
+                return yScale2(d['酸雨pH值'])
+              },
+            })
+      if($(window).width() >= 786) {
         point.on('mouseover', function() {
                   d3.select(this).attr({
                       'opacity': 0.9,
@@ -907,7 +931,7 @@ $(window).ready(function() {
   river()
   rain()
   groundwater()
-  if ($(window).width() < 900) {
+  if ($(window).width() < 786) {
     d3.selectAll('initChart').remove()
     $('#siteMap, #groundWater').css({
       'width': '100%',
@@ -920,7 +944,7 @@ $(window).ready(function() {
     rain()
   }
   $(window).resize(function() {
-    if ($(window).width() < 900 && trigger === false) {
+    if ($(window).width() < 786 && trigger === false) {
       d3.selectAll('initChart').remove()
       $('#siteMap, #groundWater').css({
         'width': '100%',
