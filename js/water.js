@@ -1,3 +1,10 @@
+let margin = {top: 10, right: 0, bottom: 140, left: 0}
+let height = 450,
+    padding = 30,
+    barMargin = 5,
+    axisPadding = 80
+    // legendPadding = 120
+let width = 800 + axisPadding
 function site() {
 
   let geoData
@@ -494,10 +501,6 @@ function river() {
 }
 
 function rain() {
-  const margin = {top: 10, right: 0, bottom: 140, left: 0};
-  const height = 450, padding = 30, barMargin = 5, axisPadding = 80 , legendPadding = 120;
-  const width = 800 + axisPadding + legendPadding;
-
   $(document).ready(function () {
     d3.select('#column').append('initChart')
           .append('svg')
@@ -524,12 +527,21 @@ function rain() {
       const xScale = d3.scale.linear()
                     .domain([0, data.length])
                     .range([padding + axisPadding,
-                      width - legendPadding - margin.left - margin.right - padding])
+                      width - margin.left - margin.right - padding])
       const yScale2 = d3.scale.linear()
                       .domain([yMin, yMax])
                       .range([height - margin.top - margin.bottom - padding, padding])
       const svg = d3.select('.initChart')
-      let xAxis = d3.svg.axis()
+      let xAxis
+
+      if($(window).width() < 900) {
+        xAxis = d3.svg.axis()
+            .scale(xScale)
+            .tickFormat('')
+            .tickSize(1)
+            .orient('bottom')
+      }else {
+        xAxis = d3.svg.axis()
                     .scale(xScale)
                     .tickFormat(function(d, i){
                       return dateArray[i]
@@ -537,6 +549,7 @@ function rain() {
                     .tickSize(1)
                     .ticks(data.length)
                     .orient('bottom')
+      }
       let yAxis = d3.svg.axis()
                     .scale(yScale2)
                     .tickSize(1)
@@ -564,7 +577,7 @@ function rain() {
         .attr({
           'transform': 'rotate(45)',
         })
-
+      if($(window).width() >= 900) {
       svg.append('text')
           .attr({
               'class': 'yLabel',
@@ -574,7 +587,8 @@ function rain() {
               'dy': '2em',
               'opacity': 0.5,
           })
-          .text('(pH值)');
+          .text('(pH值)')
+      }
       const line = d3.svg.line()
                   .x(1)
                   .y(1)
@@ -721,7 +735,7 @@ function groundwater() {
   let geoData = null
 
   $(document).ready(function() {
-    $.getJSON('./src/data/tainanCounty2010merge.json', function(data) {
+    $.getJSON('./src/data/tainan-town.geojson', function(data) {
       geoData = data
       geoJson = L.geoJson(geoData, {
         style:  {
@@ -849,5 +863,36 @@ $(window).ready(function() {
   river()
   rain()
   groundwater()
+  if($(window).width() < 900) {
+    d3.select('initChart').remove()
+    $('#siteMap, #groundWater').css({
+      'width': '100%',
+      'transform':'translateX(0)',
+    })
+    axisPadding = 40
+    width = ($(window).width() - 90) +  axisPadding// + legendPadding
+    rain()
+  }
+  $(window).resize(function() {
+    if($(window).width() < 900) {
+      d3.select('initChart').remove()
+      $('#siteMap, #groundWater').css({
+        'width': '100%',
+        'transform': 'translateX(0)',
+      })
+      axisPadding = 40
+      width = ($(window).width() - 90) +  axisPadding// + legendPadding
+      rain()
+    }else {
+      d3.select('initChart').remove()
+      $('#siteMap, #groundWater').css({
+        'width': '50%',
+        'transform': 'translateX(50%)',
+      })
+      axisPadding = 80
+      width = 800 +  axisPadding// + legendPadding
+      rain()
+    }
+  })
 })
 
