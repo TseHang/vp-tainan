@@ -799,6 +799,14 @@ function groundwater() {
           text+= '</span><br>' + i + '<span class=\"red\">'
           text+= groundAttr.disc[i]
         }
+        marker.on('popupopen', function() {
+            this.setOpacity(1)
+        })
+        marker.on('popupclose', function() {
+            this.setOpacity(0.7)
+            // siteMap.setView(new L.LatLng(23.13, 120.3), 10.2)
+            // this.setOpacity(0.5)
+        })
 
         marker.bindPopup('測站:<strong>' +
                     data[foo]['測站'] +
@@ -806,8 +814,7 @@ function groundwater() {
                     data[foo]['SiteAddress'] +
                     '</strong><br>最後採樣日期:<strong>' +
                     data[foo]['採樣日期'] + '</strong>' +
-                    '<hr>超標項目' +
-                    (text === '' ? '' : '<span>') +
+                    (text === '' ? '<hr>無超標項目' : '<hr>超標項目<span>') +
                     text)
       }
     })
