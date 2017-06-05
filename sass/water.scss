@@ -10,36 +10,6 @@ $container-color: #fff;
     text-align:center;
 }
 
-
-h1 {
-    margin:0 3em .5em 3em;
-    font-size:2em;
-    text-align:center;
-    color: #222;
-}
-
-hr {
-    width:100%;
-}
-
-
-li {
-    color: #222;
-}
-
-a, b, strong {
-    color: #0083e8;
-/*    font-weight: bolder;*/
-    font-weight: 700;
-}
-
-svg {
-    margin: auto;
-    display: block;
-}
-
-
-
 #groundWater {
   width: 50%;
   height: 500px;
@@ -105,7 +75,14 @@ svg {
   margin: 0.5em;
 }
 
-.red {
-  color: red;
-  font-weight: 700;
+.conclusion {
+  background-color: rgba(33, 150, 243, .15);
+  padding: 1em;
+  margin-top: 1em;
+  border-radius: 5px;
+}
+
+// leaflet-bottom
+.leaflet-bottom {
+  z-index: 999;
 }

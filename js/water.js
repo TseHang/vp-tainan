@@ -5,6 +5,7 @@ let height = 450,
     axisPadding = 80
     // legendPadding = 120
 let width = 800 + axisPadding
+
 function site() {
 
   let geoData
