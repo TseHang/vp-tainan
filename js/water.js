@@ -252,11 +252,6 @@ function river() {
   const setLocate = L.control().setPosition('topleft')
   const legend = L.control({ position: 'bottomleft' })
 
-  const geoJSONStyle = {
-    "color": "#ff7800",
-    "weight": 5,
-    "opacity": 0.2,
-  }
   $.getJSON('./src/data/tainanCounty2010merge.json', function(data) {
     data = L.geoJson(data, {
       style: {
@@ -417,7 +412,6 @@ function river() {
 
   function resetHighlight(e) {
     geojson.resetStyle(e.target)
-    //info.update();
   }
 
   function zoomToFeature(e) {
@@ -439,7 +433,7 @@ function river() {
     return this._div
   }
 
-  RiverInfo.update = function (props) {
+  RiverInfo.update = function(props) {
     if (props && props.name + '流域' in basinRPI) {
       this._div.innerHTML = '<h4>河川流域名稱：' + (props ?
         props.name + '</h4>平均污染指數RPI：' + basinRPI[props.name + '流域'].RPI.toFixed(1) : '</h4>請點選畫面區塊')
@@ -505,20 +499,20 @@ function rain() {
   const width = 800 + axisPadding + legendPadding;
 
   $(document).ready(function () {
-    d3.select("#column").append("initChart")
-          .append("svg")
-                      .attr("width", width)
-                    .attr("height", height)
-                    .attr("class", "initChart")
+    d3.select('#column').append('initChart')
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .attr('class', 'initChart')
     initMap()
   })
   function initMap() {
-    d3.csv("./src/data/酸雨監測值.csv", function(error, data){
+    d3.csv('./src/data/酸雨監測值.csv', function(error, data){
       if(error) {
         console.log(error)
       }
       const dateArrayDump = function(d) {
-        let tmp = [];
+        let tmp = []
         for(var foo in d) {
           tmp.push(d[foo]['監測日期'])
         }
@@ -529,14 +523,12 @@ function rain() {
       const yMin = d3.min(data, function(d) {return parseFloat(d['酸雨pH值']) })
       const xScale = d3.scale.linear()
                     .domain([0, data.length])
-                    .range([padding + axisPadding, width - legendPadding - margin.left - margin.right - padding])
-      const yScale = d3.scale.linear()
-                    .domain([yMin, yMax])
-                    .range([padding, height - margin.top - margin.bottom - padding]);
+                    .range([padding + axisPadding,
+                      width - legendPadding - margin.left - margin.right - padding])
       const yScale2 = d3.scale.linear()
                       .domain([yMin, yMax])
-                      .range([height - margin.top - margin.bottom - padding, padding]);
-      const svg = d3.select('.initChart');
+                      .range([height - margin.top - margin.bottom - padding, padding])
+      const svg = d3.select('.initChart')
       let xAxis = d3.svg.axis()
                     .scale(xScale)
                     .tickFormat(function(d, i){
@@ -544,7 +536,7 @@ function rain() {
                     })
                     .tickSize(1)
                     .ticks(data.length)
-                    .orient('bottom');
+                    .orient('bottom')
       let yAxis = d3.svg.axis()
                     .scale(yScale2)
                     .tickSize(1)
@@ -576,10 +568,10 @@ function rain() {
       svg.append('text')
           .attr({
               'class': 'yLabel',
-              'text-anchor': 'start',
+              'text-anchor': 'end',
               'x': axisPadding,
               'y': height - margin.top - margin.bottom - padding,
-              'dy': '.75em',
+              'dy': '2em',
               'opacity': 0.5,
           })
           .text('(pH值)');
@@ -626,17 +618,17 @@ function rain() {
             'r': function(d) {
               const tmp = Math.sqrt(d['雨量累計 (mm)']*10)
               // console.log(tmp)
-              if(tmp<9) {
+              if(tmp < 9) {
                 return 9
               }else {
                 return tmp
               }
             },
             'fill': function(d) {
-              if(d['酸雨pH值']>=5.6){
+              if(d['酸雨pH值'] >= 5.6) {
                 return '#758de5'
-              } else if(d['酸雨pH值']>=5) {
-                return '#c59562'
+              }else if (d['酸雨pH值'] >= 5) {
+                return '#ff7800'
               }else {
                 return '#ea5a5a'
               }
@@ -675,16 +667,15 @@ function rain() {
           })
           .on('click', function() {
             if (d3.select(this).attr('id') !== lastClicked) {
-              info.html('序號<strong>' +
-                d3.select(this).attr('id') +
-                '</strong><br>監測日期: <strong>' +
+              info.html(
+                '<div id="info"> 監測日期: <strong>' +
                 d3.select(this).attr('date') +
                 '</strong><br>雨水導電度 (μS/cm): <strong>' +
                 d3.select(this).attr('elect') +
                 '</strong><br>雨量累計 (mm): <strong>' +
                 d3.select(this).attr('total') +
                 '</strong><br>測站: <strong>' +
-                d3.select(this).attr('site'))
+                d3.select(this).attr('site') + '</div>')
               .style({
                 'left': (d3.event.pageX) + 'px',
                 'top': (d3.event.pageY) + 'px',

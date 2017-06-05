@@ -195,7 +195,7 @@
     this.update();
     return this._div;
   };
-  
+
   info.update = function(props) {
     if (props) {
       if (isLoadSensitiveData) {
