@@ -1,19 +1,19 @@
 let margin = {top: 10, right: 0, bottom: 140, left: 0}
-let height = 450,
-    padding = 30,
-    barMargin = 5,
-    axisPadding = 80
-    // legendPadding = 120
+const height = 450,
+      padding = 30,
+      barMargin = 5
+let axisPadding = 80
+let trigger = false
 let width = 800 + axisPadding
-
 function site() {
-
+  let siteClicked = false
+  let lastTown = null
   let geoData
   let geoJson
   let siteMap
-  const siteInfo = L.control()
-  const focusButton = L.control().setPosition('topleft')
-  const resetButton = L.control().setPosition('topleft')
+  const siteInfo = L.control().setPosition('bottomleft')
+  const focusButton = L.control()
+  const resetButton = L.control()
   let markerArray = []
 
   $.getJSON('./src/data/tainan-town.geojson', function(data) {
@@ -31,46 +31,59 @@ function site() {
 
   function onEachFeature(feature, layer) {
     layer.on({
-      mouseover: highlightFeature,
-      mouseout: resetHighlight,
-      // click: zoomToFeature
+      mouseover: trigger !== true ? highlightFeature : function() {return 0},
+      mouseout: trigger !== true ? resetHighlight : function() {return 0},
+      click: trigger === true ? highlightFeature: function() {return 0},
     })
   }
 
   function highlightFeature(e) {
-    let layer = e.target
+    const layer = e.target
 
-    for(var foo in markerArray) {
-      for(var boo in markerArray[foo].options.town)
-      if(layer.feature.properties.TOWNNAME===markerArray[foo].options.town[boo]) {
-        const town = markerArray[foo]
-        town.setOpacity(1)
-        for (var foobar in town.options.town) {
-          for (var foobar2 in geoJson._layers) {
-            if (geoJson._layers[foobar2].feature.properties.TOWNNAME === town.options.town[foobar]) {
-              geoJson._layers[foobar2].setStyle({
-                weight: 2,
-                color: '#758de5',
-                fillColor: '#758de5',
-                fillOpacity: 0.7,
-              })
+    siteInfo.update(layer.feature.properties)
+    for (var foo in markerArray) {
+      for (var boo in markerArray[foo].options.town) {
+        if (layer.feature.properties.TOWNNAME===markerArray[foo].options.town[boo]) {
+          const town = markerArray[foo]
+          town.setOpacity(1)
+          console.log(town)
+          console.log(foo)
+          console.log(lastTown)
+          if (trigger === true &&
+              lastTown === foo &&
+              siteClicked === true) {
+            console.log('fcuk')
+            siteClicked = false
+            return resetHighlight(e)
+          }else {
+            console.log('ya')
+            lastTown = foo
+            siteClicked = true
+            for (var foobar in town.options.town) {
+              for (var foobar2 in geoJson._layers) {
+                if (geoJson._layers[foobar2].feature.properties.TOWNNAME === town.options.town[foobar]) {
+                  geoJson._layers[foobar2].setStyle({
+                    weight: 2,
+                    color: '#758de5',
+                    fillColor: '#758de5',
+                    fillOpacity: 0.7,
+                  })
+                }
+              }
             }
+            layer.setStyle({
+              weight: 2,
+              color: '#666',
+              fillOpacity: 0.7,
+            })
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+              layer.bringToFront()
+            }
+            return null
           }
         }
       }
     }
-
-
-    layer.setStyle({
-      weight: 2,
-      color: '#666',
-      fillOpacity: 0.7,
-    })
-
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      layer.bringToFront()
-    }
-    siteInfo.update(layer.feature.properties)
   }
 
   function resetHighlight(e) {
@@ -288,7 +301,6 @@ function river() {
     initMap()
     $.getJSON('./src/data/river.json', function (data) {
       riverData = data
-      // console.log(data);
       addSiteToMap()
     })
   })
@@ -503,6 +515,7 @@ function river() {
 
 function rain() {
   $(document).ready(function () {
+    d3.selectAll('initChart').remove()
     d3.select('#column').append('initChart')
           .append('svg')
           .attr('width', width)
@@ -534,27 +547,38 @@ function rain() {
                       .range([height - margin.top - margin.bottom - padding, padding])
       const svg = d3.select('.initChart')
       let xAxis
-
-      if($(window).width() < 900) {
+      let yAxis = d3.svg.axis()
+              .scale(yScale2)
+              .tickSize(1)
+              .orient('left')
+      if($(window).width() < 786) {
         xAxis = d3.svg.axis()
             .scale(xScale)
             .tickFormat('')
-            .tickSize(1)
+            .tickSize(0)
             .orient('bottom')
+        $('.rainInfo').css('display', 'block')
       }else {
+        $('.rainInfo').css('display', 'none')
         xAxis = d3.svg.axis()
                     .scale(xScale)
-                    .tickFormat(function(d, i){
+                    .tickFormat(function(d, i) {
                       return dateArray[i]
                     })
                     .tickSize(1)
                     .ticks(data.length)
                     .orient('bottom')
+        svg.append('text')
+          .attr({
+              'class': 'yLabel',
+              'text-anchor': 'end',
+              'x': axisPadding,
+              'y': height - margin.top - margin.bottom - padding,
+              'dy': '2em',
+              'opacity': 0.5,
+          })
+          .text('(pH值)')
       }
-      let yAxis = d3.svg.axis()
-                    .scale(yScale2)
-                    .tickSize(1)
-                    .orient('left')
       svg.append('g')
           .attr({
               'class': 'yAxis',
@@ -578,21 +602,13 @@ function rain() {
         .attr({
           'transform': 'rotate(45)',
         })
-      if($(window).width() >= 900) {
-      svg.append('text')
-          .attr({
-              'class': 'yLabel',
-              'text-anchor': 'end',
-              'x': axisPadding,
-              'y': height - margin.top - margin.bottom - padding,
-              'dy': '2em',
-              'opacity': 0.5,
-          })
-          .text('(pH值)')
-      }
       const line = d3.svg.line()
-                  .x(1)
-                  .y(1)
+                  .x(function() {
+                    return xScale(1)
+                  })
+                  .y( function() {
+                    return yScale2(yMin)
+                  })
                   .interpolate('linear')
       const line2 = d3.svg.line()
                   .x( function(d, i) {
@@ -613,76 +629,119 @@ function rain() {
           'fill': 'none',
         })
         .transition()
-        .duration(1000)
+        .duration(1500)
         .attr('d', line2(data))
       const info = d3.select('body').append('div')
                   .attr('class', 'info')
                   .style('opacity', 0)
-      let lastClicked;
-      svg.selectAll('.point')
-          .data(data)
-          .enter()
-          .append('circle')
-          .attr({
-            'cx': function(d, i) {
-              return xScale(i)
-            },
-            'cy': function(d) {
-              return yScale2(d['酸雨pH值'])
-            },
-            'r': function(d) {
-              const tmp = Math.sqrt(d['雨量累計 (mm)']*10)
-              // console.log(tmp)
-              if(tmp < 9) {
-                return 9
-              }else {
-                return tmp
-              }
-            },
-            'fill': function(d) {
-              if(d['酸雨pH值'] >= 5.6) {
-                return '#758de5'
-              }else if (d['酸雨pH值'] >= 5) {
-                return '#ff7800'
-              }else {
-                return '#ea5a5a'
-              }
-            },
-            'opacity': 0.5,
-            'id': function(d) {
-              return d['序號']
-            },
-            'date': function(d) {
-              return d['監測日期']
-            },
-            'elect': function(d) {
-              return d['雨水導電度 (μS/cm)']
-            },
-            'total': function(d) {
-              return d['雨量累計 (mm)']
-            },
-            'site': function(d) {
-              return d['測站']
-            },
-          })
-          .on('mouseover', function() {
-              d3.select(this).attr({
-                  'opacity': 0.9,
-                  'stroke': 'rgba(0, 0, 0, 0.12)',
-                  'stroke-width': 2,
-                  'cursor': 'pointer',
-              })
-          })
-          .on('mouseout', function() {
-              d3.select(this).attr({
-                'opacity': 0.5,
-                'stroke': 'rgba(0, 0, 0, 0.12)',
-                'stroke-width': 0,
+      let lastClicked = 0
+      let point  = svg.selectAll('.point')
+                      .data(data)
+                      .enter()
+                      .append('circle')
+                      .attr({
+                        'cx': function() {
+                          return xScale(1)
+                        },
+                        'cy': function(d) {
+                          return yScale2(yMin)
+                        },
+                        'r': function(d) {
+                          if(trigger === true) {
+                            return 9
+                          }
+                          const tmp = Math.sqrt(d['雨量累計 (mm)'] * 10)
+                          if(tmp < 9) {
+                            return 9
+                          }else {
+                            return tmp
+                          }
+                        },
+                        'fill': function(d) {
+                          if(d['酸雨pH值'] >= 5.6) {
+                            return '#758de5'
+                          }else if (d['酸雨pH值'] >= 5) {
+                            return '#ff7800'
+                          }else {
+                            return '#ea5a5a'
+                          }
+                        },
+                        'opacity': 0.5,
+                        'class': 'rainPoint',
+                        'id': function(d) {
+                          return d['序號']
+                        },
+                        'date': function(d) {
+                          return d['監測日期']
+                        },
+                        'elect': function(d) {
+                          return d['雨水導電度 (μS/cm)']
+                        },
+                        'total': function(d) {
+                          return d['雨量累計 (mm)']
+                        },
+                        'site': function(d) {
+                          return d['測站']
+                        },
+                      })
+      point.transition()
+            .duration(1500)
+            .attr({
+              'cx': function(d, i) {
+                return xScale(i)
+              },
+              'cy': function(d) {
+                return yScale2(d['酸雨pH值'])
+              },
             })
-          })
-          .on('click', function() {
+      if($(window).width() >= 786) {
+        point.on('mouseover', function() {
+                  d3.select(this).attr({
+                      'opacity': 0.9,
+                      'stroke': 'rgba(0, 0, 0, 0.12)',
+                      'stroke-width': 2,
+                      'cursor': 'pointer',
+                  })
+              })
+              .on('mouseout', function() {
+                  d3.select(this).attr({
+                    'opacity': 0.5,
+                    'stroke': 'rgba(0, 0, 0, 0.12)',
+                    'stroke-width': 0,
+                })
+              })
+              .on('click', function() {
+                if (d3.select(this).attr('id') !== lastClicked) {
+                  info.html(
+                    '<div id="info"> 監測日期: <strong>' +
+                    d3.select(this).attr('date') +
+                    '</strong><br>雨水導電度 (μS/cm): <strong>' +
+                    d3.select(this).attr('elect') +
+                    '</strong><br>雨量累計 (mm): <strong>' +
+                    d3.select(this).attr('total') +
+                    '</strong><br>測站: <strong>' +
+                    d3.select(this).attr('site') + '</div>')
+                  .style({
+                    'left': (d3.event.pageX) + 'px',
+                    'top': (d3.event.pageY) + 'px',
+                    'opacity': 1.0,
+                    'z-index': 999,
+                  })
+                  lastClicked = d3.select(this).attr('id')
+                } else {
+                  lastClicked = 0
+                  info.style({
+                    'opacity': 0,
+                    'z-index': -1,
+                  })
+                }
+              })
+        }else {
+          point.on('click',function() {
+            $('.rainInfo').css('display', 'block')
             if (d3.select(this).attr('id') !== lastClicked) {
-              info.html(
+              lastClicked = d3.select(this).attr('id')
+              $(".rainInfo").empty().html(
                 '<div id="info"> 監測日期: <strong>' +
                 d3.select(this).attr('date') +
                 '</strong><br>雨水導電度 (μS/cm): <strong>' +
@@ -691,21 +750,28 @@ function rain() {
                 d3.select(this).attr('total') +
                 '</strong><br>測站: <strong>' +
                 d3.select(this).attr('site') + '</div>')
-              .style({
-                'left': (d3.event.pageX) + 'px',
-                'top': (d3.event.pageY) + 'px',
-                'opacity': 1.0,
-                'z-index': 999,
+              d3.selectAll('.rainPoint').style({
+                'opacity': 0.5,
+                'stroke': 'rgba(0, 0, 0, 0.12)',
+                'stroke-width': 0,
               })
-              lastClicked = d3.select(this).attr('id')
-            } else {
+              d3.select(this).style({
+                  'opacity': 0.9,
+                  'stroke': 'rgba(0, 0, 0, 0.12)',
+                  'stroke-width': 2,
+                  'cursor': 'pointer',
+              })
+            }else {
               lastClicked = 0
-              info.style({
-                'opacity': 0,
-                'z-index': -1,
+              d3.select(this).style({
+                'opacity': 0.5,
+                'stroke': 'rgba(0, 0, 0, 0.12)',
+                'stroke-width': 0,
               })
+              $('.rainInfo').css('display', 'none')
             }
           })
+        }
     })
   }
 }
@@ -864,34 +930,40 @@ $(window).ready(function() {
   river()
   rain()
   groundwater()
-  if($(window).width() < 900) {
-    d3.select('initChart').remove()
+  if ($(window).width() < 786) {
+    d3.selectAll('initChart').remove()
     $('#siteMap, #groundWater').css({
       'width': '100%',
       'transform':'translateX(0)',
     })
     axisPadding = 40
     width = ($(window).width() - 90) +  axisPadding// + legendPadding
+    margin.bottom = 20
+    trigger = true
     rain()
   }
   $(window).resize(function() {
-    if($(window).width() < 900) {
-      d3.select('initChart').remove()
+    if ($(window).width() < 786 && trigger === false) {
+      d3.selectAll('initChart').remove()
       $('#siteMap, #groundWater').css({
         'width': '100%',
         'transform': 'translateX(0)',
       })
       axisPadding = 40
       width = ($(window).width() - 90) +  axisPadding// + legendPadding
+      margin.bottom = 20
+      trigger = true
       rain()
-    }else {
-      d3.select('initChart').remove()
+    }else if (trigger === true) {
+      d3.selectAll('initChart').remove()
       $('#siteMap, #groundWater').css({
         'width': '50%',
         'transform': 'translateX(50%)',
       })
+      trigger = false
       axisPadding = 80
       width = 800 +  axisPadding// + legendPadding
+      margin.bottom = 140
       rain()
     }
   })
