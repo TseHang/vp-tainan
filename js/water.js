@@ -524,7 +524,7 @@ function rain() {
         }
         return tmp
       }
-      const dataArray = dateArrayDump(data)
+      const dateArray = dateArrayDump(data)
       const yMax = d3.max(data, function(d) {return parseFloat(d['酸雨pH值']) })
       const yMin = d3.min(data, function(d) {return parseFloat(d['酸雨pH值']) })
       const xScale = d3.scale.linear()
@@ -540,9 +540,10 @@ function rain() {
       let xAxis = d3.svg.axis()
                     .scale(xScale)
                     .tickFormat(function(d, i){
-                      return dataArray[i]
+                      return dateArray[i]
                     })
                     .tickSize(1)
+                    .ticks(data.length)
                     .orient('bottom');
       let yAxis = d3.svg.axis()
                     .scale(yScale2)
