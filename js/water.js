@@ -30,11 +30,14 @@ function site() {
   })
 
   function onEachFeature(feature, layer) {
-    layer.on({
-      mouseover: trigger !== true ? highlightFeature : function() {return 0},
-      mouseout: trigger !== true ? resetHighlight : function() {return 0},
-      click: trigger === true ? highlightFeature: function() {return 0},
-    })
+    if(trigger === true) {
+      layer.on('click', highlightFeature)
+    }else {
+      layer.on({
+        mouseover: highlightFeature,
+        click: resetHighlight,
+      })
+    }
   }
 
   function highlightFeature(e) {
@@ -46,17 +49,12 @@ function site() {
         if (layer.feature.properties.TOWNNAME===markerArray[foo].options.town[boo]) {
           const town = markerArray[foo]
           town.setOpacity(1)
-          console.log(town)
-          console.log(foo)
-          console.log(lastTown)
           if (trigger === true &&
               lastTown === foo &&
               siteClicked === true) {
-            console.log('fcuk')
             siteClicked = false
             return resetHighlight(e)
           }else {
-            console.log('ya')
             lastTown = foo
             siteClicked = true
             for (var foobar in town.options.town) {
@@ -152,39 +150,67 @@ function site() {
                     '</strong>')
           marker.on('popupopen', function() {
             this.setOpacity(1)
+            if(trigger === true) {
+              const town = this.options.town
+              for (var foo in town) {
+                for (var bar in geoJson._layers) {
+                  if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
+                    let layer = geoJson._layers[bar]
+                    layer.setStyle({
+                      weight: 2,
+                      color: '#758de5',
+                      fillColor: '#758de5',
+                      fillOpacity: 0.7,
+                    })
+                  }
+                }
+              }
+            }
           })
           marker.on('popupclose', function() {
             siteMap.setView(new L.LatLng(23.13, 120.3), 10.2)
-            // this.setOpacity(0.5)
-          })
-          marker.on('mouseover', function() {
-            this.setOpacity(1)
-            const town = this.options.town
-            for (var foo in town) {
-              for (var bar in geoJson._layers) {
-                if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
-                  let layer = geoJson._layers[bar]
-                  layer.setStyle({
-                    weight: 2,
-                    color: '#758de5',
-                    fillColor: '#758de5',
-                    fillOpacity: 0.7,
-                  })
-                }
-              }
-            }
-          })
-          marker.on('mouseout', function () {
             this.setOpacity(0.5)
-            const town = this.options.town
-            for (var foo in town) {
-              for (var bar in geoJson._layers) {
-                if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
-                  geoJson.resetStyle(geoJson._layers[bar])
+            if(trigger === true) {
+              const town = this.options.town
+              for (var foo in town) {
+                for (var bar in geoJson._layers) {
+                  if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
+                    geoJson.resetStyle(geoJson._layers[bar])
+                  }
                 }
               }
             }
           })
+          if(trigger !== true) {
+            marker.on('mouseover', function() {
+              this.setOpacity(1)
+              const town = this.options.town
+              for (var foo in town) {
+                for (var bar in geoJson._layers) {
+                  if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
+                    let layer = geoJson._layers[bar]
+                    layer.setStyle({
+                      weight: 2,
+                      color: '#758de5',
+                      fillColor: '#758de5',
+                      fillOpacity: 0.7,
+                    })
+                  }
+                }
+              }
+            })
+            marker.on('mouseout', function () {
+              this.setOpacity(0.5)
+              const town = this.options.town
+              for (var foo in town) {
+                for (var bar in geoJson._layers) {
+                  if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
+                    geoJson.resetStyle(geoJson._layers[bar])
+                  }
+                }
+              }
+            })
+          }
           markerArray.push(marker)
         }
       }
