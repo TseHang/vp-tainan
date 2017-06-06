@@ -6,8 +6,9 @@ let axisPadding = 80
 let trigger = false
 let width = 800 + axisPadding
 function site() {
-  let siteClicked = false
   let lastTown = null
+  let lastLayer = null
+  let siteClicked = false
   let geoData
   let geoJson
   let siteMap
@@ -33,7 +34,45 @@ function site() {
   	layer.on({
 	   mouseover: highlightFeature,
 	   mouseout: resetHighlight,
+     click: clickMarker,
 	  })
+  }
+  function clickMarker(e) {
+    const layer = e.target
+    for (var foo in markerArray) {
+      for (var boo in markerArray[foo].options.town) {
+        if (layer.feature.properties.TOWNNAME===markerArray[foo].options.town[boo]) {
+          const town = markerArray[foo]
+          town.setOpacity(1)
+          town.openPopup()
+          if(lastLayer === layer && (siteClicked===true) ) {
+            console.log('fuck')
+            console.log(siteClicked)
+            if(lastTown) {
+              lastTown.closePopup()
+            }
+            town.closePopup()
+            siteClicked = false
+          }else {
+            siteClicked = true
+          }
+          lastLayer = layer
+          lastTown = town
+          for (var foobar in town.options.town) {
+            for (var foobar2 in geoJson._layers) {
+              if (geoJson._layers[foobar2].feature.properties.TOWNNAME === town.options.town[foobar]) {
+                geoJson._layers[foobar2].setStyle({
+                  weight: 2,
+                  color: '#758de5',
+                  fillColor: '#758de5',
+                  fillOpacity: 0.7,
+                })
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   function highlightFeature(e) {
