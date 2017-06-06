@@ -168,8 +168,6 @@ function site() {
                     suppleArea[i]['pH值(pH )'] +
                     '</span><br>總硬度(Total Hardness):<span class="p-font-bold">' +
                     suppleArea[i]['總硬度(Total Hardness)'] +
-                    '</span><br>鐵(Iron):<span class="p-font-bold">' +
-                    suppleArea[i]['鐵(Iron)'] +
                     '</span><br>水質合格否(Y/N):<span class="p-font-bold">' +
                     suppleArea[i]['水質合格否(Y/N)'] +
                     '</span></p>')
@@ -260,7 +258,7 @@ function site() {
 
   focusButton.onAdd = function() {
     const container = L.DomUtil.create('button', 'ui compact icon button')
-    const icon = L.DomUtil.create('i', 'map outline icon', container)
+    const icon = L.DomUtil.create('i', 'undo icon', container)
     $(icon).on('click', function() {
       siteMap.setView([23.13, 120.3], 10.2)
     })
@@ -269,7 +267,7 @@ function site() {
   }
   resetButton.onAdd = function() {
     const container = L.DomUtil.create('button', 'ui compact icon button')
-    const icon = L.DomUtil.create('i', 'compass icon', container)
+    const icon = L.DomUtil.create('i', 'unhide icon', container)
     $(icon).on('click', function() {
       if (navigator.geolocation) {
         return navigator.geolocation.getCurrentPosition(function (position){
@@ -527,7 +525,7 @@ function river() {
 
   resetLocate.onAdd = function() {
     const container = L.DomUtil.create('button', 'ui compact icon button')
-    const icon = L.DomUtil.create('i', 'map outline icon', container)
+    const icon = L.DomUtil.create('i', 'undo icon', container)
     $(icon).on('click', function() {
       RiverMap.setView([23.13, 120.3], 10.2)
     })
@@ -536,7 +534,7 @@ function river() {
   }
   setLocate.onAdd = function() {
     const container = L.DomUtil.create('button', 'ui compact icon button')
-    const icon = L.DomUtil.create('i', 'compass icon', container)
+    const icon = L.DomUtil.create('i', 'unhide icon', container)
     $(icon).on('click', function() {
       if (navigator.geolocation) {
         return navigator.geolocation.getCurrentPosition(function (position){
@@ -739,31 +737,22 @@ function rain() {
                       'stroke-width': 2,
                       'cursor': 'pointer',
                   })
-	                if (d3.select(this).attr('id') !== lastClicked) {
-	                  info.html(
-	                  	'<div id="info"><p>測站: <span class="p-font-bold">' +
-	                    d3.select(this).attr('site') +
-	                    '</span></p><p>酸雨pH值: : <span class="p-font-bold" style="color: red;">' +
-	                    d3.select(this).attr('pH') +
-	                    '</span></p><p>監測日期: <span class="p-font-bold">' +
-	                    d3.select(this).attr('date') +
-	                    '</span></p><p>雨量累計 (mm): <span class="p-font-bold">' +
-	                    d3.select(this).attr('total') +
-	                    '</div>')
-	                  .style({
-	                    'left': (d3.event.pageX) + 'px',
-	                    'top': (d3.event.pageY) + 'px',
-	                    'opacity': 1.0,
-	                    'z-index': 999,
-	                  })
-	                  lastClicked = d3.select(this).attr('id')
-	                } else {
-	                  lastClicked = 0
-	                  info.style({
-	                    'opacity': 0,
-	                    'z-index': -1,
-	                  })
-	                }
+                  info.html(
+                  	'<div id="info"><p>測站: <span class="p-font-bold">' +
+                    d3.select(this).attr('site') +
+                    '</span></p><p>酸雨pH值: : <span class="p-font-bold" style="color: red;">' +
+                    d3.select(this).attr('pH') +
+                    '</span></p><p>監測日期: <span class="p-font-bold">' +
+                    d3.select(this).attr('date') +
+                    '</span></p><p>雨量累計 (mm): <span class="p-font-bold">' +
+                    d3.select(this).attr('total') +
+                    '</div>')
+                  .style({
+                    'left': (d3.event.pageX) + 'px',
+                    'top': (d3.event.pageY) + 'px',
+                    'opacity': 1.0,
+                    'z-index': 999,
+                  })
               })
               .on('mouseout', function() {
                   d3.select(this).attr({
@@ -777,7 +766,7 @@ function rain() {
 	                })
               })
         }else {
-          point.on('click',function() {
+          point.on('click', function() {
             $('.rainInfo').css('display', 'block')
             if (d3.select(this).attr('id') !== lastClicked) {
               lastClicked = d3.select(this).attr('id')
@@ -837,6 +826,9 @@ function groundwater() {
   }
   const focusButton = L.control().setPosition('topright')
   const setButton = L.control().setPosition('topright')
+  const siteInfo = L.control().setPosition('bottomleft')
+  let waterClicked = false;
+  let lastClicked = null;
   let waterMap
   let geoJson // basin layer
   let geoData = null
@@ -850,19 +842,49 @@ function groundwater() {
       fillOpacity: 0.4,
     }
   }
+  function zoomToFeature(e) {
+		waterMap.fitBounds(e.target.getBounds())
+    waterClicked = true
+  }
+  function onEachFeature(feature, layer) {
+  	layer.on({
+	   mouseover: highlightFeature,
+	   mouseout: resetHighlight,
+	   click: zoomToFeature,
+	  })
+  }
+  function highlightFeature(e) {
+    const layer = e.target
+    siteInfo.update(layer.feature.properties)
+    layer.setStyle({
+      weight: 2,
+      color: '#666',
+      fillOpacity: 0.7,
+    })
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront()
+    }
+  }
+
+  function resetHighlight(e) {
+    geoJson.resetStyle(e.target)
+  }
   $(document).ready(function() {
     $.getJSON('./src/data/tainan-town.geojson', function(data) {
       geoData = data
       geoJson = L.geoJson(geoData, {
       	style: style,
+      	onEachFeature: onEachFeature,
       })
-
+			// siteInfo.update()
       geoJson.addTo(waterMap)
       focusButton.addTo(waterMap)
       setButton.addTo(waterMap)
+      siteInfo.addTo(waterMap)
     })
   })
   initMap()
+
   function siteColor(d) {
     for(var i in constrain) {
       if(d[i] > constrain[i]) {
@@ -896,6 +918,7 @@ function groundwater() {
     const osm = new L.TileLayer(url, { minZoom: 1, maxZoom: 16, attribution: attrib })
 
     osm.addTo(waterMap)
+
     d3.csv('./src/data/地下水水質監測與指標資料.csv', function(error, data){
       if(error) {
         console.log(error)
@@ -944,7 +967,7 @@ function groundwater() {
   }
   focusButton.onAdd = function() {
     const container = L.DomUtil.create('button', 'ui compact icon button')
-    const icon = L.DomUtil.create('i', 'map outline icon', container)
+    const icon = L.DomUtil.create('i', 'undo icon', container)
     $(icon).on('click', function() {
       waterMap.setView([23.13, 120.3], 10.2)
     })
@@ -953,7 +976,7 @@ function groundwater() {
   }
   setButton.onAdd = function() {
     const container = L.DomUtil.create('button', 'ui compact icon button')
-    const icon = L.DomUtil.create('i', 'compass icon', container)
+    const icon = L.DomUtil.create('i', 'unhide icon', container)
     $(icon).on('click', function() {
       if (navigator.geolocation) {
         return navigator.geolocation.getCurrentPosition(function (position){
@@ -964,6 +987,19 @@ function groundwater() {
     })
     $(icon).attr('title', '取得您的位置')
     return container
+  }
+  siteInfo.onAdd = function(map) {
+    this._div = L.DomUtil.create('div', 'siteInfo') // create a div with a class "info"
+    this._div.innerHTML = '<h4>區域資料載入中</h4>'
+    return this._div
+  }
+
+  siteInfo.update = function (props) {
+    if(props) {
+      this._div.innerHTML = '<h4>' + props['TOWNNAME'] + '</h4>'
+    } else {
+      this._div.innerHTML = '<h4>請點選畫面區塊</h4>'
+    }
   }
 }
 
