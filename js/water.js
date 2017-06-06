@@ -30,57 +30,43 @@ function site() {
   })
 
   function onEachFeature(feature, layer) {
-    if(trigger === true) {
-      layer.on('click', highlightFeature)
-    }else {
-      layer.on({
-        mouseover: highlightFeature,
-        click: resetHighlight,
-      })
-    }
+  	layer.on({
+	   mouseover: highlightFeature,
+	   mouseout: resetHighlight,
+	  })
   }
 
   function highlightFeature(e) {
     const layer = e.target
 
-    siteInfo.update(layer.feature.properties)
     for (var foo in markerArray) {
       for (var boo in markerArray[foo].options.town) {
         if (layer.feature.properties.TOWNNAME===markerArray[foo].options.town[boo]) {
           const town = markerArray[foo]
           town.setOpacity(1)
-          if (trigger === true &&
-              lastTown === foo &&
-              siteClicked === true) {
-            siteClicked = false
-            return resetHighlight(e)
-          }else {
-            lastTown = foo
-            siteClicked = true
-            for (var foobar in town.options.town) {
-              for (var foobar2 in geoJson._layers) {
-                if (geoJson._layers[foobar2].feature.properties.TOWNNAME === town.options.town[foobar]) {
-                  geoJson._layers[foobar2].setStyle({
-                    weight: 2,
-                    color: '#758de5',
-                    fillColor: '#758de5',
-                    fillOpacity: 0.7,
-                  })
-                }
+          for (var foobar in town.options.town) {
+            for (var foobar2 in geoJson._layers) {
+              if (geoJson._layers[foobar2].feature.properties.TOWNNAME === town.options.town[foobar]) {
+                geoJson._layers[foobar2].setStyle({
+                  weight: 2,
+                  color: '#758de5',
+                  fillColor: '#758de5',
+                  fillOpacity: 0.7,
+                })
               }
             }
-            layer.setStyle({
-              weight: 2,
-              color: '#666',
-              fillOpacity: 0.7,
-            })
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-              layer.bringToFront()
-            }
-            return null
           }
         }
       }
+    }
+    siteInfo.update(layer.feature.properties)
+    layer.setStyle({
+      weight: 2,
+      color: '#666',
+      fillOpacity: 0.7,
+    })
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront()
     }
   }
 
@@ -133,87 +119,59 @@ function site() {
               opacity: 0.5,
             })
             .addTo(siteMap)
-          marker.bindPopup('<strong>' +
+          marker.bindPopup('<p><span class="p-font-bold">' +
                     suppleArea[i]['淨水場名稱'] +
-                    '</strong><br>主要供水轄區:<strong>' +
+                    '</span><br>主要供水轄區:<span class="p-font-bold">' +
                     suppleArea[i][' 主要供水轄區'] +
-                    '</strong><br>總溶解固體量(Total Dissolved Solids):<strong>' +
+                    '</span><br>總溶解固體量(Total Dissolved Solids):<span class="p-font-bold">' +
                     suppleArea[i]['總溶解固體量(Total Dissolved Solids)'] +
-                    '</strong><br>pH值(pH ):<strong>' +
+                    '</span><br>pH值(pH ):<span class="p-font-bold">' +
                     suppleArea[i]['pH值(pH )'] +
-                    '</strong><br>總硬度(Total Hardness):<strong>' +
+                    '</span><br>總硬度(Total Hardness):<span class="p-font-bold">' +
                     suppleArea[i]['總硬度(Total Hardness)'] +
-                    '</strong><br>鐵(Iron):<strong>' +
+                    '</span><br>鐵(Iron):<span class="p-font-bold">' +
                     suppleArea[i]['鐵(Iron)'] +
-                    '</strong><br>水質合格否(Y/N):<strong>' +
+                    '</span><br>水質合格否(Y/N):<span class="p-font-bold">' +
                     suppleArea[i]['水質合格否(Y/N)'] +
-                    '</strong>')
+                    '</span></p>')
           marker.on('popupopen', function() {
             this.setOpacity(1)
-            if(trigger === true) {
-              const town = this.options.town
-              for (var foo in town) {
-                for (var bar in geoJson._layers) {
-                  if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
-                    let layer = geoJson._layers[bar]
-                    layer.setStyle({
-                      weight: 2,
-                      color: '#758de5',
-                      fillColor: '#758de5',
-                      fillOpacity: 0.7,
-                    })
-                  }
-                }
-              }
-            }
           })
           marker.on('popupclose', function() {
             siteMap.setView(new L.LatLng(23.13, 120.3), 10.2)
             this.setOpacity(0.5)
-            if(trigger === true) {
-              const town = this.options.town
-              for (var foo in town) {
-                for (var bar in geoJson._layers) {
-                  if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
-                    geoJson.resetStyle(geoJson._layers[bar])
-                  }
+          })
+          marker.on('mouseover', function() {
+            this.setOpacity(1)
+            const town = this.options.town
+            for (var foo in town) {
+              for (var bar in geoJson._layers) {
+                if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
+                  let layer = geoJson._layers[bar]
+                  layer.setStyle({
+                    weight: 2,
+                    color: '#758de5',
+                    fillColor: '#758de5',
+                    fillOpacity: 0.7,
+                  })
                 }
               }
             }
           })
-          if(trigger !== true) {
-            marker.on('mouseover', function() {
-              this.setOpacity(1)
-              const town = this.options.town
-              for (var foo in town) {
-                for (var bar in geoJson._layers) {
-                  if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
-                    let layer = geoJson._layers[bar]
-                    layer.setStyle({
-                      weight: 2,
-                      color: '#758de5',
-                      fillColor: '#758de5',
-                      fillOpacity: 0.7,
-                    })
-                  }
+          marker.on('mouseout', function () {
+            this.setOpacity(0.5)
+            const town = this.options.town
+            for (var foo in town) {
+              for (var bar in geoJson._layers) {
+                if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
+                  geoJson.resetStyle(geoJson._layers[bar])
                 }
               }
-            })
-            marker.on('mouseout', function () {
-              this.setOpacity(0.5)
-              const town = this.options.town
-              for (var foo in town) {
-                for (var bar in geoJson._layers) {
-                  if (geoJson._layers[bar].feature.properties.TOWNNAME === town[foo]) {
-                    geoJson.resetStyle(geoJson._layers[bar])
-                  }
-                }
-              }
-            })
-          }
+            }
+          })
           markerArray.push(marker)
         }
-      }
+      },
     })
   }
 
@@ -250,8 +208,9 @@ function site() {
         for(var boo in markerArray[foo].options.town){
           if(markerArray[foo].options.town[boo]===props['TOWNNAME']) {
             // console.log(markerArray[foo].options)
-            this._div.innerHTML = '<h4><strong>' + props['TOWNNAME']
-                        + '</strong></h4><h4>所屬淨水廠名稱:</h4>'  + markerArray[foo].options.name;
+            this._div.innerHTML = '<p><h4><span class="p-font-bold">' + props['TOWNNAME']
+                        + '</span></h4>所屬淨水廠名稱:<span class="p-font-bold">'  + markerArray[foo].options.name +
+                        '</span></p>'
           }
         }
       }
@@ -357,7 +316,20 @@ function river() {
             ], { icon: icon, opacity: 0.9 })
             .addTo(RiverMap)
 
-          marker.bindPopup('<strong>測站名稱：' + siteInfo[i].SiteName + '</strong><br/><span class="red">污染程度：' + polluDegree.disc + "</span><br/>所屬流域：" + siteInfo[i].Basin + '<br/>RPI指標：' + riverData[siteInfo[i].SiteName].RPI + '<br/>酸鹼值：' + riverData[siteInfo[i].SiteName].PH + '<br/>懸浮固體：' + riverData[siteInfo[i].SiteName].SS + '（mg/L）' + '<br/>溶氧量：' + riverData[siteInfo[i].SiteName].DO + '（mg/L）' + '<br/>生化需氧量：' + riverData[siteInfo[i].SiteName].COD + '（mg/L）' + '<br/>氨氮：' + riverData[siteInfo[i].SiteName].NH3N + '（mg/L）' + '<br/>地址：' + siteInfo[i].SiteAddress);
+          marker.bindPopup('<p><span class="p-font-bold">測站名稱：' + siteInfo[i].SiteName +
+          									'</span><br/>污染程度：<span class="p-font-bold" style="color: red;">' + polluDegree.disc +
+          									'</span><br/>所屬流域：<span class="p-font-bold">' + siteInfo[i].Basin +
+          									'<br/>RPI指標：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].RPI +
+          									'<br/></span>酸鹼值：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].PH +
+          									'<br/></span>懸浮固體：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].SS +
+          									'（mg/L）' +
+          									'<br/></span>溶氧量：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].DO +
+          									'（mg/L）' +
+          									'<br/></span>生化需氧量：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].COD +
+          									'（mg/L）' +
+          									'<br/></span>氨氮：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].NH3N +
+          									'（mg/L）' +
+          									'<br/></span>地址：<span class="p-font-bold">' + siteInfo[i].SiteAddress)
 
           if (siteInfo[i].Basin in basinRPI) {
             basinRPI[siteInfo[i].Basin].RPI += riverData[siteInfo[i].SiteName]['RPI']
@@ -577,7 +549,7 @@ function rain() {
               .scale(yScale2)
               .tickSize(1)
               .orient('left')
-      if($(window).width() < 786) {
+      if($(window).width() < 768) {
         xAxis = d3.svg.axis()
             .scale(xScale)
             .tickFormat('')
@@ -689,7 +661,7 @@ function rain() {
                           }else if (d['酸雨pH值'] >= 5) {
                             return '#ff7800'
                           }else {
-                            return '#ea5a5a'
+                            return 'red'
                           }
                         },
                         'opacity': 0.5,
@@ -700,8 +672,8 @@ function rain() {
                         'date': function(d) {
                           return d['監測日期']
                         },
-                        'elect': function(d) {
-                          return d['雨水導電度 (μS/cm)']
+                        'pH': function(d) {
+                          return d['酸雨pH值']
                         },
                         'total': function(d) {
                           return d['雨量累計 (mm)']
@@ -720,7 +692,7 @@ function rain() {
                 return yScale2(d['酸雨pH值'])
               },
             })
-      if($(window).width() >= 786) {
+      if($(window).width() >= 768) {
         point.on('mouseover', function() {
                   d3.select(this).attr({
                       'opacity': 0.9,
@@ -728,39 +700,42 @@ function rain() {
                       'stroke-width': 2,
                       'cursor': 'pointer',
                   })
+	                if (d3.select(this).attr('id') !== lastClicked) {
+	                  info.html(
+	                  	'<div id="info"><p>測站: <span class="p-font-bold">' +
+	                    d3.select(this).attr('site') +
+	                    '</span></p><p>酸雨pH值: : <span class="p-font-bold" style="color: red;">' +
+	                    d3.select(this).attr('pH') +
+	                    '</span></p><p>監測日期: <span class="p-font-bold">' +
+	                    d3.select(this).attr('date') +
+	                    '</span></p><p>雨量累計 (mm): <span class="p-font-bold">' +
+	                    d3.select(this).attr('total') +
+	                    '</div>')
+	                  .style({
+	                    'left': (d3.event.pageX) + 'px',
+	                    'top': (d3.event.pageY) + 'px',
+	                    'opacity': 1.0,
+	                    'z-index': 999,
+	                  })
+	                  lastClicked = d3.select(this).attr('id')
+	                } else {
+	                  lastClicked = 0
+	                  info.style({
+	                    'opacity': 0,
+	                    'z-index': -1,
+	                  })
+	                }
               })
               .on('mouseout', function() {
                   d3.select(this).attr({
                     'opacity': 0.5,
                     'stroke': 'rgba(0, 0, 0, 0.12)',
                     'stroke-width': 0,
-                })
-              })
-              .on('click', function() {
-                if (d3.select(this).attr('id') !== lastClicked) {
-                  info.html(
-                    '<div id="info"> 監測日期: <strong>' +
-                    d3.select(this).attr('date') +
-                    '</strong><br>雨水導電度 (μS/cm): <strong>' +
-                    d3.select(this).attr('elect') +
-                    '</strong><br>雨量累計 (mm): <strong>' +
-                    d3.select(this).attr('total') +
-                    '</strong><br>測站: <strong>' +
-                    d3.select(this).attr('site') + '</div>')
-                  .style({
-                    'left': (d3.event.pageX) + 'px',
-                    'top': (d3.event.pageY) + 'px',
-                    'opacity': 1.0,
-                    'z-index': 999,
-                  })
-                  lastClicked = d3.select(this).attr('id')
-                } else {
-                  lastClicked = 0
-                  info.style({
-                    'opacity': 0,
-                    'z-index': -1,
-                  })
-                }
+	                })
+	                info.style({
+	                	'opacity': 0,
+	                	'z-index': -1,
+	                })
               })
         }else {
           point.on('click',function() {
@@ -821,24 +796,26 @@ function groundwater() {
     '總有機碳 Total Organic Carbon (mg/L)': 10,
     // '總酚': 0.14,
   }
-  const focusButton = L.control().setPosition('topleft')
-  const setButton = L.control().setPosition('topleft')
+  const focusButton = L.control().setPosition('topright')
+  const setButton = L.control().setPosition('topright')
   let waterMap
   let geoJson // basin layer
   let geoData = null
-
+	function style(feature) {
+    return {
+      fillColor: '#333',
+      weight: 2,
+      opacity: 1,
+      color: '#eee',
+      dashArray: '3',
+      fillOpacity: 0.4,
+    }
+  }
   $(document).ready(function() {
     $.getJSON('./src/data/tainan-town.geojson', function(data) {
       geoData = data
       geoJson = L.geoJson(geoData, {
-        style:  {
-          fillColor: '#333',
-          weight: 2,
-          opacity: 1,
-          color: '#eee',
-          dashArray: '3',
-          fillOpacity: 0.2,
-        },
+      	style: style,
       })
 
       geoJson.addTo(waterMap)
@@ -903,24 +880,24 @@ function groundwater() {
           .addTo(waterMap)
         let text = ''
         for(var i in groundAttr.disc) {
-          text+= '</span><br>' + i + '<span class=\"red\">'
+          text+= '</span><br>' + i + '<span class="p-font-bold" sytle="color: red;">'
           text+= groundAttr.disc[i]
         }
         marker.on('popupopen', function() {
-            this.setOpacity(1)
+          this.setOpacity(1)
         })
         marker.on('popupclose', function() {
-            this.setOpacity(0.7)
-            // siteMap.setView(new L.LatLng(23.13, 120.3), 10.2)
+          this.setOpacity(0.7)
+          waterMap.setView(new L.LatLng(23.13, 120.3), 10.2)
             // this.setOpacity(0.5)
         })
 
-        marker.bindPopup('測站:<strong>' +
+        marker.bindPopup('<p>測站:<span class="p-font-bold">' +
                     data[foo]['測站'] +
-                    '</strong><br>地址:<strong>' +
+                    '</span></p><p>地址:<span class="p-font-bold">' +
                     data[foo]['SiteAddress'] +
-                    '</strong><br>最後採樣日期:<strong>' +
-                    data[foo]['採樣日期'] + '</strong>' +
+                    '</span></p><p>最後採樣日期:<span class="p-font-bold">' +
+                    data[foo]['採樣日期'] + '</span></p>' +
                     (text === '' ? '<hr>無超標項目' : '<hr>超標項目<span>') +
                     text)
       }
@@ -956,7 +933,7 @@ $(window).ready(function() {
   river()
   rain()
   groundwater()
-  if ($(window).width() < 786) {
+  if ($(window).width() < 768) {
     d3.selectAll('initChart').remove()
     $('#siteMap, #groundWater').css({
       'width': '100%',
@@ -969,7 +946,7 @@ $(window).ready(function() {
     rain()
   }
   $(window).resize(function() {
-    if ($(window).width() < 786 && trigger === false) {
+    if ($(window).width() < 768 && trigger === false) {
       d3.selectAll('initChart').remove()
       $('#siteMap, #groundWater').css({
         'width': '100%',
