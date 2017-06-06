@@ -1,3 +1,4 @@
+const $= jQuery.noConflict();
 let margin = {top: 10, right: 0, bottom: 140, left: 0}
 const height = 450,
       padding = 30,
@@ -1002,7 +1003,7 @@ function groundwater() {
 }
 
 $(window).ready(function() {
-  $("#zoom_01").elevateZoom();
+  $('#zoom_01').ezPlus()
   site()
   river()
   rain()
