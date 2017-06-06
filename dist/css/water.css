@@ -498,13 +498,15 @@ h1 {
 ul.number-type {
   list-style-type: decimal; }
 
-.collapse-toggle.active i {
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  transition: all 0.1s linear;
-  color: #FFAA0A;
-  transform: translateY(4px) rotateZ(90deg); }
+.collapse-toggle {
+  cursor: pointer; }
+  .collapse-toggle.active i {
+    -moz-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    -webkit-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    color: #FFAA0A;
+    transform: translateY(4px) rotateZ(90deg); }
 
 .collapse {
   display: none;
@@ -519,6 +521,12 @@ ul.number-type {
   padding: 1em; }
   .task-container p {
     margin-bottom: 2em; }
+
+.mark-content {
+  border-left: solid 5px;
+  padding-left: 1em;
+  margin-left: 1em;
+  border-color: #2196f3; }
 
 /*
  *  color
@@ -825,10 +833,26 @@ ul.number-type {
 .conclusion {
   background-color: rgba(33, 150, 243, 0.15);
   padding: 1em;
-  margin-top: 1em;
+  margin: 1em .5em 2em;
   border-radius: 5px; }
+
+.support-hint {
+  background-color: rgba(255, 235, 60, 0.15);
+  padding: 1em;
+  margin: 1em 3em 2em;
+  border-radius: 5px; }
+
+.img {
+  max-height: 700px;
+  margin: 3em auto; }
 
 .leaflet-bottom {
   z-index: 999; }
+
+@media (min-width: 768px) {
+  .img {
+    max-width: 80%; }
+    .img.underground-river {
+      max-height: 500px; } }
 
 /*# sourceMappingURL=water.css.map */
