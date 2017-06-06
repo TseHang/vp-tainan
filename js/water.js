@@ -46,8 +46,6 @@ function site() {
           town.setOpacity(1)
           town.openPopup()
           if(lastLayer === layer && (siteClicked===true) ) {
-            console.log('fuck')
-            console.log(siteClicked)
             if(lastTown) {
               lastTown.closePopup()
             }
@@ -1004,6 +1002,7 @@ function groundwater() {
 }
 
 $(window).ready(function() {
+  $("#zoom_01").elevateZoom();
   site()
   river()
   rain()
