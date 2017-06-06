@@ -498,13 +498,15 @@ h1 {
 ul.number-type {
   list-style-type: decimal; }
 
-.collapse-toggle.active i {
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  transition: all 0.1s linear;
-  color: #FFAA0A;
-  transform: translateY(4px) rotateZ(90deg); }
+.collapse-toggle {
+  cursor: pointer; }
+  .collapse-toggle.active i {
+    -moz-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    -webkit-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    color: #FFAA0A;
+    transform: translateY(4px) rotateZ(90deg); }
 
 .collapse {
   display: none;
@@ -519,6 +521,12 @@ ul.number-type {
   padding: 1em; }
   .task-container p {
     margin-bottom: 2em; }
+
+.mark-content {
+  border-left: solid 5px;
+  padding-left: 1em;
+  margin-left: 1em;
+  border-color: #2196f3; }
 
 /*
  *  color

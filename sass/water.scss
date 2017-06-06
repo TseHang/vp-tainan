@@ -2,10 +2,6 @@
 @import 'partials/header';
 @import 'partials/footer';
 
-$title-color: #333;
-$background-color: #F1F1F1;
-$container-color: #fff;
-
 #footer {
     text-align:center;
 }
@@ -79,11 +75,32 @@ $container-color: #fff;
 .conclusion {
   background-color: rgba(33, 150, 243, .15);
   padding: 1em;
-  margin-top: 1em;
+  margin: 1em .5em 2em;
   border-radius: 5px;
+}
+
+.support-hint {
+  background-color: rgba(255, 235, 60, .15);
+  padding: 1em;
+  margin: 1em 3em 2em;
+  border-radius: 5px; 
+}
+
+.img {
+  max-height: 700px;
+  margin: 3em auto;
 }
 
 // leaflet-bottom
 .leaflet-bottom {
   z-index: 999;
+}
+
+@media (min-width: map-get($break-point, break-xs)) {
+  .img {
+    max-width: 80%;
+    &.underground-river {
+      max-height: 500px;
+    }
+  }
 }
