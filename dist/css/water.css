@@ -854,5 +854,10 @@ ul.number-type {
     max-width: 80%; }
     .img.underground-river {
       max-height: 500px; } }
+hr {
+  border-color: #fff; }
+
+.center {
+  text-align: center; }
 
 /*# sourceMappingURL=water.css.map */
