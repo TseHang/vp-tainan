@@ -1044,23 +1044,6 @@ $(window).ready(function() {
       margin.bottom = 20
       trigger = true
       rain()
-    }else if (trigger === true) {
-      d3.selectAll('initChart').remove()
-      $('#siteMap, #groundWater').css({
-        'width': '50%',
-        'transform': 'translateX(50%)',
-      })
-      $('.browser-in').css({
-        'display': 'block',
-      })
-      $('.mobile-in').css({
-        'display': 'none'
-      })
-      trigger = false
-      axisPadding = 80
-      width = 800 +  axisPadding// + legendPadding
-      margin.bottom = 140
-      rain()
     }
   })
 })
