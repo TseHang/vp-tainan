@@ -875,11 +875,11 @@ function groundwater() {
       	style: style,
       	onEachFeature: onEachFeature,
       })
-			// siteInfo.update()
       geoJson.addTo(waterMap)
       focusButton.addTo(waterMap)
       setButton.addTo(waterMap)
       siteInfo.addTo(waterMap)
+      siteInfo.update()
     })
   })
   initMap()
@@ -988,7 +988,7 @@ function groundwater() {
     return container
   }
   siteInfo.onAdd = function(map) {
-    this._div = L.DomUtil.create('div', 'siteInfo') // create a div with a class "info"
+    this._div = L.DomUtil.create('div', 'waterInfo') // create a div with a class "info"
     this._div.innerHTML = '<h4>區域資料載入中</h4>'
     return this._div
   }
