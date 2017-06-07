@@ -1014,6 +1014,12 @@ $(window).ready(function() {
       'width': '100%',
       'transform':'translateX(0)',
     })
+    $('.browser-in').css({
+      'display': 'none',
+    })
+    $('.mobile-in').css({
+      'display': 'block'
+    })
     axisPadding = 40
     width = ($(window).width() - 90) +  axisPadding// + legendPadding
     margin.bottom = 20
@@ -1027,6 +1033,12 @@ $(window).ready(function() {
         'width': '100%',
         'transform': 'translateX(0)',
       })
+      $('.browser-in').css({
+        'display': 'none',
+      })
+      $('.mobile-in').css({
+        'display': 'block'
+      })
       axisPadding = 40
       width = ($(window).width() - 90) +  axisPadding// + legendPadding
       margin.bottom = 20
@@ -1037,6 +1049,12 @@ $(window).ready(function() {
       $('#siteMap, #groundWater').css({
         'width': '50%',
         'transform': 'translateX(50%)',
+      })
+      $('.browser-in').css({
+        'display': 'block',
+      })
+      $('.mobile-in').css({
+        'display': 'none'
       })
       trigger = false
       axisPadding = 80
