@@ -18,7 +18,7 @@ function site() {
   const resetButton = L.control()
   let markerArray = []
 
-  $.getJSON('./src/data/tainan-town.geojson', function(data) {
+  $.getJSON('./src/data/tainan-town.min.geojson', function(data) {
     geoData = data
     geoJson = L.geoJson(geoData, {
       style: style,
@@ -294,7 +294,7 @@ function river() {
   const setLocate = L.control().setPosition('topleft')
   const legend = L.control({ position: 'bottomleft' })
 
-  $.getJSON('./src/data/tainanCounty2010merge.json', function(data) {
+  $.getJSON('./src/data/tainanCounty2010merge.min.json', function(data) {
     data = L.geoJson(data, {
       style: {
         fillColor: '#333',
@@ -869,7 +869,7 @@ function groundwater() {
     geoJson.resetStyle(e.target)
   }
   $(document).ready(function() {
-    $.getJSON('./src/data/tainan-town.geojson', function(data) {
+    $.getJSON('./src/data/tainan-town.min.geojson', function(data) {
       geoData = data
       geoJson = L.geoJson(geoData, {
       	style: style,
