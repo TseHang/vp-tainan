@@ -26,7 +26,7 @@ gulp.task('sass',function(){
     	sass: 'sass',
     	comments: false  // Don't include `comments`
 		}))
-		// .pipe(minifyCSS())
+		.pipe(minifyCSS())
 		.pipe(gulp.dest('dist/css'))
     .pipe(connect.reload())
 })

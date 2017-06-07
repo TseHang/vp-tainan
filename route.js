@@ -56,7 +56,12 @@ var route = [
   }, {
     data: {
       path: './',
-      title: '一杯水的故事',
+      title: '我們的水出了什麼問題？',
+      chart_description: {
+        img: '//www.taiwanstat.com/vp-tainan/dist/img/water/water_report.png',
+        description: '地球有70%的地表被水覆蓋，但這麼多水中鹹水卻佔了大多數，只有3%是能夠被人類利用的淡水。而這些相對稀少的「水資源」並不全用於民生，有些則是拿來作為工業、農業用水使用。如此，該如何珍惜得來不易的水資源並防範水污染就是一大課題。讓我們一起從自來水、河川、雨水、地下水四種水的來源面向向您剖析台南的水污染問題。',
+        href: 'https://www.taiwanstat.com/vp-tainan/water_report.html',
+      },
     },
     partials: './partial.js',
     layout: './layout/water_report.hbs',
@@ -87,17 +92,7 @@ var route = [
     partials: './partial.js',
     layout: './layout/disaster_report.hbs',
     filename: './disaster_report.html',
-  }, {
-    data: {
-      path: './',
-      title: '我們的水出了什麼問題！？',
-      chart_description: {
-        img: './dist/img/water/water_logo.png',
-        description: '地球有70%的地表被水覆蓋，但這麼多水中鹹水卻佔了大多數，只有3%是能夠被人類利用的淡水。而這些相對稀少的「水資源」並不全用於民生，有些則是拿來作為工業、農業用水使用。如此，該如何珍惜得來不易的水資源並防範水污染就是一大課題。讓我們一起從自來水、河川、雨水、地下水四種水的來源面向向您剖析台南的水污染問題。',
-        href: './water_report.html',
-      },
-    },
-  }
+  },
 ]
 module.exports = route
 
