@@ -189,6 +189,11 @@
   background-size: cover;
 }
 
+#img_water_report {
+  background: url(../img/disaster/water_screenshot.png) no-repeat center top;
+  background-size: cover; 
+}
+
 .ui.list.list-box {
   > .item {
     color: map-get($color, black--default);
