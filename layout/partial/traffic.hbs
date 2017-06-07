@@ -10,7 +10,17 @@
   </section>
   <section>
     <h1 class="ui header">台南交通事故大多都在哪?</h1>
-    <div class="sub header">台南事故統計地圖</div>
+    <div class="sub header">台南事故統計地圖(2016年6~8月)</div>
+    <div class="toggle_container">
+      <div class="ui toggle checkbox">
+        <input type="checkbox" name="public" id="day_toggle" checked="unchecked">
+        <label>白天 (5:00-17:00)</label>
+      </div>
+      <div class="ui toggle checkbox">
+        <input type="checkbox" name="public" id="night_toggle" checked="checked">
+        <label>晚上 (17:00-5:00)</label>
+      </div>
+    <div>
     <div class="chart" id="accidentMap"></div>
     <div class="ui hidden divider"></div>
     <div class="" id="mapReport">
