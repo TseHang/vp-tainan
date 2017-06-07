@@ -167,7 +167,7 @@ function site() {
                     suppleArea[i]['pH值(pH )'] +
                     '</span><br>總硬度(Total Hardness):<span class="p-font-bold">' +
                     suppleArea[i]['總硬度(Total Hardness)'] +
-                    '</span><br>水質合格否(Y/N):<span class="p-font-bold">' +
+                    '</span><br>水質合格否(Y/N):<span class="p-font-bold" style="color: red;">' +
                     suppleArea[i]['水質合格否(Y/N)'] +
                     '</span></p>')
           marker.on('popupopen', function() {
@@ -355,17 +355,17 @@ function river() {
           marker.bindPopup('<p><span class="p-font-bold">測站名稱：' + siteInfo[i].SiteName +
           									'</span><br/>污染程度：<span class="p-font-bold" style="color: red;">' + polluDegree.disc +
           									'</span><br/>所屬流域：<span class="p-font-bold">' + siteInfo[i].Basin +
-          									'<br/>RPI指標：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].RPI +
-          									'<br/></span>酸鹼值：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].PH +
-          									'<br/></span>懸浮固體：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].SS +
+          									'</span><br/>RPI指標：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].RPI +
+          									'</span><br/>酸鹼值：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].PH +
+          									'</span><br/>懸浮固體：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].SS +
           									'（mg/L）' +
-          									'<br/></span>溶氧量：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].DO +
+          									'</span><br/>溶氧量：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].DO +
           									'（mg/L）' +
-          									'<br/></span>生化需氧量：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].COD +
+          									'</span><br/>生化需氧量：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].COD +
           									'（mg/L）' +
-          									'<br/></span>氨氮：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].NH3N +
+          									'</span><br/>氨氮：<span class="p-font-bold">' + riverData[siteInfo[i].SiteName].NH3N +
           									'（mg/L）' +
-          									'<br/></span>地址：<span class="p-font-bold">' + siteInfo[i].SiteAddress)
+          									'</span><br/>地址：<span class="p-font-bold">' + siteInfo[i].SiteAddress)
 
           if (siteInfo[i].Basin in basinRPI) {
             basinRPI[siteInfo[i].Basin].RPI += riverData[siteInfo[i].SiteName]['RPI']
