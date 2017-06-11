@@ -204,3 +204,73 @@ const radius = Math.min(width, height / 2)
 
   });
 })(window.d3);
+
+var vm = new Vue({
+    el: '#fineCreator',
+    data: {
+      eventData: [],
+      setList: [],
+      idEventData: {},
+      selectId: [],
+      selectName: [],
+      fineList: [],
+      fineTotal: 0,
+      fineData: []
+    },
+    delimiters: ['${', '}'],
+    created: function(){
+        jQuery.get('/src/data/trafficFineSelect.json', function(data) {
+          vm.eventData = data
+
+          $.each(vm.eventData, function (key, data) {
+            vm.idEventData[data.id] = data.category 
+          })
+        });
+        jQuery.get('/src/data/trafficFineChart.json', function(data) {
+          vm.fineData = data
+        });
+    },
+    methods: {
+      addSetting: function(id){
+        this.setList.push(this.idEventData[id]);
+
+        var tmpName = []
+        var tmpId = []
+        $.each(this.idEventData[id], function (index, data) {
+          tmpName.push({ 'x': data.category[0].name})
+          tmpId.push(data.category[0].id)
+        })
+
+        this.selectName.push(tmpName)
+        this.selectId.push(tmpId)
+
+        this.addFine(tmpId, -1)
+
+      },
+      changeSelectId: function(index1, index2, setId){
+        this.selectId[index1][index2] = setId
+        this.addFine(this.selectId[index1], index1)
+      },
+      addFine: function(tmpId, state){
+        $.each(this.fineData, function (index, data) {
+          var diff = $(data.all_id).not(tmpId).get();
+          if(diff.length === 0){
+            if(state === -1){// initial
+              vm.fineList.push(data.fine)
+            }
+            else{
+              vm.fineList[state] = data.fine
+            }
+            return false
+          }
+        })        
+      },
+      removeItem: function(index){
+        this.fineList.splice(index, 1)
+        this.selectId.splice(index, 1)
+        this.selectName.splice(index, 1)
+        this.setList.splice(index, 1)
+      }
+    }
+
+});
