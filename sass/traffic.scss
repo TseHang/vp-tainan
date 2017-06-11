@@ -2,20 +2,43 @@
 @import 'partials/header';
 @import 'partials/footer';
 
+
+$mobile-media:768px;
 .traffic-container {
 	section {
-    	margin-bottom: 100px;
+    	margin-bottom: 8%;
   	}
   	.leaflet-control-attribution{
   		display: none;
   	}
-  	.toggle{
+  	.toggle.checkbox{
   		margin: 1% 0% 1% 0%;
+  		input:checked ~ .box:before, 
+  		input:checked ~ label:before {
+   			 background-color: map-get($color, gray--dark)!important;
+		}
+		input:focus:checked ~ .box:before,
+		input:focus:checked ~ label:before {
+    		background-color: map-get($color, gray--dark) !important;
+		}
 
   	}
+
+  	.chart{
+  		width: 100%;
+  	}
 	#accidentMap{
-		width: 100%;
     	height: 450px;
+	}
+	#warning_area_checkbox{
+		margin-left: 6%;
+	}
+	#linechart svg{
+		height: 5%;
+		width: 100%;
+	}
+	.axis{
+		width: 95%;
 	}
 	.info {
 	    padding: 6px 8px;
@@ -45,4 +68,21 @@
 	#pieChartTable{
 		width: 50%;
 	}
+	#chartHint{
+		text-align:center;
+		button,span{
+			margin:auto;
+			margin-top: 1%;
+		}
+	}
+
+}
+
+@media screen and (max-width: $mobile_media) {
+	#chartHint{
+		.hint{
+			display:none;
+		}
+	}
+	
 }
