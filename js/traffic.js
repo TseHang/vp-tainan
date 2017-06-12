@@ -1,14 +1,13 @@
 //  map of traffic events
 // initial map
+//'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+//'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const mymap = L.map('accidentMap').setView([22.9945, 120.21208], 14)
-L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>',
 }).addTo(mymap)
 
-if (isMobile){
-  $('.hint').css('display', 'none')
-}
 // add legend
 const legend = L.control({ position: 'bottomright' })
 
@@ -66,7 +65,7 @@ function addEventCircle(event, map) {
           color: '#ff6f69',
           stroke: false,
           fillColor: '#ff6f69',
-          fillOpacity: 0.8,
+          fillOpacity: 0.7,
           radius: 20,
           className: classString,
         }).addTo(map)
@@ -77,7 +76,7 @@ function addEventCircle(event, map) {
           color: '#ff6f69',
           stroke: false,
           fillColor: '#ff6f69',
-          fillOpacity: 0.8,
+          fillOpacity: 0.7,
           radius: 20,
           className: classString,
         }).addTo(map)
@@ -90,7 +89,7 @@ function addEventCircle(event, map) {
             color: '#265665',
             stroke: false,
             fillColor: '#265665',
-            fillOpacity: 0.6,
+            fillOpacity: 0.7,
             radius: 20,
             className: classString,
           }).addTo(map)
@@ -101,7 +100,7 @@ function addEventCircle(event, map) {
             color: '#265665',
             stroke: false,
             fillColor: '#265665',
-            fillOpacity: 0.6,
+            fillOpacity: 0.7,
             radius: 20,
             className: classString,
           }).addTo(map)
@@ -114,22 +113,22 @@ function addEventCircle(event, map) {
 function addWarningArea(event,map){
   const lat = event.lat
   const lng = event.lng
+  const name = event.name
   const circle = L.circle([lat, lng], {
           color: '#FFCC00',
           stroke: false,
           fillColor: '#FFCC00',
-          fillOpacity:0.8,
+          fillOpacity:0.6,
           radius: 100,
           className: 'warningArea',
         }).addTo(map)
-        circle.bindPopup('常發生事故路段: 累積事件數：'+ event.count)
+        circle.bindPopup(event.name+', 累積事件數：'+ event.count+'lat,lng: ' + lat)
 }
 
 $.getJSON('./src/data/trafficeRawData.json', (data) => {
   $.each(data, (index, value) => {
     addEventCircle(value, mymap)
   })
-<<<<<<< HEAD
 })
 
 $.getJSON('./src/data/trafficWarningArea.json', (data) => {
@@ -147,6 +146,27 @@ const svg = d3.select('#linechart svg'),
   height = +svg.attr('height') - margin.bottom,
   g = svg.append('g').attr('transform', 'translate(' + 0 + ',' + 5 + ')')
 
+function brushed() {
+  if (!d3.event.sourceEvent) return
+  if (!d3.event.selection) return
+  const d0 = d3.event.selection.map(x.invert)
+  const d1 = d0.map((d) => { return +parseInt(d) })
+  if (d1[0] >= d1[1]) {
+    d1[0] = d0[0]
+    d1[1] = d0[0]+ 1
+  }
+  console.log(d0,d1,d3.event.selection.map(x))
+  d3.select(this).transition().call(d3.event.target.move, d1.map(x))
+  $('#night_toggle').removeAttr('checked')
+  $('#day_toggle').removeAttr('checked')
+  $('.day').css('visibility', 'hidden')
+  $('.night').css('visibility', 'hidden')
+  for (let i = d1[0]; i <= d1[1]; i++) {
+    let hourString = '.hour' + i
+    $(hourString).css('visibility', 'visible')
+  }
+}
+
 const x = d3.scaleLinear()
     .rangeRound([0, width])
 
@@ -161,25 +181,7 @@ const area = d3.area()
     .x((d) => { return x(d.hour) })
     .y1((d) => { return y(d.count) })
 
-function brushed() {
-  if (!d3.event.sourceEvent) return
-  if (!d3.event.selection) return
-  const d0 = d3.event.selection.map(x.invert)
-  const d1 = d0.map((d) => { return +parseInt(d) })
-  if (d1[0] >= d1[1]) {
-    d1[0] = d0[0]
-    d1[1] = d0[0]+ 1
-  }
-  d3.select(this).transition().call(d3.event.target.move, d1.map(x))
-  $('#night_toggle').removeAttr('checked')
-  $('#day_toggle').removeAttr('checked')
-  $('.day').css('visibility', 'hidden')
-  $('.night').css('visibility', 'hidden')
-  for (let i = d1[0]; i <= d1[1]; i++) {
-    let hourString = '.hour' + i
-    $(hourString).css('visibility', 'visible')
-  }
-}
+
 
 d3.csv('./src/data/trafficHourSummary.csv', (d) => {
   d.hour = d.hour
@@ -204,27 +206,68 @@ d3.csv('./src/data/trafficHourSummary.csv', (d) => {
       .call(d3.axisBottom(x)
       .ticks(24))
 
-  g.append('g')
+   g.append('g')
       .attr('class', 'brush')
       .call(brush)
       .call(brush.move, x.range())
 })
 
-//var controlButtons = $('.')
+let initX0 = 0
+let initX1 = 23
+$('.button').on('click',function() {
+  let val = $(this).attr('value')
+  console.log(val)
+  //let brushActualRange = d3.brushSelection(d3.select(".brush").node())
+  const brushg = d3.select('.brush').transition().duration(400)
+  let d1 = d3.brushSelection(brushg.node()).map(x.invert)
+  let d2 = d1.map((d) => { return Math.round(d) })
+  if (val=='plus'){
+    if(d2[1]<=22){
+      d2[1]+=1
+    }else if(d2[0]>0){
+      d2[0]-=1
+    }
+    if (d2[0] >= d2[1]) {
+    d2[0] = d1[0]
+    d2[1] = d1[0]+ 1
+  }
+  }else if (val=='minus'){
+    if(d2[0]>0){
+      d2[0]+=1
+      console.log("minus")
+    }else if(d2[1]==23){
+      d2[1]-=1
+    }
+    if (d2[0] >= d2[1]) {
+    d2[0] = d1[0]
+    d2[1] = d1[0]+ 1
+  }
+  }
+  if (d2[1]==23 && d2[0]==-1){
+    brush.move(brushg, [9,21].map(x))
+  }
+  else{
+    brush.move(brushg, d2.map(x))
+  }
+  console.log( d1,d2)
 
-=======
-});
->>>>>>> de683aab788ced54178e9ff54eedcb3011850e8f
-// pie chart code (d3)
+  
+  
+  //moveBrush(initX0,initX1,val)
+})
+function moveBrush(X0,X1,action){
+  console.log(X0,X1,action)
+  //let range = [X0,X1]
+ 
+  //brush(d3.select(".brush").transition().duration(500));
+  //brush.event(d3.select(".brush").transition().delay(1000).duration(500))
 
-// table next to pie chart
-
-
-
+}
 
 /*pie chart*/
 //total event 356590 + 12401 +1049
 //important event 352617
+/*
 (function(d3) {
   var svgWidth = 300;
   var svgHeight = 300;
@@ -333,4 +376,4 @@ d3.csv('./src/data/trafficHourSummary.csv', (d) => {
       .text(function(d) { return d; });
 
   });
-})(window.d3);
+})(window.d3); */

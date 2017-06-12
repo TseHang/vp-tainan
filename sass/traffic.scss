@@ -2,31 +2,47 @@
 @import 'partials/header';
 @import 'partials/footer';
 
-<<<<<<< HEAD
-
 $mobile-media:768px;
-=======
 $svg-size: 300px;
 $tooltip-content-width: 210px;
 
-
->>>>>>> de683aab788ced54178e9ff54eedcb3011850e8f
 .traffic-container {
 	section {
-    	margin-bottom: 8%;
+    	margin-bottom: 6%;
+  	}
+  	.float_right{
+  		float: right;
+  		margin-right: 30%;
   	}
   	.leaflet-control-attribution{
   		display: none;
   	}
-  	.toggle.checkbox{
-  		margin: 1% 0% 1% 0%;
-  		input:checked ~ .box:before, 
+  	.toggle,.checkbox{
+  		margin: 1% 0% 1% 1%;
+  	}
+  	#day_toggleCheckbox{
+		input:checked ~ .box:before, 
   		input:checked ~ label:before {
-   			 background-color: map-get($color, gray--dark)!important;
+   			 background-color: #ff6f69 !important;
+   			 opacity: 0.7;
 		}
 		input:focus:checked ~ .box:before,
 		input:focus:checked ~ label:before {
-    		background-color: map-get($color, gray--dark) !important;
+    		background-color: #ff6f69  !important;
+    		opacity: 0.7;
+		}
+
+  	}
+  	#nigiht_toggleCheckbox{
+		input:checked ~ .box:before, 
+  		input:checked ~ label:before {
+   			 background-color: #265665 !important;
+   			 opacity: 0.7;
+		}
+		input:focus:checked ~ .box:before,
+		input:focus:checked ~ label:before {
+    		background-color: #265665 !important;
+    		opacity: 0.7;
 		}
 
   	}
@@ -75,25 +91,25 @@ $tooltip-content-width: 210px;
 	#pieChartTable{
 		width: 50%;
 	}
-<<<<<<< HEAD
 	#chartHint{
 		text-align:center;
 		button,span{
 			margin:auto;
 			margin-top: 1%;
 		}
+		button{
+			margin: 0% 3% 0% 3%;
+		}
 	}
-
 }
 
-@media screen and (max-width: $mobile_media) {
+@media screen and (max-width: map-get($break-point, break-xs)){
 	#chartHint{
 		.hint{
 			display:none;
 		}
+
 	}
-	
-=======
 }
 
 
@@ -115,7 +131,6 @@ $tooltip-content-width: 210px;
     padding: 10px;
     position: absolute;
     text-align: center;
-    
     z-index: 999;
 }
 .tooltip-title{
@@ -148,5 +163,4 @@ rect{
 }
 .total-content{
 	margin: 50px 0 200px 0;
->>>>>>> de683aab788ced54178e9ff54eedcb3011850e8f
 }
