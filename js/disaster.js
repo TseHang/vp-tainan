@@ -30,6 +30,7 @@
   map.scrollWheelZoom.disable()
   L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
     maxZoom: 18,
+    minZoom: 10,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map)
 
@@ -107,32 +108,6 @@
       },
     }).addTo(map)
   })
-  let info = L.control()
-  info.onAdd = function() {
-    this._div = L.DomUtil.create('table', 'ui table');
-    this.update();
-    return this._div;
-  };
-  
-  info.update = function(props) {
-    if (props) {
-      if (isLoadSensitiveData) {
-        this._div.innerHTML = `<tbody>
-        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
-        <tr><td>地質敏感區</td><td>${props.s}</td></tr>
-        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
-        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
-        </tbody>`
-      } else {
-        this._div.innerHTML = `<tbody>
-        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
-        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
-        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
-        </tbody>`
-      }
-    }
-  }
-  info.addTo(map)
 
   /* api key shall be protext */
   L.Control.geocoder({
@@ -200,6 +175,47 @@
     }
   }).addTo(map)
 
+  const focusButton = L.control().setPosition('topleft')
+
+  focusButton.onAdd = function() {
+    const container = L.DomUtil.create('button','ui compact icon button')
+    const icon = L.DomUtil.create('i','map outline icon', container)
+    $(icon).on('click', () => {
+      map.setView([23.1, 120.3], 11)
+    })
+    $(icon).attr('title', '縮放至整個台南市')
+    return container
+  }
+
+  focusButton.addTo(map)
+
+  let info = L.control()
+  info.onAdd = function() {
+    this._div = L.DomUtil.create('table', 'ui table');
+    this.update();
+    return this._div;
+  };
+
+  info.update = function(props) {
+    if (props) {
+      if (isLoadSensitiveData) {
+        this._div.innerHTML = `<tbody>
+        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
+        <tr><td>地質敏感區</td><td>${props.s}</td></tr>
+        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
+        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
+        </tbody>`
+      } else {
+        this._div.innerHTML = `<tbody>
+        <thead><tr><th colspan="2">${props.name}</th></tr></thead>
+        <tr><td>土壤液化潛勢</td><td>${props.l}</td></tr>
+        <tr><td>淹水潛勢</td><td>${props.w}</td></tr>
+        </tbody>`
+      }
+    }
+  }
+  info.addTo(map)
+
   $('#s-loadin').on('click', () => {
     if (isLoadSensitiveData) {
       return
@@ -209,6 +225,9 @@
       sensitiveArea = json
       sLayer = L.geoJSON(sensitiveArea, { style: sStyle }).addTo(map)
       $('#s-loadin').removeClass('loading')
+      $('#s-loadin').removeClass('basic')
+      $('#s-loadin').addClass('disabled')
+      $('#s-loadin').text('已載入地質敏感資料')
 
       mapInfo = `<span><span class="info-block" style="background-color: ${sStyle.color} "></span><strong>地質敏感區</strong></span>
       <span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>

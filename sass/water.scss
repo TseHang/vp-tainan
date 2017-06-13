@@ -2,83 +2,113 @@
 @import 'partials/header';
 @import 'partials/footer';
 
-$title-color: #333;
-$background-color: #F1F1F1;
-$container-color: #fff;
-
 #footer {
     text-align:center;
 }
 
-
-h1 {
-    margin:0 3em .5em 3em;
-    font-size:2em;
-    text-align:center;
-    color: #222;
-}
-
-hr {
-    width:100%;
-}
-
-
-li {
-    color: #222;
-}
-a {
-    color: #0083e8;
-}
-
-b, strong {
-    color: #0083e8;
-/*    font-weight: bolder;*/
-    font-weight: 700;
-}
-
-svg {
-    margin: auto;
-    display: block;
-}
-
-
-
-#reservoirMap {
-  width: 65%;
-  height: 400px;
-}
-
-#siteMap {
-  width: 60%;
+#groundWater {
+  width: 50%;
   height: 500px;
+  transform:translateX(50%);
 }
 
+#siteMap, #groundWater {
+  width: 50%;
+  height: 500px;
+  transform:translateX(50%);
+}
 
 #RiverMap {
   width: 100%;
-  height: 700px;
+  height: 500px;
 }
-.info {
+
+.riverInfo, .siteInfo, .waterInfo {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
     background: rgba(255,255,255,0.8);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
-}
-.info h4 {
-    margin: 0 0 5px;
-    color: #777;
+    h4 {
+        margin: 0 0 5px;
+        color: #777;
+    }
 }
 
 .legend {
     line-height: 18px;
     color: #555;
+    i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+    }
 }
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
+
+.rainInfo {
+  display: none;
+}
+
+.info {
+  position: absolute;
+  height: auto;
+  weight: auto;
+  font-size: 14px;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+#info {
+  margin: 0.5em;
+}
+
+.conclusion {
+  background-color: rgba(33, 150, 243, .15);
+  padding: 1em;
+  margin: 1em .5em 2em;
+  border-radius: 5px;
+}
+
+.support-hint {
+  background-color: rgba(255, 235, 60, .15);
+  padding: 1em;
+  margin: 1em 3em 2em;
+  border-radius: 5px;
+}
+
+.img {
+  max-height: 700px;
+  margin: 3em auto;
+}
+
+// leaflet-bottom
+.leaflet-bottom {
+  z-index: 999;
+}
+
+@media (min-width: map-get($break-point, break-xs)) {
+  .img {
+    max-width: 80%;
+    &.underground-river {
+      max-height: 500px;
+    }
+  }
+}
+
+hr {
+  border-color: #fff;
+}
+
+.center {
+  text-align: center;
+}
+
+.mobile-in {
+  display: none;
 }

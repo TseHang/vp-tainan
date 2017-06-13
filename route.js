@@ -1,7 +1,7 @@
 /*
   It's all by  `canner-core` to transform
 */
-var route = [
+const route = [
   {
     data: {
       path: './',
@@ -56,11 +56,16 @@ var route = [
   }, {
     data: {
       path: './',
-      title: '一杯水的故事',
+      title: '我們的水出了什麼問題？',
+      chart_description: {
+        img: 'https://www.taiwanstat.com/vp-tainan/dist/img/water/water_screenshot.png',
+        description: '地球有70%的地表被水覆蓋，但這麼多水中鹹水卻佔了大多數，只有3%是能夠被人類利用的淡水。而這些相對稀少的「水資源」並不全用於民生，有些則是拿來作為工業、農業用水使用。如此，該如何珍惜得來不易的水資源並防範水污染就是一大課題。讓我們一起從自來水、河川、雨水、地下水四種水的來源面向向您剖析台南的水污染問題。',
+        href: 'https://www.taiwanstat.com/vp-tainan/water_report.html',
+      },
     },
     partials: './partial.js',
-    layout: './layout/water.hbs',
-    filename: './water.html',
+    layout: './layout/water_report.hbs',
+    filename: './water_report.html',
   }, {
     data: {
       path: './',
@@ -76,10 +81,12 @@ var route = [
     filename: './population_xyz_report.html',
   }, {
     data: {
-      paht: './',
+      path: './',
       title: '台南災害潛勢地圖',
       chart_description: {
-        img: '//www.taiwanstat.com/vp-tainan/dist/img/population/img_population_xyz_report.png',
+        img: '//www.taiwanstat.com/vp-tainan/src/img/disaster/disaster_screenshot.png',
+        description: '每當遇上地震、颱風、暴雨，你會不會擔心自己家園的安全呢？台灣位處於自然災害頻繁的環境，儘管每每做好了準備，卻仍然有災情發生，這是台灣人民永遠的隱憂。這次我們將以台南市政府公布的開放資料，製作台南的災害潛勢地圖，讓您知道家園是否有潛在的危機，同時，有什麼事是我們可以做的，去避免下一次的遺憾發生！',
+        href: 'https://www.taiwanstat.com/vp-tainan/disaster_report.html',
       },
     },
     partials: './partial.js',

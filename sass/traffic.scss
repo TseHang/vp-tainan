@@ -6,6 +6,10 @@ $mobile-media:768px;
 $svg-size: 300px;
 $tooltip-content-width: 210px;
 
+// reset component
+.mark-content {
+  border-color: map-get($color, orange);
+}
 .traffic-container {
 	section {
       margin-bottom: 6%;

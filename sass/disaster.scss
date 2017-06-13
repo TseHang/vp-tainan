@@ -1,73 +1,88 @@
 @import 'default/default';
 @import 'partials/header';
 @import 'partials/footer';
-$black-color: #333;
+
 $max-width: 1280px;
 $min-width: 400px;
-.disaster-container {
-  #map-info {
-    height: 3em;
-    text-align: center;
+#map-info {
+  height: 3em;
+  text-align: center;
+  line-height: 1em;
+  
+  .info-block {
+    height: 1em;
+    width: 1em;
     line-height: 1em;
-    .info-block {
-      height: 1em;
-      width: 1em;
-      line-height: 1em;
-      margin: 0 4px 0 24px;
-      border-radius: 0.3em;
-      display: inline-block;
-    }
-    .bg-liquefaction {
-      width: 3em;
-      background: -moz-linear-gradient(left, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
-      /* FF3.6-15 */
-      background: -webkit-linear-gradient(left, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
-      /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(to right, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
-      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    }
-    .bg-water {
-      width: 3em;
-      background: -moz-linear-gradient(left, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
-      /* FF3.6-15 */
-      background: -webkit-linear-gradient(left, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
-      /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(to right, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
-      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    }
-    table.ui.basic.table {
-      background-color: white;
-    }
+    margin: 0 4px 0 24px;
+    border-radius: 0.3em;
+    display: inline-block;
   }
-  #well-living-map {
-    width: 100%;
-    height: 400px;
+  .bg-liquefaction {
+    width: 3em;
+    background: -moz-linear-gradient(left, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(139, 195, 74, 0.2) 0%, rgba(139, 195, 74, 0.8) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   }
-  section {
-    margin-bottom: 100px;
+  .bg-water {
+    width: 3em;
+    background: -moz-linear-gradient(left, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(63, 81, 181, 0.2) 0%, rgba(63, 81, 181, 0.8) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   }
-  p {
-    line-height: 1.7em;
-    letter-spacing: 1px;
-    text-align: justify;
-    margin: 0;
-    // text-indent: 2em;
-    margin-bottom: 1em;
+  table.ui.basic.table {
+    background-color: white;
+  }
+  .sub.header {
+    padding-top: 12px;
   }
 }
 
-@media (min-width: map-get($break-point, break-xs)) and (max-width: map-get($break-point, break-md)) {
-  .area-desktop-map {
-    width: 100%;
+#well-living-map {
+  width: 100%;
+  height: 400px;
+  button.icon {
+    background-color: white;
   }
-  .area-intro {
-    > .intro-area {
-      margin-top: 2em;
-    }
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    background-color: rgba(152, 151, 151, 0.15);
-    border-radius: 20px;
+}
+
+section {
+  margin-bottom: 100px;
+}
+
+p {
+  line-height: 1.7em;
+  letter-spacing: 1px;
+  text-align: justify;
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+.leaflet-top {
+  z-index: 999;
+}
+
+em {
+  font-weight: 900;
+}
+
+@media (max-width: map-get($break-point, break-xs)) {
+  .disaster-container .ui.table{
+    opacity: 0.8;
+  }
+  .disaster-container .ui.table tr{
+    padding: 0.2em 0;
+  }
+  #map-info .info-block {
+    margin: 0 4px 0 8px;
+    width: 2em;
+  }
+  li, a.item{
+    text-align: left;
   }
 }

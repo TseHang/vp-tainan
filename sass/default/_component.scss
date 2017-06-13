@@ -1,7 +1,7 @@
 /*
  * Component
  */
-
+ 
 .intro-text {
   color: map-get($color, red);
 }
@@ -16,6 +16,7 @@ ul.number-type {
 }
 
 .collapse-toggle {
+  cursor: pointer;
   &.active {
     i {
       @include transition(all .1s linear);
@@ -42,6 +43,13 @@ ul.number-type {
   p {
     margin-bottom: 2em;
   }
+}
+
+.mark-content {
+  border-left: solid 5px;
+  padding-left: 1em;
+  margin-left: 1em;
+  border-color: map-get($color, blue);
 }
 /*
  *  color
