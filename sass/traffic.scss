@@ -54,19 +54,21 @@ $tooltip-content-width: 210px;
 	font-size: 35px;
 }
 .pie-section{
-  	width: 600px;
+  	width: 100%;
   	position: relative;
 }
 .tooltip {
     color: #333;
     width: $tooltip-content-width;
 
-    display: none;
+    /*display: block;*/
     font-size: 16px;
-    left: 50px;
-    top: 92px;
+    left: 50%;
+    top: 150px;
     padding: 10px;
+    transform: translateX(-50%); 
     position: absolute;
+	//margin: 0 auto;
     text-align: center;
     
     z-index: 999;
@@ -81,8 +83,8 @@ $tooltip-content-width: 210px;
 	background-color: lighten(gray, 30%);
 	margin: 8px auto;
 }         
-.legend{
-	font-size: 12px;
+.legend-style{
+	font-size: 15px;
 }
 rect{
 	stroke-width: 2;
@@ -95,6 +97,9 @@ rect{
 	border-bottom: 1px solid lighten(gray, 30%);
 	text-align: center;
 	font-size: 15px;
+}
+.pie-graph{
+	width: 100%;
 }
 .pie-graph-comment{
 	margin-top: 20px;
@@ -125,6 +130,9 @@ rect{
 .rule-trigger:hover{
 	cursor: pointer;
 }
+.rule > .p-font-bold{
+	display: inline-block;
+}
 .collapse-toggle.active{
     -moz-transition: all .1s linear;
     -o-transition: all .1s linear;
@@ -145,8 +153,9 @@ rect{
     border-radius: 4px;
 }
 .rule > p{
-	margin-bottom: 5px;
+	line-height: 25px;
 }
+
 /*#newsLink{
 	color: #2185d0;
 	text-decoration: underline;
@@ -185,4 +194,35 @@ em{
 .p-font-bold{
     display: inline;
     font-size: 18px;
+}
+
+polyline{
+	opacity: 0.2;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
+.label-style{
+	font-size: 16px;
+}
+.legend-svg{
+	display: none; 
+}
+.legend-text{
+	margin-left: 5px;
+}
+.ui.table{
+	width: auto;
+}
+
+
+@media screen and (max-width: 768px){
+	.pie-svg,
+	.tooltip{
+		display: none;
+	}
+	.legend-svg{
+		display: block;
+	}
+
 }
