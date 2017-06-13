@@ -3,7 +3,7 @@
 //'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
 //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const mymap = L.map('accidentMap').setView([22.9945, 120.21208], 14)
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
   maxZoom: 18,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>',
 }).addTo(mymap)
@@ -235,7 +235,7 @@ $('.button').on('click',function() {
     if(d2[0]>0){
       d2[0]+=1
       console.log("minus")
-    }else if(d2[1]==23){
+    }else if(d2[1]<= 23){
       d2[1]-=1
     }
     if (d2[0] >= d2[1]) {
