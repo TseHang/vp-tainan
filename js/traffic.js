@@ -32,10 +32,18 @@ legendLocation.onAdd = () => {
 }
 legend.addTo(mymap)
 legendLocation.addTo(mymap)
+function getLocation(map){
+  map.locate({setView: true, maxZoom: 15})
+      .on('locationfound', function(e){
+            var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
+           
+            map.addLayer(marker)
 
+        })
+}
 
 // toggle onclick
-$('#day_toggle').on('click', () => {
+$('#day_toggleCheckbox').checkbox().on('click', () => {
   const isChecked = $('#day_toggle').is(':checked')
   if (isChecked) {
     $('.day').css('visibility', 'visible')
@@ -43,7 +51,7 @@ $('#day_toggle').on('click', () => {
     $('.day').css('visibility', 'hidden')
   }
 })
-$('#night_toggle').on('click', () => {
+$('#night_toggleCheckbox').checkbox().on('click', () => {
   const isChecked = $('#night_toggle').is(':checked')
   if (isChecked) {
     $('.night').css('visibility', 'visible')
@@ -51,7 +59,8 @@ $('#night_toggle').on('click', () => {
     $('.night').css('visibility', 'hidden')
   }
 })
-$('#warning_area_checkbox').on('click', () => {
+
+$('#warning_area_checkbox_wrap').checkbox().on('click', () => {
   const isChecked = $('#warning_area_checkbox').is(':checked')
   if (isChecked) {
     $('.warningArea').css('visibility', 'visible')
@@ -63,15 +72,7 @@ $('#warning_area_checkbox').on('click', () => {
 $('#getLocationButton').on('click', () => {
   getLocation(mymap)
 })
-function getLocation(map){
-  map.locate({setView: true, maxZoom: 15})
-      .on('locationfound', function(e){
-            var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
-           
-            map.addLayer(marker);
 
-        })
-}
 function addEventCircle(event, map) {
   const lat = event.lat
   const lng = event.lng
