@@ -1,0 +1,106 @@
+<div class="traffic-container">
+  <p class="intro-text">這次我們將台南交通分成『事故分佈地圖』、『違規事項探討』。
+  <br>讓大家能更了解台南的交通狀況，並提高行車警覺與遵守交通規則，減少事故的發生。
+  <h1 class="ui header">道路潛藏危機地圖</h1>
+  <section>
+    <p>每天出門，路上的交通問題總是我們頭痛的一個環節。不論是事故、塞車、交通違規等各種意外事項，都很有可能會延誤到原本的行程，嚴重的話甚至會有人身或財產上的損失。</p>
+    <p>近年來，台南市的汽機車數量也達到&nbsp;<span class="color-orange">小客車每10人有3台、機車每10人有6.8台，數量分別為六都第3和第2名。</span></p>
+    <p class="p-font-bold">這樣的數據顯示，台南的車輛數是台灣較高的族群。然而，越多在路上行駛的車輛，也考驗著駕駛人的道路使用認知與政府的道路規劃。只要用路人在道路上稍有不注意，就可能造成交通事故。</p>
+    <p>讓我們一起『快樂出門、平安回家』!!</p>
+    <div class="ui divider"></div>
+  </section>
+  <section>
+    <h1 class="ui header">台南交通事故都在哪?</h1>
+    <div class="sub header">台南事故、發生時間統計圖(資料時間：2016年6~8月)</div>
+    <div class="toggle_container">
+      <div class="ui toggle checkbox" id="day_toggleCheckbox">
+        <input type="checkbox" name="public" id="day_toggle" checked="unchecked">
+        <label>白天 (5:00-17:00)</label>
+      </div>
+      <div class="ui toggle checkbox" id="night_toggleCheckbox">
+        <input type="checkbox" name="public" id="night_toggle" checked="checked">
+        <label>晚上 (17:00-5:00)</label>
+      </div>
+      <div class="ui checkbox" >
+        <input type="checkbox" name="warning_area" id ="warning_area_checkbox" checked="checked">
+        <label>常發生事故路段(用<i class="circle icon yellow"></i>表示)</label>
+      </div>
+    <div class="chart" id="accidentMap"></div>
+    <div class="chart" id="linechart"><svg  height="100"></svg></div>
+    <div id="chartHint">
+      <button class="ui left labeled icon button hourButton" value="minus" id="minusbutton">
+        <i class="minus icon"></i>
+        減少一小時
+      </button>
+      <span class="ui hint"><span class="ui p-font-bold">用灰色方框選取範圍</span>可看對應時間的事故點(統計單位：小時)</span>
+      <button class="ui right labeled icon button hourButton" value="plus" id="plusbutton">
+        <i class="plus icon"></i>
+        增加一小時
+      </button> 
+    </div>
+    <div class="ui hidden divider"></div>
+    <div class="mapReport">
+      <div class="ui message warning ">
+        <div class="header">
+          事故較密集發生區域 (地區/時間性)
+        </div>
+        <ul class="list">
+          <li>復興路往國道一號交流道附近：白天、晚上</li>
+          <li>西門圓環往民生路一段沿路：白天</li>
+          <li>小東路與中華東路口：白天</li>
+          <li>東門路二段 (與裕豐街交叉路口、與裕農路交叉路口)：白天</li>
+          <li>民生綠園圓環(台灣文學館)：白天</li>
+          <li>海安路一段與正興街路口：白天</li>
+        </ul>
+      </div>
+      <p class="color-gray--dark p-size-s">上圖的統計圖表是根據台南市政府的開放資料製成，涵蓋時間從2016年6月~8月，總計2932件交通事故。<br>時間統計圖為綜和每小時發生的事件數量繪製而成。</p>
+
+      <h2>台南交通事故特性</h2>
+      <h4>1. 時間：「8-10 時」、「17-20 時」的上、下班時段</h4><p><span>主要的事故尖峰皆分佈在車流較多的時候，像是「8-10 時」、「17-20 時」的上、下班時段，而中午也有不少的事故數量。我們將尖峰時段訂為8~10點間與17~20點間，尖峰時段的事故數為1001件，非尖峰時段為1931件，尖峰時段(總計5小時)事故數佔整體事件數量的3成4。</span>
+      <h4>2. 路段：路口發生事故多，白天事故分散於各個街道、巷道中，晚上多分佈於主要幹道</h4><p></p>
+      <h4>3. 汽機車事故比：機車56.7%、自用小客車29.6%</h4>
+      <p>此份資料並未提及車種部分，然而根據台南市政府警察局2015年統計結果，台南市汽機車發生事故比例為機車為56.7%，而自用小客車為29.60%。台南市的主要交通工具以機車為主，機車雖有機動性及便利性，然而機車一旦發生事故時，駕駛人更容易受傷，所以不可不小心。</p>
+      <p></p>
+      <h2>事故發生原因</h2>
+      <p class="mark-content p-size-big">根據台南市政府警察局道路交通事故分析指出，在發生事故原因中又以<span class="p-font-bold">「未依規定讓車」</span>和<span class="p-font-bold">「未注意車前狀態」</span>佔多數，而大部分人認為較常發生的酒駕肇事比例則相對低。</p>
+      <p class="color-gray--dark"> 其他主要原因含「未依規定讓車」、「未注意車前狀態」、「違反號誌管制或指揮」、「左轉彎未依規定」、「未保持行車安全距離」、「起步未注意其他車(人)安全」、「未保持行車安全間隔」、「右轉彎未依規定」、「迴轉彎未依規定」、「變換車道或方向不當」。</p>
+
+      <h4 class="ui header">什麼是「未依規定讓車」? </h4>
+        <p>常見案例：搶快</p>
+        <p>最容易發生事故的地點在十字路口，特別是無號誌的路口，都市人口密集，巷弄較多的地點事故發生機率亦高；未依規定讓車主要又可依照有『沒有支幹道劃分』為分界，如發生車禍，會以幹支線、車道數和車行方向做為責任歸屬的標準。</p>
+        <div class="ui message">
+          <h5 class="collapse-toggle link" href="#message-content-1" data-id="message-content-1">讓車規定有哪些?（點擊查看）</h5>
+          <div class="collapse" id="message-content-1">
+          <p> 一、 有劃分幹支道：<br>
+              1.有『停、讓標誌(線)』或『閃光號誌』者：<span class="p-font-bold">支道車應讓幹道車先行。</span><br>
+              2.無設置標誌標線或號誌者：<span class="p-font-bold">少線道車應讓多線道車先行。</span></p>
+          <p> 二、  未劃分幹支道：<br>
+              1.<span class="p-font-bold">轉彎車應讓直行車先行。</span><br>
+              2.車道數相同，又同時為直行車/轉彎車，左方車讓右方車先行。</p>
+          </div>
+        </div>
+        <h4>什麼是「未注意車前狀態」?</h4>
+        <p>常見案例：開車分心、太慢煞車而碰撞</p>
+        <p>未注意車前狀態即肇事者駕車時注意力分散，未專注於前方人車動態，致以前車頭撞擊對方。此類案件通常肇事者的行車視野甚佳、反應及煞停時間均足夠；若其有注意車前狀況，在第一時間就能發現異狀並即時煞停，不致發生事故，卻因自身注意力分散而自行錯失安全煞停時機。</p>
+      </div>
+    </div>
+    </div>
+  </section>
+  <section>
+  <!--
+  	<h1 class="title">台南舉發項目</h1>
+		<div class="pie-section">
+			<div class="pie-graph" id="pieChart"></div>
+			<div class="graph-desc">2015年舉發違反道路交通管理事件成果</div>
+		</div>
+		<div class="pie-graph-comment">
+			<p>由上圖可以看出，2015年台南舉發項目最高的前三名分別為
+			違規停車(50.1%) 紅燈執行左轉(11.2%) 行車速度超速(8%)</p>
+		</div>
+    <div class="chart" id="summerizeChart">
+    </div>
+    <div class="" id="chartReport">
+    </div>
+    -->
+  </section>
+</div>

@@ -164,7 +164,7 @@
         name,
         l: lresponse,
         s: sresponse,
-        w: wresponse
+        w: wresponse,
       })
     } else {
       info.update({

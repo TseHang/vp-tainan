@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html style="height:100%;width:100%;margin:0px;">
+
+<head>
+  {{> head}}
+  <title> {{title}} || 用數據看台南</title>
+  <link rel="stylesheet" href="./dist/css/traffic.css">
+  <link rel="stylesheet" href="./src/leaflet-control-geocoder/Control.Geocoder.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet" data-semver="3.0.1" data-require="normalize@*" />
+  <link rel="stylesheet" href="./src/leaflet-control-geocoder/Control.Geocoder.css">
+</head>
+
+<body>
+  {{> header}}
+  <section class="section main">
+    {{> traffic}}
+  </section>
+  {{> footerGA}}
+</body>
+{{> inner_script}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript" src="./dist/js/traffic.js"></script>
+
+</html>
