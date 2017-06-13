@@ -22,7 +22,7 @@ $tooltip-content-width: 210px;
   	}
   	#day_toggleCheckbox{
 		input:checked ~ .box:before, 
-  	input:checked ~ label:before {
+  		input:checked ~ label:before {
    			 background-color: #ff6f69 !important;
    			 opacity: 0.7;
 		}
@@ -51,7 +51,7 @@ $tooltip-content-width: 210px;
   		width: 100%;
   	}
 	#accidentMap{
-    	height: 450px;
+    	height: 400px;
 	}
 	#warning_area_checkbox{
 		margin-left: 6%;
@@ -83,6 +83,9 @@ $tooltip-content-width: 210px;
 		    opacity: 0.7;
 		}
 
+	}
+	.info{
+		width: 95%;
 	}
 	#summerizeChart{
 		width: 100%;

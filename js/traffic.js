@@ -2,6 +2,7 @@
 // initial map
 //'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
 //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
 const mymap = L.map('accidentMap').setView([22.9945, 120.21208], 14)
 L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
   maxZoom: 18,
@@ -10,6 +11,7 @@ L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 
 // add legend
 const legend = L.control({ position: 'bottomright' })
+const legendLocation = L.control({ position: 'bottomright' })
 
 legend.onAdd = () => {
   const div = L.DomUtil.create('div', 'info legend'),
@@ -22,7 +24,15 @@ legend.onAdd = () => {
   }
   return div
 }
+legendLocation.onAdd = () => {
+  const div = L.DomUtil.create('div', 'info legend')
+  div.innerHTML +='<button class="ui button" style="background-color:#ffffff" id="getLocationButton">移動到我的位置</button>'
+
+  return div
+}
 legend.addTo(mymap)
+legendLocation.addTo(mymap)
+
 
 // toggle onclick
 $('#day_toggle').on('click', () => {
@@ -50,6 +60,18 @@ $('#warning_area_checkbox').on('click', () => {
   }
 })
 
+$('#getLocationButton').on('click', () => {
+  getLocation(mymap)
+})
+function getLocation(map){
+  map.locate({setView: true, maxZoom: 15})
+      .on('locationfound', function(e){
+            var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
+           
+            map.addLayer(marker);
+
+        })
+}
 function addEventCircle(event, map) {
   const lat = event.lat
   const lng = event.lng
@@ -125,6 +147,83 @@ function addWarningArea(event,map){
         circle.bindPopup(event.name+', 累積事件數：'+ event.count+'lat,lng: ' + lat)
 }
 
+// This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+//google map exploration
+/*
+function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('accidentMap'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+initAutocomplete()*/
 $.getJSON('./src/data/trafficeRawData.json', (data) => {
   $.each(data, (index, value) => {
     addEventCircle(value, mymap)
@@ -181,8 +280,6 @@ const area = d3.area()
     .x((d) => { return x(d.hour) })
     .y1((d) => { return y(d.count) })
 
-
-
 d3.csv('./src/data/trafficHourSummary.csv', (d) => {
   d.hour = d.hour
   d.count = +d.count
@@ -212,9 +309,8 @@ d3.csv('./src/data/trafficHourSummary.csv', (d) => {
       .call(brush.move, x.range())
 })
 
-let initX0 = 0
-let initX1 = 23
-$('.button').on('click',function() {
+
+$('.hourButton').on('click',function() {
   let val = $(this).attr('value')
   console.log(val)
   //let brushActualRange = d3.brushSelection(d3.select(".brush").node())
@@ -243,27 +339,20 @@ $('.button').on('click',function() {
     d2[1] = d1[0]+ 1
   }
   }
-  if (d2[1]==23 && d2[0]==-1){
+  if (d2[1]==23 && d2[0]==-1 || d2[0]==0){
     brush.move(brushg, [9,21].map(x))
   }
   else{
     brush.move(brushg, d2.map(x))
   }
+  $('.day').css('visibility', 'hidden')
+  $('.night').css('visibility', 'hidden')
+  for (let i = d2[0]; i <= d2[1]; i++) {
+    let hourString = '.hour' + i
+    $(hourString).css('visibility', 'visible')
+  }
   console.log( d1,d2)
-
-  
-  
-  //moveBrush(initX0,initX1,val)
 })
-function moveBrush(X0,X1,action){
-  console.log(X0,X1,action)
-  //let range = [X0,X1]
- 
-  //brush(d3.select(".brush").transition().duration(500));
-  //brush.event(d3.select(".brush").transition().delay(1000).duration(500))
-
-}
-
 /*pie chart*/
 //total event 356590 + 12401 +1049
 //important event 352617
