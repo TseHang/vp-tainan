@@ -75,11 +75,10 @@ $('#getLocationButton').on('click', function () {
 
 function goToByScroll(id) {
   // Scroll
-  $('html,body').animate({
-    scrollTop: $("#" + id).offset().top }, 'slow');
+  $('html,body').animate({ scrollTop: $("#" + id).offset().top - 100 }, 'slow');
 }
 
-$('li').click(function () {
+$('.list>li').click(function () {
   var area_id = parseInt($(this).attr('id').replace('area', ''));
   goToByScroll('accidentMap');
   var marker = void 0;
