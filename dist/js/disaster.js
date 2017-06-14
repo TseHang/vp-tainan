@@ -1,1 +1,231 @@
-"use strict";!function(e){var t=L.map("well-living-map",{renderer:L.canvas()}).setView([23.1,120.3],11),a=!1,o=void 0,n=void 0,r=void 0,i=void 0,l=void 0,s=void 0,c=void 0,p=void 0,d=void 0,g={color:"#E91E63",fillOpacity:.8,weight:0},f={color:"#8BC34A",fillOpacity:.8,weight:0},u={color:"#3F51B5",fillOpacity:.8,weight:0};t.scrollWheelZoom.disable(),L.tileLayer("http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",{maxZoom:18,minZoom:10,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(t);var m='<span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>\n                 <span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>';$("#map-info").append(m),$.getJSON("./src/data/disaster-liquefaction.json",function(e){n=e,c=L.geoJSON(n,{style:function(e){switch(e.properties["分級"]){case"低潛勢":f.fillOpacity=.5;break;case"中潛勢":f.fillOpacity=.7;break;case"高潛勢":f.fillOpacity=.9}return f}}).addTo(t)}),$.getJSON("./src/data/disaster-water600.json",function(e){r=e,i=L.geoJSON(r,{style:function(e){switch(e.properties.CLASS){case 1:u.fillOpacity=.5;break;case 2:u.fillOpacity=.7;break;case 3:u.fillOpacity=.9}return u}}).addTo(t)}),$.getJSON("./src/data/disaster-water200.json",function(e){l=L.geoJSON(e)}),$.getJSON("./src/data/disaster-country-water200.json",function(e){d=L.geoJSON(e)}),$.getJSON("./src/data/disaster-country-water600.json",function(e){p=L.geoJSON(e,{style:function(e){switch(e.properties.CLASS){case 1:u.fillOpacity=.5;break;case 2:u.fillOpacity=.7;break;case 3:u.fillOpacity=.9}return u}}).addTo(t)}),L.Control.geocoder({collapsed:!1,placeholder:"請輸入地址或地名查詢...",errorMessage:"查無此地址",geocoder:new L.Control.Geocoder.Google("AIzaSyARIN80OjEjl4O24neRkXZgAo7hTKqVhD4")}).on("markgeocode",function(e){var t=e.geocode.center,o=e.geocode.name,n=leafletPip.pointInLayer(t,c,!0),r=void 0;a&&(r=leafletPip.pointInLayer(t,s,!0));var g=leafletPip.pointInLayer(t,i,!0),f=leafletPip.pointInLayer(t,l,!0),u=leafletPip.pointInLayer(t,p,!0),m=leafletPip.pointInLayer(t,d,!0),h=n.length>0?n[0].feature.properties["分級"]:"無潛勢",y=void 0,b=void 0;a&&(y=r.length>0?"是":"否"),g.length>0&&0===f.length?(b="雨量達600mm時，可能淹水",b+=g[0].feature.properties.NOTE.replace("(","").replace(")","")):g.length>0&&f.length>0?(b="雨量達200mm時(即豪雨)，可能淹水",b+=f[0].feature.properties.NOTE.replace("(","").replace(")",""),b+="<br>雨量達600mm時，可能淹水",b+=g[0].feature.properties.NOTE.replace("(","").replace(")","")):0===g.length&&f.length>0?(b="雨量達200mm時(即豪雨)，可能淹水",b+=f[0].feature.properties.NOTE.replace("(","").replace(")","")):u.length>0&&0===m.length?(b="雨量達600mm時，可能淹水",b+=u[0].feature.properties.NOTE.replace("(","").replace(")","")):u.length>0&&m.length>0?(b="雨量達200mm時(即豪雨)，可能淹水",b+=m[0].feature.properties.NOTE.replace("(","").replace(")",""),b+="<br>雨量達600mm時，可能淹水",b+=u[0].feature.properties.NOTE.replace("(","").replace(")","")):0===u.length&&m.length>0?(b="雨量達200mm時(即豪雨)，可能淹水",b+=m[0].feature.properties.NOTE.replace("(","").replace(")","")):b="無潛勢",a?O.update({name:o,l:h,s:y,w:b}):O.update({name:o,l:h,w:b})}).addTo(t);var h=L.control().setPosition("topleft");h.onAdd=function(){var e=L.DomUtil.create("button","ui compact icon button"),a=L.DomUtil.create("i","map outline icon",e);return $(a).on("click",function(){t.setView([23.1,120.3],11)}),$(a).attr("title","縮放至整個台南市"),e},h.addTo(t);var O=L.control();O.onAdd=function(){return this._div=L.DomUtil.create("table","ui table"),this.update(),this._div},O.update=function(e){e&&(this._div.innerHTML=a?'<tbody>\n        <thead><tr><th colspan="2">'+e.name+"</th></tr></thead>\n        <tr><td>地質敏感區</td><td>"+e.s+"</td></tr>\n        <tr><td>土壤液化潛勢</td><td>"+e.l+"</td></tr>\n        <tr><td>淹水潛勢</td><td>"+e.w+"</td></tr>\n        </tbody>":'<tbody>\n        <thead><tr><th colspan="2">'+e.name+"</th></tr></thead>\n        <tr><td>土壤液化潛勢</td><td>"+e.l+"</td></tr>\n        <tr><td>淹水潛勢</td><td>"+e.w+"</td></tr>\n        </tbody>")},O.addTo(t),$("#s-loadin").on("click",function(){a||($("#s-loadin").addClass("loading"),$.getJSON("./src/data/disaster-sensitive.json",function(e){o=e,s=L.geoJSON(o,{style:g}).addTo(t),$("#s-loadin").removeClass("loading"),$("#s-loadin").removeClass("basic"),$("#s-loadin").addClass("disabled"),$("#s-loadin").text("已載入地質敏感資料"),m='<span><span class="info-block" style="background-color: '+g.color+' "></span><strong>地質敏感區</strong></span>\n      <span><span class="info-block bg-liquefaction"></span><strong>土壤液化潛勢區</strong></span>\n      <span><span class="info-block bg-water"></span><strong>淹水潛勢區</strong></span>',$("#map-info").html(m)}),a=!0)})}(window);
+'use strict';
+
+(function (window) {
+  var map = L.map('well-living-map', { renderer: L.canvas() }).setView([23.1, 120.3], 11);
+  var isLoadSensitiveData = false;
+  var sensitiveArea = void 0;
+  var liquefactionArea = void 0;
+  var waterArea = void 0;
+  var w600Layer = void 0;
+  var w200Layer = void 0;
+  var sLayer = void 0;
+  var lLayer = void 0;
+  var countryW600Layer = void 0;
+  var countryW200Layer = void 0;
+
+  var sStyle = {
+    color: '#E91E63',
+    fillOpacity: 0.8,
+    weight: 0
+  };
+  var lStyle = {
+    color: '#8BC34A',
+    fillOpacity: 0.8,
+    weight: 0
+  };
+  var wStyle = {
+    color: '#3F51B5',
+    fillOpacity: 0.8,
+    weight: 0
+  };
+
+  map.scrollWheelZoom.disable();
+  L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    minZoom: 10,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  var mapInfo = '<span><span class="info-block bg-liquefaction"></span><strong>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2\u5340</strong></span>\n                 <span><span class="info-block bg-water"></span><strong>\u6DF9\u6C34\u6F5B\u52E2\u5340</strong></span>';
+  $('#map-info').append(mapInfo);
+
+  $.getJSON('./src/data/disaster-liquefaction.json', function (json) {
+    liquefactionArea = json;
+    lLayer = L.geoJSON(liquefactionArea, {
+      style: function style(feature) {
+        switch (feature.properties['分級']) {
+          case '低潛勢':
+            lStyle.fillOpacity = 0.5;
+            break;
+          case '中潛勢':
+            lStyle.fillOpacity = 0.7;
+            break;
+          case '高潛勢':
+            lStyle.fillOpacity = 0.9;
+            break;
+          default:
+            break;
+        }
+        return lStyle;
+      }
+    }).addTo(map);
+  });
+
+  $.getJSON('./src/data/disaster-water600.json', function (json) {
+    waterArea = json;
+    w600Layer = L.geoJSON(waterArea, {
+      style: function style(feature) {
+        switch (feature.properties.CLASS) {
+          case 1:
+            wStyle.fillOpacity = 0.5;
+            break;
+          case 2:
+            wStyle.fillOpacity = 0.7;
+            break;
+          case 3:
+            wStyle.fillOpacity = 0.9;
+            break;
+          default:
+            break;
+        }
+        return wStyle;
+      }
+    }).addTo(map);
+  });
+
+  $.getJSON('./src/data/disaster-water200.json', function (json) {
+    w200Layer = L.geoJSON(json);
+  });
+  $.getJSON('./src/data/disaster-country-water200.json', function (json) {
+    countryW200Layer = L.geoJSON(json);
+  });
+  $.getJSON('./src/data/disaster-country-water600.json', function (json) {
+    countryW600Layer = L.geoJSON(json, {
+      style: function style(feature) {
+        switch (feature.properties.CLASS) {
+          case 1:
+            wStyle.fillOpacity = 0.5;
+            break;
+          case 2:
+            wStyle.fillOpacity = 0.7;
+            break;
+          case 3:
+            wStyle.fillOpacity = 0.9;
+            break;
+          default:
+            break;
+        }
+        return wStyle;
+      }
+    }).addTo(map);
+  });
+
+  /* api key shall be protext */
+  L.Control.geocoder({
+    collapsed: false,
+    placeholder: '請輸入地址或地名查詢...',
+    errorMessage: '查無此地址',
+    geocoder: new L.Control.Geocoder.Google('AIzaSyARIN80OjEjl4O24neRkXZgAo7hTKqVhD4')
+  }).on('markgeocode', function (e) {
+    var latlng = e.geocode.center;
+    var name = e.geocode.name;
+    var lResult = leafletPip.pointInLayer(latlng, lLayer, true);
+    var sResult = void 0;
+    if (isLoadSensitiveData) {
+      sResult = leafletPip.pointInLayer(latlng, sLayer, true);
+    }
+    var w600Result = leafletPip.pointInLayer(latlng, w600Layer, true);
+    var w200Result = leafletPip.pointInLayer(latlng, w200Layer, true);
+    var countryW600Result = leafletPip.pointInLayer(latlng, countryW600Layer, true);
+    var countryW200Result = leafletPip.pointInLayer(latlng, countryW200Layer, true);
+    var lresponse = lResult.length > 0 ? lResult[0].feature.properties['分級'] : '無潛勢';
+    var sresponse = void 0;
+    var wresponse = void 0;
+    if (isLoadSensitiveData) {
+      sresponse = sResult.length > 0 ? '是' : '否';
+    }
+    if (w600Result.length > 0 && w200Result.length === 0) {
+      wresponse = '雨量達600mm時，可能淹水';
+      wresponse += w600Result[0].feature.properties.NOTE.replace('(', '').replace(')', '');
+    } else if (w600Result.length > 0 && w200Result.length > 0) {
+      wresponse = '雨量達200mm時(即豪雨)，可能淹水';
+      wresponse += w200Result[0].feature.properties.NOTE.replace('(', '').replace(')', '');
+      wresponse += '<br>雨量達600mm時，可能淹水';
+      wresponse += w600Result[0].feature.properties.NOTE.replace('(', '').replace(')', '');
+    } else if (w600Result.length === 0 && w200Result.length > 0) {
+      wresponse = '雨量達200mm時(即豪雨)，可能淹水';
+      wresponse += w200Result[0].feature.properties.NOTE.replace('(', '').replace(')', '');
+    } else if (countryW600Result.length > 0 && countryW200Result.length === 0) {
+      wresponse = '雨量達600mm時，可能淹水';
+      wresponse += countryW600Result[0].feature.properties.NOTE.replace('(', '').replace(')', '');
+    } else if (countryW600Result.length > 0 && countryW200Result.length > 0) {
+      wresponse = '雨量達200mm時(即豪雨)，可能淹水';
+      wresponse += countryW200Result[0].feature.properties.NOTE.replace('(', '').replace(')', '');
+      wresponse += '<br>雨量達600mm時，可能淹水';
+      wresponse += countryW600Result[0].feature.properties.NOTE.replace('(', '').replace(')', '');
+    } else if (countryW600Result.length === 0 && countryW200Result.length > 0) {
+      wresponse = '雨量達200mm時(即豪雨)，可能淹水';
+      wresponse += countryW200Result[0].feature.properties.NOTE.replace('(', '').replace(')', '');
+    } else {
+      wresponse = '無潛勢';
+    }
+
+    if (isLoadSensitiveData) {
+      info.update({
+        name: name,
+        l: lresponse,
+        s: sresponse,
+        w: wresponse
+      });
+    } else {
+      info.update({
+        name: name,
+        l: lresponse,
+        w: wresponse
+      });
+    }
+  }).addTo(map);
+
+  var focusButton = L.control().setPosition('topleft');
+
+  focusButton.onAdd = function () {
+    var container = L.DomUtil.create('button', 'ui compact icon button');
+    var icon = L.DomUtil.create('i', 'map outline icon', container);
+    $(icon).on('click', function () {
+      map.setView([23.1, 120.3], 11);
+    });
+    $(icon).attr('title', '縮放至整個台南市');
+    return container;
+  };
+
+  focusButton.addTo(map);
+
+  var info = L.control();
+  info.onAdd = function () {
+    this._div = L.DomUtil.create('table', 'ui table');
+    this.update();
+    return this._div;
+  };
+
+  info.update = function (props) {
+    if (props) {
+      if (isLoadSensitiveData) {
+        this._div.innerHTML = '<tbody>\n        <thead><tr><th colspan="2">' + props.name + '</th></tr></thead>\n        <tr><td>\u5730\u8CEA\u654F\u611F\u5340</td><td>' + props.s + '</td></tr>\n        <tr><td>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2</td><td>' + props.l + '</td></tr>\n        <tr><td>\u6DF9\u6C34\u6F5B\u52E2</td><td>' + props.w + '</td></tr>\n        </tbody>';
+      } else {
+        this._div.innerHTML = '<tbody>\n        <thead><tr><th colspan="2">' + props.name + '</th></tr></thead>\n        <tr><td>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2</td><td>' + props.l + '</td></tr>\n        <tr><td>\u6DF9\u6C34\u6F5B\u52E2</td><td>' + props.w + '</td></tr>\n        </tbody>';
+      }
+    }
+  };
+  info.addTo(map);
+
+  $('#s-loadin').on('click', function () {
+    if (isLoadSensitiveData) {
+      return;
+    }
+    $('#s-loadin').addClass('loading');
+    $.getJSON('./src/data/disaster-sensitive.json', function (json) {
+      sensitiveArea = json;
+      sLayer = L.geoJSON(sensitiveArea, { style: sStyle }).addTo(map);
+      $('#s-loadin').removeClass('loading');
+      $('#s-loadin').removeClass('basic');
+      $('#s-loadin').addClass('disabled');
+      $('#s-loadin').text('已載入地質敏感資料');
+
+      mapInfo = '<span><span class="info-block" style="background-color: ' + sStyle.color + ' "></span><strong>\u5730\u8CEA\u654F\u611F\u5340</strong></span>\n      <span><span class="info-block bg-liquefaction"></span><strong>\u571F\u58E4\u6DB2\u5316\u6F5B\u52E2\u5340</strong></span>\n      <span><span class="info-block bg-water"></span><strong>\u6DF9\u6C34\u6F5B\u52E2\u5340</strong></span>';
+
+      $('#map-info').html(mapInfo);
+    });
+
+    isLoadSensitiveData = true;
+  });
+})(window);

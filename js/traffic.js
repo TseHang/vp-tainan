@@ -20,26 +20,27 @@ legend.onAdd = () => {
 
   for (let i = 0; i < labels.length; i++) {
     div.innerHTML +=
-    '<p><i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br></p>'
+      '<p><i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br></p>'
   }
   return div
 }
 legendLocation.onAdd = () => {
   const div = L.DomUtil.create('div', 'info legend')
-  div.innerHTML +='<button class="ui button" style="background-color:#ffffff" id="getLocationButton">移動到我的位置</button>'
+  div.innerHTML += '<button class="ui button" style="background-color:#ffffff" id="getLocationButton">移動到我的位置</button>'
 
   return div
 }
 legend.addTo(mymap)
 legendLocation.addTo(mymap)
-function getLocation(map){
-  map.locate({setView: true, maxZoom: 15})
-      .on('locationfound', function(e){
-            var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
-           
-            map.addLayer(marker)
 
-        })
+function getLocation(map) {
+  map.locate({ setView: true, maxZoom: 15 })
+    .on('locationfound', function(e) {
+      var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
+
+      map.addLayer(marker)
+
+    })
 }
 
 // toggle onclick
@@ -106,55 +107,55 @@ function addEventCircle(event, map) {
         circle.bindPopup('時間： ' + date.toString())
       }
     } else {
-        if(rush) {
-          const classString = 'circle night rush ' + hour
-          const circle = L.circle([lat, lng], {
-            color: '#265665',
-            stroke: false,
-            fillColor: '#265665',
-            fillOpacity: 0.7,
-            radius: 20,
-            className: classString,
-          }).addTo(map)
-          circle.bindPopup('時間： ' + date.toString())
-        } else {
-          const classString = 'circle night nonrush ' + hour
-          const circle = L.circle([lat, lng], {
-            color: '#265665',
-            stroke: false,
-            fillColor: '#265665',
-            fillOpacity: 0.7,
-            radius: 20,
-            className: classString,
-          }).addTo(map)
-          circle.bindPopup('時間： ' + date.toString())
-        }
+      if (rush) {
+        const classString = 'circle night rush ' + hour
+        const circle = L.circle([lat, lng], {
+          color: '#265665',
+          stroke: false,
+          fillColor: '#265665',
+          fillOpacity: 0.7,
+          radius: 20,
+          className: classString,
+        }).addTo(map)
+        circle.bindPopup('時間： ' + date.toString())
+      } else {
+        const classString = 'circle night nonrush ' + hour
+        const circle = L.circle([lat, lng], {
+          color: '#265665',
+          stroke: false,
+          fillColor: '#265665',
+          fillOpacity: 0.7,
+          radius: 20,
+          className: classString,
+        }).addTo(map)
+        circle.bindPopup('時間： ' + date.toString())
+      }
     }
   }
 }
 
-function addWarningArea(event,map){
+function addWarningArea(event, map) {
   const lat = event.lat
   const lng = event.lng
   const name = event.name
   const circle = L.circle([lat, lng], {
-          color: '#FFCC00',
-          stroke: false,
-          fillColor: '#FFCC00',
-          fillOpacity:0.6,
-          radius: 100,
-          className: 'warningArea',
-        }).addTo(map)
-        circle.bindPopup(event.name+', 累積事件數：'+ event.count+'lat,lng: ' + lat)
+    color: '#FFCC00',
+    stroke: false,
+    fillColor: '#FFCC00',
+    fillOpacity: 0.6,
+    radius: 100,
+    className: 'warningArea',
+  }).addTo(map)
+  circle.bindPopup(event.name + ', 累積事件數：' + event.count + 'lat,lng: ' + lat)
 }
 
 // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
+// feature. People can enter geographical searches. The search box will return a
+// pick list containing a mix of places and predicted search terms.
 
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 //google map exploration
 /*
 function initAutocomplete() {
@@ -242,7 +243,7 @@ $.getJSON('./src/data/trafficWarningArea.json', (data) => {
 
 const svg = d3.select('#linechart svg'),
   margin = { top: 20, right: 20, bottom: 30, left: 50 },
-  width = $('#linechart').width()- 10,
+  width = $('#linechart').width() - 10,
   height = +svg.attr('height') - margin.bottom,
   g = svg.append('g').attr('transform', 'translate(' + 0 + ',' + 5 + ')')
 
@@ -250,12 +251,14 @@ function brushed() {
   if (!d3.event.sourceEvent) return
   if (!d3.event.selection) return
   const d0 = d3.event.selection.map(x.invert)
-  const d1 = d0.map((d) => { return +parseInt(d) })
+  const d1 = d0.map((d) => {
+    return +parseInt(d)
+  })
   if (d1[0] >= d1[1]) {
     d1[0] = d0[0]
-    d1[1] = d0[0]+ 1
+    d1[1] = d0[0] + 1
   }
-  console.log(d0,d1,d3.event.selection.map(x))
+  // console.log(d0, d1, d3.event.selection.map(x))
   d3.select(this).transition().call(d3.event.target.move, d1.map(x))
   $('#night_toggle').removeAttr('checked')
   $('#day_toggle').removeAttr('checked')
@@ -268,18 +271,25 @@ function brushed() {
 }
 
 const x = d3.scaleLinear()
-    .rangeRound([0, width])
+  .rangeRound([0, width])
 
 const y = d3.scaleLinear()
-    .rangeRound([height, 0])
+  .rangeRound([height, 0])
 
 const brush = d3.brushX()
-    .extent([[0, 0], [width, height]])
-    .on('brush end', brushed)
+  .extent([
+    [0, 0],
+    [width, height]
+  ])
+  .on('brush end', brushed)
 
 const area = d3.area()
-    .x((d) => { return x(d.hour) })
-    .y1((d) => { return y(d.count) })
+  .x((d) => {
+    return x(d.hour)
+  })
+  .y1((d) => {
+    return y(d.count)
+  })
 
 d3.csv('./src/data/trafficHourSummary.csv', (d) => {
   d.hour = d.hour
@@ -289,61 +299,62 @@ d3.csv('./src/data/trafficHourSummary.csv', (d) => {
   if (error) throw error
 
   x.domain([0, 23])
-  y.domain([0, d3.max(data, (d) => { return d.count + 30 })])
+  y.domain([0, d3.max(data, (d) => {
+    return d.count + 30
+  })])
   area.y0(y(0))
 
   g.append('path')
-      .datum(data)
-      .attr('fill', 'grey')
-      .attr('opacity', '0.4')
-      .attr('d', area)
+    .datum(data)
+    .attr('fill', 'grey')
+    .attr('opacity', '0.4')
+    .attr('d', area)
 
   g.append('g')
-      .attr('class', 'axis')
-      .attr('transform', 'translate(2,' + height + ')')
-      .call(d3.axisBottom(x)
+    .attr('class', 'axis')
+    .attr('transform', 'translate(2,' + height + ')')
+    .call(d3.axisBottom(x)
       .ticks(24))
 
-   g.append('g')
-      .attr('class', 'brush')
-      .call(brush)
-      .call(brush.move, x.range())
+  g.append('g')
+    .attr('class', 'brush')
+    .call(brush)
+    .call(brush.move, x.range())
 })
 
 
-$('.hourButton').on('click',function() {
+$('.hourButton').on('click', function() {
   let val = $(this).attr('value')
-  console.log(val)
-  //let brushActualRange = d3.brushSelection(d3.select(".brush").node())
+    // console.log(val)
+    //let brushActualRange = d3.brushSelection(d3.select(".brush").node())
   const brushg = d3.select('.brush').transition().duration(400)
   let d1 = d3.brushSelection(brushg.node()).map(x.invert)
-  let d2 = d1.map((d) => { return Math.round(d) })
-  if (val=='plus'){
-    if(d2[1]<=22){
-      d2[1]+=1
-    }else if(d2[0]>0){
-      d2[0]-=1
+  let d2 = d1.map((d) => Math.round(d))
+  if (val == 'plus') {
+    if (d2[1] <= 22) {
+      d2[1] += 1
+    } else if (d2[0] > 0) {
+      d2[0] -= 1
     }
     if (d2[0] >= d2[1]) {
-    d2[0] = d1[0]
-    d2[1] = d1[0]+ 1
-  }
-  }else if (val=='minus'){
-    if(d2[0]>0){
-      d2[0]+=1
-      console.log("minus")
-    }else if(d2[1]<= 23){
-      d2[1]-=1
+      d2[0] = d1[0]
+      d2[1] = d1[0] + 1
+    }
+  } else if (val == 'minus') {
+    if (d2[0] > 0) {
+      d2[0] += 1
+        // console.log("minus")
+    } else if (d2[1] <= 23) {
+      d2[1] -= 1
     }
     if (d2[0] >= d2[1]) {
-    d2[0] = d1[0]
-    d2[1] = d1[0]+ 1
+      d2[0] = d1[0]
+      d2[1] = d1[0] + 1
+    }
   }
-  }
-  if (d2[1]==23 && d2[0]==-1 || d2[0]==0){
-    brush.move(brushg, [9,21].map(x))
-  }
-  else{
+  if (d2[1] == 23 && d2[0] == -1 || d2[0] == 0) {
+    brush.move(brushg, [9, 21].map(x))
+  } else {
     brush.move(brushg, d2.map(x))
   }
   $('.day').css('visibility', 'hidden')
@@ -352,47 +363,69 @@ $('.hourButton').on('click',function() {
     let hourString = '.hour' + i
     $(hourString).css('visibility', 'visible')
   }
-  console.log( d1,d2)
+  // console.log(d1, d2)
 })
+
 /*pie chart*/
 //total event 356590 + 12401 +1049
 //important event 352617
-/*
-(function(d3) {
-  var svgWidth = 300;
+
+function pieChart() {
+  // var svgWidth = 300;
   var svgHeight = 300;
-  var radius = Math.min(svgWidth, svgHeight) / 2;
+  //var totalWidth = svgWidth + 300;
+  var totalHeight = svgHeight + 150;
+  //var radius = Math.min(svgWidth, svgHeight) / 2;
+  var radius = svgHeight / 2;
   var recSize = 18;
   var thickness = 25;
-  
+
+  var tmpWidth = 0;
+
   var svg = d3.select('#pieChart')
-      .append('svg')
-      .attr('width', svgWidth + 300)
-      .attr('height', svgHeight + 10)
-      .append('g')
-      .attr('transform', 'translate(' + (svgWidth / 2) + ',' + (svgHeight / 2) + ')');
+    .append('svg')
+    .attr('width', '100%')
+    .attr('height', totalHeight);
+  //.append('g')
+  // .attr('display', 'block')
+  // .attr('margin', 'auto');
+  //.attr('transform', 'translate(' + 300 + ',' + (svgHeight * 2 / 3) + ')')
+  //.attr('transform', 'translate(' + $('svg').width() / 2  + ',' + (svgHeight * 2 / 3) + ')');
+
 
   var arc = d3.svg.arc()
-      .innerRadius(radius - thickness)
-      .outerRadius(radius);
+    .innerRadius(radius - thickness)
+    .outerRadius(radius);
 
-  svg.append('g')
-      .append('circle')
-      .attr('cx', 0)
-      .attr('cy', 0)
-      .attr('r', (svgHeight - thickness - 50) / 2)
-      .attr('fill', 'none')
-      .attr('stroke', '#BEBEBE')
-      .attr('stroke-width', 3);
 
+  var pieSvg = svg.append('g')
+    .attr('id', 'pieSvg')
+    .attr('class', 'pie-svg')
+    .attr('transform', 'translate(' + $('#pieChart').width() / 2 + ',' + (svgHeight * 2 / 3 + 10) + ')');
+  //.attr('display', 'none');
+
+  pieSvg.append('g')
+    .append('circle')
+    .attr('cx', 0)
+    .attr('cy', 0)
+    .attr('r', (svgHeight - thickness - 50) / 2)
+    .attr('fill', 'none')
+    .attr('stroke', '#BEBEBE')
+    .attr('stroke-width', 3);
+
+
+  pieSvg.append("g")
+    .attr("class", "lines");
 
   var pie = d3.layout.pie()
-      .value(function(d){ return d.times; })
-      .sort(null);
+    .value(function(d) {
+      return d.times;
+    })
+    .sort(null);
 
   var tooltip = d3.select('#pieChart')
-      .append('div')
-      .attr('class', 'tooltip');
+    .append('div')
+    .attr('class', 'tooltip');
 
   tooltip.append('div')
     .attr('class', 'event');
@@ -401,69 +434,231 @@ $('.hourButton').on('click',function() {
     .attr('class', 'times');
 
   tooltip.append('div')
-    .attr('class', 'percent'); 
+    .attr('class', 'percent');
 
   d3.csv('./src/data/trafficExposedData.csv', function(error, data) {
-    var color = d3.scale.category20c();
-    // var color = d3.scale.ordinal()
-    //             .domain(['未領有駕照駕車','未戴安全帽','酒精濃度超過規定標準者','行車速度超速60公里以下','爭道行駛','不依規定轉彎或變換車道','闖紅燈直行左轉','闖紅燈右轉','違規臨時停車','違規停車','停車時間位置方式車種不依規定','併排停車','其他不遵守標誌標線號誌駕車','違規停車拖吊'])
-    //             //.domain([1, 14])
-    //             .range(['#CECEFF', '#B9B9FF', '#7D7DFF', '#4A4AFF']);
+    //var color = d3.scale.category20c();
+
+    var colorLabel = [];
+
+    data.forEach(function(d) {
+      colorLabel.push(d.event);
+    });
+    var color = d3.scale.ordinal()
+      //.domain(['未領有駕照駕車','未戴安全帽','酒精濃度超過規定標準者','行車速度超速60公里以下','爭道行駛','不依規定轉彎或變換車道','闖紅燈直行左轉','闖紅燈右轉','違規臨時停車','違規停車','停車時間位置方式車種不依規定','併排停車','其他不遵守標誌標線號誌駕車','違規停車拖吊'])
+      //.domain([1, 14])
+      //.range(['#FFB6C1', '#66CDAA', '#87CEFA', '#48D1CC', '#7B68EE', '#F4A460', '#ADD8E6', '#CA8EC2', '#81C0C0', '#8080C0', '#FFBB77', '#AAAAFF', '#FF79BC', '#FFAD86']);
+      .domain(colorLabel)
+      .range(['#4F9D9D', '#95CACA', '#5A5AAD', '#A6A6D2', '#C07AB8', '#FFAD86', '#FF95CA', '#00E3E3', '#009393', '#46A3FF', '#66CDAA', '#8600FF', '#CA8EFF', '#FFB5B5'])
+      //.range(['#4169E', '#1E90FF', '#ADD8E6', '#40E0D0', '#87CECB', '#FFDAB9', '#FFA07A', '#CD5C5C', '#D87093', '#FF69B4', '#FFB6C1', '#DDA0DD', '#9370DB', '#6A5ACD']);
+
 
     data.forEach(function(d) {
       d.times = +d.times;
     });
 
-    var path = svg.selectAll('path')
-        .data(pie(data))
-        .enter()
-        .append('path')
-        .attr('d', arc)
-        .attr('fill', function(d, i) { 
-          return color(d.data.event); 
-          //return color(i);
-        });
+    var path = pieSvg.selectAll('path')
+      .data(pie(data))
+      .enter()
+      .append('path')
+      .attr('d', arc)
+      .attr('fill', function(d, i) {
+        return color(d.data.event);
+      });
 
+
+    tooltip.select('.event').html('<h1 class="tooltip-title">舉發總件數</h1><div class="title-line"></div>');
+    tooltip.select('.times').html('370,040 件');
+
+    var total = d3.sum(data.map(function(d) {
+      return d.times;
+    }));
     path.on('mouseover', function(d) {
-      var total = d3.sum(data.map(function(d) {
-        return d.times;
-      }));
+
       var percent = Math.round(1000 * d.data.times / total) / 10;
       var _comma = d3.format(",");
-      //var percent = Math.round(d.data.times / total);
+
       tooltip.select('.event').html('<h1 class="tooltip-title">' + d.data.event + '</h1><div class="title-line"></div>');
       tooltip.select('.times').html(_comma(d.data.times) + ' 件');
       tooltip.select('.percent').html(percent + '%');
-      tooltip.style('display', 'block');
+
     });
-    
+
     path.on('mouseout', function() {
-      tooltip.style('display', 'none');
+      tooltip.select('.event').html('<h1 class="tooltip-title">舉發總件數</h1><div class="title-line"></div>');
+      tooltip.select('.times').html('370,040 件');
+      tooltip.select('.percent').html('');
     });
-      
-    var legend = svg.selectAll('.legend')
-        .data(color.domain())
-        .enter()
-        .append('g')
-        .attr('class', 'legend')
-        .attr('transform', function(d, i) {
-          var height = recSize + 4;
-          var offset =  height * color.domain().length / 2;
-          var horz = svgHeight / 2 + 50;
-          var vert = i * height - offset + 10;
-          return 'translate(' + horz + ',' + vert + ')';
-        });
+
+
+    /* label */
+    var g = pieSvg.append("g").attr("transform", "translate(" + 0 / 2 + "," + 0 / 2 + ")");
+
+    var radius2 = (svgHeight + 100) / 2;
+
+    var arc2 = d3.svg.arc()
+      .innerRadius(radius2 * 0.6)
+      .outerRadius(radius2 * 0.8);
+
+    var outerArc2 = d3.svg.arc()
+      .innerRadius(radius2 * 0.95)
+      .outerRadius(radius2 * 0.95);
+
+
+    function midAngle(d) {
+      return d.startAngle + (d.endAngle - d.startAngle) / 2;
+    }
+
+    g.selectAll("text").data(pie(data))
+      .enter()
+      .append("text")
+      .attr("class", "label-style")
+      .attr("transform", function(d) {
+
+        var pos = outerArc2.centroid(d);
+        pos[0] = radius2 * (midAngle(d) < Math.PI ? 1 : -1);
+        return "translate(" + pos + ")";
+      })
+      .attr("text-anchor", function(d) {
+        var direction = midAngle(d) < Math.PI ? 1 : -1;
+        if (direction === -1) {
+          return "end";
+        } else {
+          return "start";
+        }
+      })
+      .text(function(d) {
+        var total = d3.sum(data.map(function(d) {
+          return d.times;
+        }));
+        var percent = Math.round(1000 * d.data.times / total) / 10;
+        return d.data.event + ' ' + percent + '%';
+      });
+    /* polyline */
+
+    var polyline = g.selectAll("polyline")
+      .data(pie(data), function(d) {
+        return d.data.event;
+      })
+      .enter()
+      .append("polyline")
+      .attr("points", function(d) {
+        var pos = outerArc2.centroid(d);
+        pos[0] = radius2 * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+
+        return [arc2.centroid(d), outerArc2.centroid(d), pos];
+      });
+
+
+    var dataSort = data.sort(function(a, b) {
+      return b.times - a.times;
+    });
+
+    var legend = svg.append('g')
+      .attr('id', 'legendSvg')
+      .attr('class', 'legend-svg')
+      .attr('transform', 'translate(' + ($('#pieChart').width() / 2 - 170) + ',' + 180 + ')')
+      .selectAll('.legend-style')
+      .data(dataSort)
+      .enter()
+      .append('g')
+      .attr('class', 'legend-style')
+      .attr('transform', function(d, i) {
+        var height = recSize + 8;
+        var offset = height * dataSort.length / 2;
+        var vert = i * height - offset + 10;
+        return 'translate(' + 0 + ',' + vert + ')';
+      });
+
 
     legend.append('rect')
       .attr('width', recSize)
-      .attr('height', recSize)                                   
-      .style('fill', color)
-      .style('stroke', color);
-      
-    legend.append('text')
-      .attr('x', recSize + 4)
-      .attr('y', recSize - 4)
-      .text(function(d) { return d; });
+      .attr('height', recSize)
+      .style('fill', function(d) {
+        return color(d.event);
+      })
+      .style('stroke', function(d) {
+        return color(d.event);
+      });
 
-  });
-})(window.d3); */
+    legend.append('text')
+      .attr('x', recSize + 10)
+      .attr('y', recSize - 4)
+      .text(function(d) {
+        var percent = Math.round(1000 * d.times / total) / 10;
+        return d.event + ' ' + percent + '%';
+      });
+  })
+}
+
+pieChart();
+
+// Vue Chart later.
+// var vm = new Vue({
+//   el: '#fineCreator',
+//   data: {
+//     eventData: [],
+//     setList: [],
+//     idEventData: {},
+//     selectId: [],
+//     selectName: [],
+//     fineList: [],
+//     fineTotal: 0,
+//     fineData: []
+//   },
+//   delimiters: ['${', '}'],
+//   created: function() {
+//     jQuery.get('/src/data/trafficFineSelect.json', function(data) {
+//       vm.eventData = data
+
+//       $.each(vm.eventData, function(key, data) {
+//         vm.idEventData[data.id] = data.category
+//       })
+//     });
+//     jQuery.get('/src/data/trafficFineChart.json', function(data) {
+//       vm.fineData = data
+//     });
+//   },
+//   methods: {
+//     addSetting: function(id) {
+//       this.setList.push(this.idEventData[id]);
+
+//       var tmpName = []
+//       var tmpId = []
+//       $.each(this.idEventData[id], function(index, data) {
+//         tmpName.push({ 'x': data.category[0].name })
+//         tmpId.push(data.category[0].id)
+//       })
+
+//       this.selectName.push(tmpName)
+//       this.selectId.push(tmpId)
+
+//       this.addFine(tmpId, -1)
+
+//     },
+//     changeSelectId: function(index1, index2, setId) {
+//       this.selectId[index1][index2] = setId
+//       this.addFine(this.selectId[index1], index1)
+//     },
+//     addFine: function(tmpId, state) {
+//       $.each(this.fineData, function(index, data) {
+//         var diff = $(data.all_id).not(tmpId).get();
+//         if (diff.length === 0) {
+//           if (state === -1) { // initial
+//             vm.fineList.push(data.fine)
+//           } else {
+//             vm.fineList[state] = data.fine
+//           }
+//           return false
+//         }
+//       })
+//     },
+//     removeItem: function(index) {
+//       this.fineList.splice(index, 1)
+//       this.selectId.splice(index, 1)
+//       this.selectName.splice(index, 1)
+//       this.setList.splice(index, 1)
+//     }
+//   }
+
+// });
