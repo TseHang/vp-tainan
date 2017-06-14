@@ -15,6 +15,15 @@ $tooltip-content-width: 210px;
       margin-bottom: 0em;
     }
   }
+
+  .list {
+    > li {
+      cursor: pointer;
+      &:hover {
+        opacity: .5;
+      }
+    }
+  }
 }
 
 .leaflet-top, .leaflet-bottom {

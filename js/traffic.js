@@ -27,17 +27,18 @@ legend.onAdd = () => {
 legendLocation.onAdd = () => {
   const div = L.DomUtil.create('div', 'info legend')
   div.innerHTML += '<button class="ui button" style="background-color:#ffffff" id="getLocationButton">移動到我的位置</button>'
-
   return div
 }
 legend.addTo(mymap)
 legendLocation.addTo(mymap)
-
+let markers = {}
 function getLocation(map) {
   map.locate({ setView: true, maxZoom: 15 })
     .on('locationfound', function(e) {
-      var marker = L.marker([e.latitude, e.longitude]).bindPopup('你在這裡 :)');
-      map.addLayer(marker)
+      if (markers['userLocation']!= undefined){
+        mymap.removeLayer(markers['userLocation'])
+      }
+      markers['userLocation']= L.marker([e.latitude, e.longitude]).bindPopup('你在這裡 :)').addTo(map).openPopup()
     })
 }
 
@@ -70,6 +71,44 @@ $('#warning_area_checkbox_wrap').checkbox().on('click', () => {
 
 $('#getLocationButton').on('click', () => {
   getLocation(mymap)
+})
+
+function goToByScroll(id){
+  // Scroll
+  $('html,body').animate({scrollTop: $("#"+id).offset().top - 100}, 'slow')
+}
+
+$('.list>li').click(function() {
+  const area_id = parseInt($(this).attr('id').replace('area',''))
+  goToByScroll('accidentMap')
+  let marker 
+  switch(area_id) {
+    case 1:
+      mymap.panTo(new L.LatLng(22.99849, 120.24912))
+      //L.marker([e.latitude, e.longitude]).bindPopup('你在這裡 :)').addTo(map)
+      marker = L.marker([22.99849, 120.24912]).bindPopup('事故密集區：復興路往國道一號交流道附近').addTo(mymap).openPopup()
+      break
+    case 2:
+      mymap.panTo(new L.LatLng(22.99542, 120.19957))
+      marker = L.marker([22.99542, 120.19957]).bindPopup('事故密集區：西門圓環往民生路一段沿路').addTo(mymap).openPopup()
+      break
+    case 3:
+      mymap.panTo(new L.LatLng(22.99833, 120.23468))
+      marker = L.marker([22.99833, 120.23468]).bindPopup('事故密集區：小東路與中華東路口').addTo(mymap).openPopup()
+      break
+    case 4:
+      mymap.panTo(new L.LatLng(22.98397, 120.2251))
+      marker = L.marker([22.98397, 120.2251]).bindPopup('事故密集區：東門路二段 (與裕豐街交叉路口、與裕農路交叉路口)').addTo(mymap).openPopup()
+      break
+    case 5:
+      mymap.panTo(new L.LatLng(22.99283, 120.20499))
+      marker = L.marker([22.99283, 120.20499]).bindPopup('事故密集區：民生綠園圓環(台灣文學館)').addTo(mymap).openPopup()
+      break
+    case 6:
+      mymap.panTo(new L.LatLng(22.99456, 120.19614))
+      marker = L.marker([22.99456, 120.19614]).bindPopup('事故密集區：海安路一段與正興街路口').addTo(mymap).openPopup()
+      break
+  }
 })
 
 function addEventCircle(event, map) {
@@ -144,7 +183,7 @@ function addWarningArea(event, map) {
     radius: 100,
     className: 'warningArea',
   }).addTo(map)
-  circle.bindPopup(event.name + ', 累積事件數：' + event.count + 'lat,lng: ' + lat)
+  circle.bindPopup(name + ', 累積事件數：' + event.count)
 }
 
 // This example adds a search box to a map, using the Google Place Autocomplete
@@ -230,7 +269,7 @@ $.getJSON('./src/data/trafficeRawData.json', (data) => {
   })
 })
 
-$.getJSON('./src/data/TrafficWarningArea.json', (data) => {
+$.getJSON('./src/data/trafficWarningAreas.json', (data) => {
   $.each(data, (index, value) => {
     addWarningArea(value, mymap)
   })
@@ -322,12 +361,12 @@ d3.csv('./src/data/trafficHourSummary.csv', (d) => {
 
 
 $('.hourButton').on('click', function() {
-  let val = $(this).attr('value')
+  const val = $(this).attr('value')
 
   const brushg = d3.select('.brush').transition().duration(400)
-  let d1 = d3.brushSelection(brushg.node()).map(x.invert)
-  let d2 = d1.map((d) => Math.round(d))
-  if (val == 'plus') {
+  const d1 = d3.brushSelection(brushg.node()).map(x.invert)
+  const d2 = d1.map((d) => Math.round(d))
+  if (val === 'plus') {
     if (d2[1] <= 22) {
       d2[1] += 1
     } else if (d2[0] > 0) {
@@ -337,7 +376,7 @@ $('.hourButton').on('click', function() {
       d2[0] = d1[0]
       d2[1] = d1[0] + 1
     }
-  } else if (val == 'minus') {
+  } else if (val === 'minus') {
     if (d2[0] > 0) {
       d2[0] += 1
     } else if (d2[1] <= 23) {
@@ -348,7 +387,9 @@ $('.hourButton').on('click', function() {
       d2[1] = d1[0] + 1
     }
   }
-  if (d2[1] == 23 && d2[0] == -1 || d2[0] == 0) {
+  if (d2[1] === 23 && d2[0] === -1) {
+    brush.move(brushg, [9, 21].map(x))
+  }else if (d2[1] === 23 && d2[0] === 0) {
     brush.move(brushg, [9, 21].map(x))
   } else {
     brush.move(brushg, d2.map(x))
@@ -356,7 +397,7 @@ $('.hourButton').on('click', function() {
   $('.day').css('visibility', 'hidden')
   $('.night').css('visibility', 'hidden')
   for (let i = d2[0]; i <= d2[1]; i++) {
-    let hourString = '.hour' + i
+    const hourString = '.hour' + i
     $(hourString).css('visibility', 'visible')
   }
 })
