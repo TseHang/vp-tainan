@@ -4,7 +4,7 @@
 //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 const mymap = L.map('accidentMap').setView([22.9945, 120.21208], 14)
-L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>',
 }).addTo(mymap)
@@ -36,10 +36,8 @@ legendLocation.addTo(mymap)
 function getLocation(map) {
   map.locate({ setView: true, maxZoom: 15 })
     .on('locationfound', function(e) {
-      var marker = L.marker([e.latitude, e.longitude]).bindPopup('Your are here :)');
-
+      var marker = L.marker([e.latitude, e.longitude]).bindPopup('你在這裡 :)');
       map.addLayer(marker)
-
     })
 }
 
@@ -258,7 +256,7 @@ function brushed() {
     d1[0] = d0[0]
     d1[1] = d0[0] + 1
   }
-  // console.log(d0, d1, d3.event.selection.map(x))
+
   d3.select(this).transition().call(d3.event.target.move, d1.map(x))
   $('#night_toggle').removeAttr('checked')
   $('#day_toggle').removeAttr('checked')
@@ -325,8 +323,7 @@ d3.csv('./src/data/trafficHourSummary.csv', (d) => {
 
 $('.hourButton').on('click', function() {
   let val = $(this).attr('value')
-    // console.log(val)
-    //let brushActualRange = d3.brushSelection(d3.select(".brush").node())
+
   const brushg = d3.select('.brush').transition().duration(400)
   let d1 = d3.brushSelection(brushg.node()).map(x.invert)
   let d2 = d1.map((d) => Math.round(d))
@@ -343,7 +340,6 @@ $('.hourButton').on('click', function() {
   } else if (val == 'minus') {
     if (d2[0] > 0) {
       d2[0] += 1
-        // console.log("minus")
     } else if (d2[1] <= 23) {
       d2[1] -= 1
     }
@@ -363,7 +359,6 @@ $('.hourButton').on('click', function() {
     let hourString = '.hour' + i
     $(hourString).css('visibility', 'visible')
   }
-  // console.log(d1, d2)
 })
 
 /*pie chart*/
