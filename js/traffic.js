@@ -497,10 +497,18 @@ function pieChart() {
 
       var percent = Math.round(1000 * d.data.times / total) / 10;
       var _comma = d3.format(",");
+      var radiusOver = radius + 8;
+      var arcOver = d3.svg.arc()
+        .innerRadius(radiusOver - thickness)
+        .outerRadius(radiusOver);
 
       tooltip.select('.event').html('<h1 class="tooltip-title">' + d.data.event + '</h1><div class="title-line"></div>');
       tooltip.select('.times').html(_comma(d.data.times) + ' 件');
       tooltip.select('.percent').html(percent + '%');
+
+      d3.select(this).transition()
+         .duration(300)
+         .attr('d', arcOver);
 
     });
 
@@ -508,6 +516,10 @@ function pieChart() {
       tooltip.select('.event').html('<h1 class="tooltip-title">舉發總件數</h1><div class="title-line"></div>');
       tooltip.select('.times').html('370,040 件');
       tooltip.select('.percent').html('');
+
+      d3.select(this).transition()
+         .duration(300)
+         .attr('d', arc);
     });
 
 
@@ -577,7 +589,7 @@ function pieChart() {
     var legend = svg.append('g')
       .attr('id', 'legendSvg')
       .attr('class', 'legend-svg')
-      .attr('transform', 'translate(' + ($('#pieChart').width() / 2 - 170) + ',' + 180 + ')')
+      .attr('transform', 'translate(' + ($('#pieChart').width() / 15) + ',' + 180 + ')')
       .selectAll('.legend-style')
       .data(dataSort)
       .enter()
