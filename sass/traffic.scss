@@ -249,7 +249,9 @@ rect {
   line-height: 25px;
 }
 
-
+.data-source {
+  float: right;
+}
 /*#newsLink{
   color: #2185d0;
   text-decoration: underline;
@@ -346,5 +348,9 @@ polyline {
   }
   .legend-svg {
     display: block;
+  }
+
+  .data-source {
+    float: none;
   }
 }
