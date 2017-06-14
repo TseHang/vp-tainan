@@ -84,7 +84,7 @@ const route = [
       path: './',
       title: '台南災害潛勢地圖',
       chart_description: {
-        img: '//www.taiwanstat.com/vp-tainan/src/img/disaster/disaster_screenshot.png',
+        img: '//www.taiwanstat.com/vp-tainan/dist/img/disaster/disaster_screenshot.png',
         description: '每當遇上地震、颱風、暴雨，你會不會擔心自己家園的安全呢？台灣位處於自然災害頻繁的環境，儘管每每做好了準備，卻仍然有災情發生，這是台灣人民永遠的隱憂。這次我們將以台南市政府公布的開放資料，製作台南的災害潛勢地圖，讓您知道家園是否有潛在的危機，同時，有什麼事是我們可以做的，去避免下一次的遺憾發生！',
         href: 'https://www.taiwanstat.com/vp-tainan/disaster_report.html',
       },
@@ -97,7 +97,9 @@ const route = [
       paht: './',
       title: '台南道路潛藏危機地圖',
       chart_description: {
-        img: '//www.taiwanstat.com/vp-tainan/dist/img/population/img_population_xyz_report.png',
+        img: '//www.taiwanstat.com/vp-tainan/dist/img/traffic/traffic_screenshot.png',
+        description: '交通問題，是我們每天都會遇到的頭痛煩惱，其中車禍事件更是層出不窮。2013年根據世界衛生組織統計，全球超過120萬人死於車禍，台灣的車禍死亡率遠高於日本、英國、美國等先進國家  ლ(ﾟдﾟლ) ?!所謂『馬路如虎口』、『預防勝於治療，要保護自己，就要更了解環境』。我們是否了解在我們所居住的台南市，哪些路段容易發生哪種類型的事故? 讓我們透過這次分享，來了解台南市中哪些路段可能有潛藏危機~~',
+        href: 'https://www.taiwanstat.com/vp-tainan/traffic_report.html',
       },
     },
     partials: './partial.js',

@@ -37,7 +37,7 @@ gulp.task('js', function(){
     .pipe(babel({
       presets: ['es2015']
     }))
-		// .pipe(uglify())
+		.pipe(uglify())
 		.pipe(rename(function(path){
 			logPath(path , "yellow");
     }))
