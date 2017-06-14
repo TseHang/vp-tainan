@@ -1,11 +1,9 @@
 @import 'default/default';
 @import 'partials/header';
 @import 'partials/footer';
-
 $mobile-media:768px;
 $svg-size: 300px;
 $tooltip-content-width: 210px;
-
 // reset component
 .mark-content {
   border-color: map-get($color, orange);
@@ -19,217 +17,229 @@ $tooltip-content-width: 210px;
   }
 }
 
+.leaflet-top, .leaflet-bottom {
+  z-index: 999;
+}
+
 // /////////
 // trafficMap
 // /////////
-
 .traffic-container {
-	section {
-      margin-bottom: 6%;
-  	}
-  	.float_right{
-  		float: right;
-  		margin-right: 30%;
-  	}
-  	.leaflet-control-attribution{
-  		display: none;
-  	}
-  	.toggle,.checkbox{
-  		margin: 1% 0% 1% 1%;
-  	}
-  	#day_toggleCheckbox{
-		input:checked ~ .box:before, 
-  		input:checked ~ label:before {
-   			 background-color: #ff6f69 !important;
-   			 opacity: 0.7;
-		}
-		input:focus:checked ~ .box:before,
-		input:focus:checked ~ label:before {
-    		background-color: #ff6f69  !important;
-    		opacity: 0.7;
-		}
-
-  	}
-  	#nigiht_toggleCheckbox{
-		input:checked ~ .box:before, 
-  		input:checked ~ label:before {
-   			 background-color: #265665 !important;
-   			 opacity: 0.7;
-		}
-		input:focus:checked ~ .box:before,
-		input:focus:checked ~ label:before {
-    		background-color: #265665 !important;
-    		opacity: 0.7;
-		}
-
-  	}
-
-  	.chart{
-  		width: 100%;
-  	}
-	#accidentMap{
-    	height: 400px;
-	}
-	#warning_area_checkbox{
-		margin-left: 6%;
-	}
-	#linechart svg{
-		height: 5%;
-		width: 100%;
-	}
-	.axis{
-		width: 95%;
-	}
-	.info {
-	    padding: 6px 8px;
-	    font: 14px/16px Arial, Helvetica, sans-serif;
-	    background: white;
-	    background: rgba(255,255,255,0.8);
-	    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-	    border-radius: 5px;
-	}
-	.legend {
-    	line-height: 18px;
-    	color: #555;
-		i{
-			width: 18px;
-    		height: 18px;
-    		float: left;
-		    margin-right: 8px;
-		    padding-top: 6px;
-		    opacity: 0.7;
-		}
-	}
-	.info{
-		width: 95%;
-	}
-	#summerizeChart{
-		width: 100%;
-		height:400px;
-	}
-	#pieChartTable{
-		width: 50%;
-	}
-	#chartHint{
-		text-align:center;
-		button,span{
-			margin:auto;
-			margin-top: 1%;
-		}
-    button{
-      margin:1% 2% 0% 2%;
+  section {
+    margin-bottom: 6%;
+  }
+  .float_right {
+    float: right;
+    margin-right: 30%;
+  }
+  .leaflet-control-attribution {
+    display: none;
+  }
+  .toggle,
+  .checkbox {
+    margin: 1% 0% 1% 1%;
+  }
+  #day_toggleCheckbox {
+    input:checked ~ .box:before,
+    input:checked ~ label:before {
+      background-color: #ff6f69 !important;
+      opacity: 0.7;
     }
-	}
+    input:focus:checked ~ .box:before,
+    input:focus:checked ~ label:before {
+      background-color: #ff6f69 !important;
+      opacity: 0.7;
+    }
+  }
+  #nigiht_toggleCheckbox {
+    input:checked ~ .box:before,
+    input:checked ~ label:before {
+      background-color: #265665 !important;
+      opacity: 0.7;
+    }
+    input:focus:checked ~ .box:before,
+    input:focus:checked ~ label:before {
+      background-color: #265665 !important;
+      opacity: 0.7;
+    }
+  }
+  .chart {
+    width: 100%;
+  }
+  #accidentMap {
+    height: 400px;
+  }
+  #warning_area_checkbox {
+    margin-left: 6%;
+  }
+  #linechart svg {
+    height: 5%;
+    width: 100%;
+  }
+  .axis {
+    width: 95%;
+  }
+  .info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+  .legend {
+    line-height: 18px;
+    color: #555;
+    i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      padding-top: 6px;
+      opacity: 0.7;
+    }
+  }
+  .info {
+    width: 95%;
+  }
+  #summerizeChart {
+    width: 100%;
+    height: 400px;
+  }
+  #pieChartTable {
+    width: 50%;
+  }
+  #chartHint {
+    text-align: center;
+    button,
+    span {
+      margin: auto;
+      margin-top: 1%;
+    }
+    button {
+      margin: 1% 2% 0% 2%;
+    }
+  }
 }
 
 // /////////
 // PieChart
 // /////////
-.title{
- 	font-size: 35px;
+.title {
+  font-size: 35px;
 }
-.pie-section{
-  	width: 100%;
-  	position: relative;
-  	margin-top: 35px;
-}
-.tooltip {
-    color: #333;
-    width: $tooltip-content-width;
 
-    /*display: block;*/
-    font-size: 16px;
-    left: 50%;
-    top: 150px;
-    padding: 10px;
-    transform: translateX(-50%); 
-    position: absolute;
-    text-align: center;
-    z-index: 999;
+.pie-section {
+  width: 100%;
+  position: relative;
+  margin-top: 35px;
 }
-.tooltip-title{
-	font-size: 20px;
-	margin: 0;
-}   
-.title-line{
-	height: 3px;
-	width: $tooltip-content-width - 80;
-	background-color: lighten(gray, 30%);
-	margin: 8px auto;
-}         
-.legend-style{
-  	font-size: 15px;
+
+.tooltip {
+  color: #333;
+  width: $tooltip-content-width;
+  /*display: block;*/
+  font-size: 16px;
+  left: 50%;
+  top: 150px;
+  padding: 10px;
+  transform: translateX(-50%);
+  position: absolute;
+  text-align: center;
+  z-index: 999;
 }
-rect{
+
+.tooltip-title {
+  font-size: 20px;
+  margin: 0;
+}
+
+.title-line {
+  height: 3px;
+  width: $tooltip-content-width - 80;
+  background-color: lighten(gray, 30%);
+  margin: 8px auto;
+}
+
+.legend-style {
+  font-size: 15px;
+}
+
+rect {
   stroke-width: 2;
 }
-.graph-desc{
-	width: 350px;
-	padding: 5px;
-	margin: 20px auto 0 auto;
-	border-top: 1px solid lighten(gray, 30%);
-	border-bottom: 1px solid lighten(gray, 30%);
-	text-align: center;
-	font-size: 15px;
-}
-.pie-graph{
-  	width: 100%;
-}
-.pie-graph-comment{
-  	margin-top: 20px;
-}
-.pie-graph-comment > p{
-  	display: inline;
-}
-.total-content{
-  	margin: 50px 0 200px 0;
-}
-.top-event{
-	display: inline;
-	//color: #c73d3d;
-}
-.anaysis-section{
-  	margin: 2em 0;
-}
-.anaysis-event{
-  	margin: 15px 0 35px 0;
-}
-#trafficFine{
-	background-color: white;
-}
-.rule-trigger{
-	margin-top: 10px;
-	padding-bottom: 3px;
 
-	border-bottom: 1px dotted lighten(gray, 30%);
+.graph-desc {
+  width: 350px;
+  padding: 5px;
+  margin: 20px auto 0 auto;
+  border-top: 1px solid lighten(gray, 30%);
+  border-bottom: 1px solid lighten(gray, 30%);
+  text-align: center;
+  font-size: 15px;
 }
-.rule-trigger:hover{
-	cursor: pointer;
+
+.pie-graph {
+  width: 100%;
 }
-.rule > .p-font-bold{
-  	display: inline-block;
+
+.pie-graph-comment {
+  margin-top: 20px;
 }
-.collapse-toggle.active{
-    -moz-transition: all .1s linear;
-    -o-transition: all .1s linear;
-    -webkit-transition: all .1s linear;
-    transition: all .1s linear;
+
+.pie-graph-comment > p {
+  display: inline;
+}
+
+.total-content {
+  margin: 50px 0 200px 0;
+}
+
+.anaysis-section {
+  margin: 2em 0;
+}
+
+.anaysis-event {
+  margin: 15px 0 35px 0;
+}
+
+#trafficFine {
+  background-color: white;
+}
+
+.rule-trigger {
+  margin-top: 10px;
+  padding-bottom: 3px;
+  border-bottom: 1px dotted lighten(gray, 30%);
+}
+
+.rule-trigger:hover {
+  cursor: pointer;
+}
+
+.collapse-toggle.active {
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  transition: all .1s linear;
+  color: #5d5a5a;
+  font-style: italic;
+  i {
     color: #5d5a5a;
-    font-style: italic;
+  }
+}
 
-    i{
-      color: #5d5a5a;
-    }
+.rule {
+  padding: 15px 35px;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  border-radius: 4px;
 }
-.rule{
-    padding: 15px 35px;
-    margin-left: 30px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-}
-.rule > p{
+
+.rule > p {
   line-height: 25px;
 }
+
 
 /*#newsLink{
   color: #2185d0;
@@ -242,72 +252,90 @@ rect{
   font-style: italic;
 }*/
 
-.link-style{
-  	margin-top: 10px;
-}
-em{
-  	font-weight: bold;
-}
-.divider{
-	  border-top: 1px solid lighten(gray, 30%);
-	  margin-bottom: 50px;
-}
-.ui.button{
-  	padding: 8px 1.5em;;
-}
-.ui.basic.button, .ui.basic.buttons .button{
-  	border-radius: 15px;
-}
-.button-section{
-	display: inline-block;
-	margin: 10px;
-}
-.radio-section{
-	display: inline-block;
-	margin: 0 5px;
-}
-.p-font-bold{
-    display: inline;
-    font-size: 18px;
+.link-style {
+  margin-top: 10px;
 }
 
-polyline{
-	opacity: 0.2;
-	stroke: black;
-	stroke-width: 2px;
-	fill: none;
-}
-.label-style{
-  	font-size: 16px;
-}
-.legend-svg{
-  	display: none; 
-}
-.legend-text{
-  	margin-left: 5px;
-}
-.ui.table{
-  	width: auto;
-}
-.traffic-table{
-	margin: 35px 0;
+em {
+  font-weight: bold;
 }
 
-@media screen and (max-width: map-get($break-point, break-xs)){
-	#chartHint{
-		.hint{
-			display:none;
-		}
-	}
-  #accidentMap{
-      height: 250px;
+.divider {
+  border-top: 1px solid lighten(gray, 30%);
+  margin-bottom: 50px;
+}
+
+.ui.button {
+  padding: 8px 1.5em;
+  ;
+}
+
+.ui.basic.button,
+.ui.basic.buttons .button {
+  border-radius: 15px;
+}
+
+.button-section {
+  display: inline-block;
+  margin: 10px;
+}
+
+.radio-section {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.p-font-bold {
+  display: inline;
+}
+
+polyline {
+  opacity: 0.2;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}
+
+.label-style {
+  font-size: 1em;
+}
+
+.legend-svg {
+  display: none;
+}
+
+.legend-text {
+  margin-left: 5px;
+}
+
+.ui.table {
+  width: auto;
+}
+
+.traffic-table {
+  margin: 35px 0;
+}
+
+@media screen and (max-width: map-get($break-point, break-md)) {
+  .label-style {
+    font-size: .7em;
   }
+}
 
+@media screen and (max-width: map-get($break-point, break-xs)) {
+  #chartHint {
+    .hint {
+      display: none;
+    }
+  }
+  #accidentMap {
+    height: 250px;
+  }
   .pie-svg,
-  .tooltip{
-	display: none;
+  .tooltip {
+    display: none;
   }
-  .legend-svg{
+  .legend-svg {
     display: block;
   }
 }
