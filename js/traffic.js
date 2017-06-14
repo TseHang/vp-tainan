@@ -366,11 +366,8 @@ $('.hourButton').on('click', function() {
 //important event 352617
 
 function pieChart() {
-  // var svgWidth = 300;
   var svgHeight = 300;
-  //var totalWidth = svgWidth + 300;
-  var totalHeight = svgHeight + 150;
-  //var radius = Math.min(svgWidth, svgHeight) / 2;
+  var totalHeight = svgHeight + 120;
   var radius = svgHeight / 2;
   var recSize = 18;
   var thickness = 25;
@@ -381,12 +378,6 @@ function pieChart() {
     .append('svg')
     .attr('width', '100%')
     .attr('height', totalHeight);
-  //.append('g')
-  // .attr('display', 'block')
-  // .attr('margin', 'auto');
-  //.attr('transform', 'translate(' + 300 + ',' + (svgHeight * 2 / 3) + ')')
-  //.attr('transform', 'translate(' + $('svg').width() / 2  + ',' + (svgHeight * 2 / 3) + ')');
-
 
   var arc = d3.svg.arc()
     .innerRadius(radius - thickness)
@@ -397,7 +388,6 @@ function pieChart() {
     .attr('id', 'pieSvg')
     .attr('class', 'pie-svg')
     .attr('transform', 'translate(' + $('#pieChart').width() / 2 + ',' + (svgHeight * 2 / 3 + 10) + ')');
-  //.attr('display', 'none');
 
   pieSvg.append('g')
     .append('circle')
@@ -432,7 +422,6 @@ function pieChart() {
     .attr('class', 'percent');
 
   d3.csv('./src/data/trafficExposedData.csv', function(error, data) {
-    //var color = d3.scale.category20c();
 
     var colorLabel = [];
 
@@ -440,13 +429,8 @@ function pieChart() {
       colorLabel.push(d.event);
     });
     var color = d3.scale.ordinal()
-      //.domain(['未領有駕照駕車','未戴安全帽','酒精濃度超過規定標準者','行車速度超速60公里以下','爭道行駛','不依規定轉彎或變換車道','闖紅燈直行左轉','闖紅燈右轉','違規臨時停車','違規停車','停車時間位置方式車種不依規定','併排停車','其他不遵守標誌標線號誌駕車','違規停車拖吊'])
-      //.domain([1, 14])
-      //.range(['#FFB6C1', '#66CDAA', '#87CEFA', '#48D1CC', '#7B68EE', '#F4A460', '#ADD8E6', '#CA8EC2', '#81C0C0', '#8080C0', '#FFBB77', '#AAAAFF', '#FF79BC', '#FFAD86']);
       .domain(colorLabel)
       .range(['#4F9D9D', '#95CACA', '#5A5AAD', '#A6A6D2', '#C07AB8', '#FFAD86', '#FF95CA', '#00E3E3', '#009393', '#46A3FF', '#66CDAA', '#8600FF', '#CA8EFF', '#FFB5B5'])
-      //.range(['#4169E', '#1E90FF', '#ADD8E6', '#40E0D0', '#87CECB', '#FFDAB9', '#FFA07A', '#CD5C5C', '#D87093', '#FF69B4', '#FFB6C1', '#DDA0DD', '#9370DB', '#6A5ACD']);
-
 
     data.forEach(function(d) {
       d.times = +d.times;
