@@ -4,7 +4,7 @@
 //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 const mymap = L.map('accidentMap').setView([22.9945, 120.21208], 14)
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>',
 }).addTo(mymap)
