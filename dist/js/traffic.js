@@ -230,7 +230,7 @@ $.getJSON('./src/data/trafficeRawData.json', function (data) {
   });
 });
 
-$.getJSON('./src/data/trafficWarningArea.json', function (data) {
+$.getJSON('./src/data/TrafficWarningArea.json', function (data) {
   $.each(data, function (index, value) {
     addWarningArea(value, mymap);
   });

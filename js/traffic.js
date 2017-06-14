@@ -230,7 +230,7 @@ $.getJSON('./src/data/trafficeRawData.json', (data) => {
   })
 })
 
-$.getJSON('./src/data/trafficWarningArea.json', (data) => {
+$.getJSON('./src/data/TrafficWarningArea.json', (data) => {
   $.each(data, (index, value) => {
     addWarningArea(value, mymap)
   })
