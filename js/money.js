@@ -14,7 +14,8 @@ const barWidth = '80%'
 const duration = 400
 const color = d => d._children ? '#F34708' : d.children ? '#FFAA0A' : '#D7DAE1'
 
-let root
+let root1
+let root2
 
 const tree = d3.layout.tree()
     .nodeSize([0, 20])
@@ -30,7 +31,7 @@ d3.csv('./src/data/money_revenue_106.csv', (data) => {
 
   obj.x0 = 0
   obj.y0 = 0
-  update(root = obj, 'svg-annual-income')
+  update(root1 = obj, 'svg-annual-income', false)
 })
 
 d3.csv('./src/data/money_expenditure_106.csv', (data) => {
@@ -40,7 +41,7 @@ d3.csv('./src/data/money_expenditure_106.csv', (data) => {
       .attr('transform', `translate(${margin.left},${margin.top})`);
   obj.x0 = 0
   obj.y0 = 0
-  update(root = obj, 'svg-annual-expenditure')
+  update(root2 = obj, 'svg-annual-expenditure')
 })
 
 function formatData(data) {
@@ -91,27 +92,38 @@ function formatData(data) {
 function update(source, targetId, start = true) {
   // Compute the flattened node list. TODO use d3.layout.hierarchy.
   // Add id, x, y, depth, x0, y0
-  const nodes = tree.nodes(root)
+  const rootNode = (targetId === 'svg-annual-income') ? root1 : root2
+  let nodes = tree.nodes(rootNode)
   const minHeight = 150
   const height = Math.max(minHeight, (nodes.length * barHeight) + margin.top + margin.bottom)
-  const rootNode = nodes[0]
-  console.log(nodes, 1111)
 
   d3.select(`#${targetId}`).transition()
     .duration(duration)
-      .attr('height', height)
+      .attr('height', start ? minHeight : height)
 
   // Compute the 'layout'.
   nodes.forEach((d, index) => {
     d.x = index * barHeight
   })
-
   // When first run, collapse rects
+  if (start) {
+    nodes[0]._children = nodes[0].children
+    nodes[0].children = null
+    nodes = [nodes[0]]
+  }
+  // BUG!!(想要一開始的時候只顯示 depth = 1, 把其他縮合起來)
   // if (start) {
-  //   nodes[0]._children = nodes[0].children
-  //   nodes[0].children = null
-  //   nodes = [nodes[0]]
-  //   console.log('start', start)
+  //   const tmpNodes = [...nodes]
+  //   for (let i = 0; i < nodes.length; i++) {
+  //     if (tmpNodes[i].depth === 1) {
+  //       nodes[i]._children = nodes[i].children
+  //       nodes[i].children = null
+  //     } else if (tmpNodes[i].depth === 2) {
+  //       const index = nodes.indexOf(tmpNodes[i])
+  //       console.log(index)
+  //       nodes.splice(index, 1)
+  //     }
+  //   }
   // }
 
   // Update the nodes while collapse
@@ -131,22 +143,17 @@ function update(source, targetId, start = true) {
       .attr('class', d => d._children ? 'rect collapse-close' : 'rect')
       .style('fill', color)
       .on('click', function (d) {
-        console.log(d)
         // Copy from children to d._children
-        // TODO: 第一次點第一個會失誤 why?
         if (d.children) {
-          console.log(1)
           d._children = d.children
           d.children = null
           d3.select(this).attr('class', 'rect collapse-close')
-          console.log(11111)
         } else {
-          console.log(2)
           d.children = d._children
           d._children = null
           d3.select(this).attr('class', 'rect')
         }
-        update(d, targetId)
+        update(d, targetId, false)
       })
       .on('mouseenter', updateContent)
       .on('mouseleave', () => {

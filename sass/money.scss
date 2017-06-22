@@ -46,12 +46,13 @@ path.link {
   position: fixed;
   z-index: -1;
   opacity: 0;
-  width: 25%;
-  right: 10%;
-  top: 30%;
+  width: 100%;
+  right: 0%;
+  bottom: 0%;
   padding: 1.2em .7em;
   transform: scale(.1);
-  background-color: rgba(152, 151, 151, 0.2);
+  color: white;
+  background-color: rgba(152, 151, 151, 1);
   @include border-radius(20px);
   @include transition(all .3s ease-in);
 
@@ -70,9 +71,27 @@ path.link {
 }
 
 .support-content {
+  color: map-get($color, black--default);
   padding: .5em ;
   font-size: .8em;
   background-color: rgba(255, 255, 255, .8);
+}
+
+.collapse-toggle.active {
+  i {
+    color: map-get($color, gray--dark);
+  }
+}
+
+@media (min-width: map-get($break-point, break-xs)) {
+  .detail-container {
+    width: 25%;
+    right: 10%;
+    top: 30%;
+    bottom: auto;
+    color: map-get($color, black--default);
+    background-color: rgba(152, 151, 151, .2);
+  }
 }
 
 @include keyframes(bling-white){
