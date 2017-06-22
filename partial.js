@@ -14,6 +14,7 @@ module.exports= function (hbs) {
   hbs.registerPartial('water', getProjectPartials('water'));
   hbs.registerPartial('disaster', getProjectPartials('disaster'));
   hbs.registerPartial('traffic', getProjectPartials('traffic'));
+  hbs.registerPartial('money', getProjectPartials('money'));
 };
 
 function getProjectPartials(filename) {

@@ -105,6 +105,21 @@ const route = [
     partials: './partial.js',
     layout: './layout/traffic_report.hbs',
     filename: './traffic_report.html',
+  }, {
+    data: {
+      paht: './',
+      title: '錢錢去哪兒？',
+      chart_description: {
+        img: '//www.taiwanstat.com/vp-tainan/dist/img/money/money_screenshot.png',
+        description: 'YOYOMAN!',
+        href: 'https://www.taiwanstat.com/vp-tainan/money_report.html',
+      },
+      components: {
+      }
+    },
+    partials: './partial.js',
+    layout: './layout/money_report.hbs',
+    filename: './money_report.html',
   },
 ]
 module.exports = route
