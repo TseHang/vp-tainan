@@ -83,6 +83,30 @@ path.link {
   }
 }
 
+.report-section {
+  margin: 1em 0px;
+  padding: .5em .3em;
+
+  > h2 {
+    color: map-get($color, green);
+    font-size: map-get($font-size, l);
+    margin-bottom: .5em;
+  }
+
+  .report-section-intro {
+    font-weight: bold;
+    margin: .3em 1em;
+  }
+
+  .reference {
+    margin: .3em 1em;
+    color: map-get($color, gray--dark);
+    &:hover {
+      color: map-get($color, green);
+    }
+  }
+}
+
 @media (min-width: map-get($break-point, break-xs)) {
   .detail-container {
     width: 25%;
