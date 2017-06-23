@@ -26,7 +26,7 @@
   </div>
   <h4>截至106年5月底，台南市人民平均每人負擔債務 3萬4797元。</h4>
   <p>105年，各縣市債務一覽表。</p>
-  <table class="ui compact basic table small sortable">
+  <table id="debt" class="ui compact basic table small sortable">
     <thead>
       <tr>
         <th>縣市</th>
@@ -35,105 +35,10 @@
       </tr>
     </thead>
     <tbody class="right aligned">
-      <tr>
-        <td>高雄市</td>
-        <td>2539</td>
-        <td>9.14</td>
-      </tr>
-      <tr>
-        <td>台北市</td>
-        <td>1403</td>
-        <td>5.2</td>
-      </tr>
-      <tr>
-        <td>新北市</td>
-        <td>1138</td>
-        <td>2.87</td>
-      </tr>
-      <tr>
-        <td>台南市</td>
-        <td>716.37</td>
-        <td>3.8</td>
-      </tr>
-      <tr>
-        <td>台中市</td>
-        <td>648.6</td>
-        <td>2.4</td>
-      </tr>
-      <tr>
-        <td>苗栗縣</td>
-        <td>397</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td>雲林縣</td>
-        <td>249</td>
-        <td>3.5</td>
-      </tr>
-      <tr>
-        <td>屏東縣</td>
-        <td>234.74</td>
-        <td>2.8</td>
-      </tr>
-      <tr>
-        <td>宜蘭縣</td>
-        <td>229.94</td>
-        <td>5.01</td>
-      </tr>
-      <tr>
-        <td>新竹縣</td>
-        <td>219</td>
-        <td>4.1</td>
-      </tr>
-      <tr>
-        <td>桃園市</td>
-        <td>216</td>
-        <td>1.04</td>
-      </tr>
-      <tr>
-        <td>彰化縣</td>
-        <td>214</td>
-        <td>1.7</td>
-      </tr>
-      <tr>
-        <td>嘉義縣</td>
-        <td>202.38</td>
-        <td>3.88</td>
-      </tr>
-      <tr>
-        <td>南投縣</td>
-        <td>157.02</td>
-        <td>3.07</td>
-      </tr>
-      <tr>
-        <td>新竹市</td>
-        <td>122.5</td>
-        <td>2.8</td>
-      </tr>
-      <tr>
-        <td>花蓮縣</td>
-        <td>120.4</td>
-        <td>3.62</td>
-      </tr>
-      <tr>
-        <td>基隆市</td>
-        <td>97.07</td>
-        <td>2.6</td>
-      </tr>
-      <tr>
-        <td>台東縣</td>
-        <td>74.42</td>
-        <td>3.3</td>
-      </tr>
-      <tr>
-        <td>澎湖縣</td>
-        <td>20.7</td>
-        <td>2.03</td>
-      </tr>
-      <tr>
-        <td>嘉義市</td>
-        <td>10</td>
-        <td>0.4</td>
+      <tr v-for="item in tableData">
+        <td class="center aligned">${ item.city }</td>
+        <td class="center aligned">${ item.debt }</td>
+        <td class="center aligned">${ item.avg }</td>
       </tr>
     </tbody>
   </table>
@@ -144,10 +49,25 @@
   <p>去年度預算: <span id="budget_105"></span> </p>
   <p>前年度決算: <span id="final_accounts_104"></span></p>
   <div class="support-content">
-    <p>106年預算約等於 <span id="change-num-description">100杯珍珠奶茶</span> </p>
+    106年預算約等於
+    <div class="ui bulleted list">
+      <div class="item">可購買 <span id="change-drink-num-description"></span></div>
+      <div class="item">以最低薪資(21k)需存 <span id="change-wage-num-description"></span></div>
+      <div class="item">用仟元鈔可疊起 <span id="change-money-num-description"></span></div>
+    </div>
+
     <p>佔母項目 <span id="percentParent"></span> %，總預算的 <span id="percentAll"></span> %
       <br>展開後還有 <span id="children"></span> 個子類別</p>
   </div>
 </div>
+  <section class="report-section">
+    <h2>參考資料</h2>
+    <a class="reference" target="_blank" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E8%8F%AF%E6%B0%91%E5%9C%8B%E5%9F%BA%E6%9C%AC%E5%B7%A5%E8%B3%87"><p>中華民國基本工資</p></a>
+    <a class="reference" target="_blank" href="http://www.nta.gov.tw/web/AnnD/uptAnnD.aspx?c0=265&p0=5790"><p>財政部國庫署-公共債務法</p></a>
+    <a class="reference" target="_blank" href="http://www.mdnkids.com.tw/nie/nie_indicate/Unit7/W-990607-15/W-990607-15.htm"><p>公債上限放寬　當心財政失衡</p></a>
+    <a class="reference" target="_blank" href="http://www.bas.ntpc.gov.tw/content/?parent_id=10577"><p>歲入、歲出、收入及支出之定義為何?</p></a>
+    <a class="reference" target="_blank" href="http://nicecasio.pixnet.net/blog/post/448388846-%E6%9C%80%E6%96%B0%E5%90%84%E7%B4%9A%E6%94%BF%E5%BA%9C%E5%82%B5%E5%8B%99%E8%B3%87%E8%A8%8A-%E5%9C%B0%E6%96%B9%E8%B2%A0%E5%82%B5%E5%8F%B0%E7%81%A320%E7%B8%A3%E5%B8%82%E8%B2%A1"><p>最新各級政府債務資訊-地方負債台灣20縣市財</p></a>
+    <a class="reference" target="_blank" href=""><p></p></a>
+  </section>
 <!-- fb -->
 <div class="fb-share-button" data-href="{{chart_description.href}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.taiwanstat.com%2F&amp;src=sdkpreparse">Share</a></div>

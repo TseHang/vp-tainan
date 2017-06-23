@@ -23,6 +23,23 @@ const tree = d3.layout.tree()
 const diagonal = d3.svg.diagonal()
     .projection(d => [d.y, d.x])
 
+
+//Read debt table data
+var vm = new Vue({
+    el: '#debt',
+    data: {
+      tableData: []
+    },
+    delimiters: ['${', '}'],
+    created: function(){
+      d3.csv('./src/data/money_debt.csv', (data) => {
+        $.each(data, function (index,subData) {
+          vm.tableData.push(subData);
+        })
+      })
+    }
+})
+
 $('table').tablesort()
 $('thead th.sortByValue').data('sortBy', function(th, td, tablesort) {
   return Number.parseFloat(td.text());
@@ -252,6 +269,10 @@ function update(source, targetId, start = true) {
     const tmp = n / 100000
     return (tmp < 0.005) ? `${n / 10} 萬元` : `${formatFloat(tmp, 2)} 億元`
   }
+  const turnNumber = (n) => {
+    if (isNaN(n)) return 0
+    return n / 100000
+  }
 
   const compareNumberColor = (child, parent, $this) => {
     const num = child / parent * 100
@@ -270,6 +291,7 @@ function update(source, targetId, start = true) {
     let budget105 = parseFloat(d.budget_105.replace(/,/ig, ''))
     let finalAccounts104 = parseFloat(d.final_accounts_104.replace(/,/ig, ''))
     let compare = parseFloat(d.compare_106_105.replace(/,/ig, '')) / budget105
+    let turnBudget106 = turnNumber(budget106)
 
     // Support content
     const rootBudget = parseFloat(rootNode.budget_106.replace(/,/ig, ''))
@@ -299,5 +321,23 @@ function update(source, targetId, start = true) {
       return `${formatFloat(compare, 2)}%`
     })
     $('#final_accounts_104').text(finalAccounts104)
+    $('#change-drink-num-description').text(function () {
+      const drinkPrice = 40
+      const turnNum_1 = parseInt((turnBudget106 * (100000000 / drinkPrice)))
+      const turnNum_2 = parseInt(turnNum_1 / 10000)
+      return (turnNum_2 === 0 )? `${turnNum_1} 杯奶茶` : `${turnNum_2}(萬) 杯奶茶`
+    })
+    $('#change-wage-num-description').text(function () {
+      const minWage = 21009
+      const turnMonth = parseInt((turnBudget106 * (100000000 / minWage)))
+      const turnYear = parseInt(turnMonth / 12)
+      return `${turnYear} 年`
+    })
+    $('#change-money-num-description').text(function () {
+      const thick = 100000 //1 cm
+      const hight = parseInt(((turnBudget106 * 100000000) / thick) / 100)
+      const floor = parseInt(hight / 3)
+      return `${hight} 層樓(3公尺/層)`
+    })
   }
 }
