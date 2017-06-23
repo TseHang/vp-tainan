@@ -23,6 +23,11 @@ const tree = d3.layout.tree()
 const diagonal = d3.svg.diagonal()
     .projection(d => [d.y, d.x])
 
+$('table').tablesort()
+$('thead th.sortByValue').data('sortBy', function(th, td, tablesort) {
+  return Number.parseFloat(td.text());
+});
+
 d3.csv('./src/data/money_revenue_106.csv', (data) => {
   const obj = formatData(data)
   d3.select('#svg-annual-income')
