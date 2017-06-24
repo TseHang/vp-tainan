@@ -287,6 +287,10 @@ function update(source, targetId, start = true) {
   function updateContent(d) {
     $('.detail-container').addClass('show')
 
+    const numDescSelector = '.ui.bulleted.list .item'
+    const randDescIndex = Math.floor(Math.random() * $(numDescSelector).length)
+    const DescToShowSelector = `.ui.bulleted.list .item:eq(${randDescIndex})`
+
     let budget106 = parseFloat(d.budget_106.replace(/,/ig, ''))
     let budget105 = parseFloat(d.budget_105.replace(/,/ig, ''))
     let finalAccounts104 = parseFloat(d.final_accounts_104.replace(/,/ig, ''))
@@ -302,6 +306,9 @@ function update(source, targetId, start = true) {
     $('#percentParent').text(compareNumberColor(budget106, parentBudget106, $('#percentParent')))
     $('#percentAll').text(compareNumberColor(budget106, rootBudget, $('#percentAll')))
     $('#children').text(childrenNum)
+
+    $(numDescSelector).hide()
+    $(DescToShowSelector).show()
 
     // Check & format type, then budget will change into string
     budget106 = checkNumber(budget106)
@@ -321,6 +328,7 @@ function update(source, targetId, start = true) {
       return `${formatFloat(compare, 2)}%`
     })
     $('#final_accounts_104').text(finalAccounts104)
+
     $('#change-drink-num-description').text(function () {
       const drinkPrice = 40
       const turnNum_1 = parseInt((turnBudget106 * (100000000 / drinkPrice)))
@@ -339,5 +347,6 @@ function update(source, targetId, start = true) {
       const floor = parseInt(hight / 3)
       return `${hight} 層樓(3公尺/層)`
     })
+
   }
 }
