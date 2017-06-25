@@ -63,6 +63,10 @@ path.link {
   }
 }
 
+.ui.segment {
+  margin: 0px;
+}
+
 #compare_106_105 {
   color: map-get($color, red);
   &.positive {
@@ -114,6 +118,9 @@ path.link {
     top: 30%;
     bottom: auto;
     background-color: rgba(152, 151, 151, .2);
+  }
+  .ui.segment {
+    margin: 1rem;
   }
 }
 
