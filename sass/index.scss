@@ -199,6 +199,11 @@
   background-size: cover; 
 }
 
+#img_money_report {
+ background: url(../img/money/money_screenshot.png) no-repeat center top;
+  background-size: cover;  
+}
+
 .ui.list.list-box {
   > .item {
     color: map-get($color, black--default);

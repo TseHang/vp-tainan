@@ -43,7 +43,7 @@ path.link {
   margin: 1em 0px 1em 1em ;
 }
 .detail-container {
-  position: fixed;
+  position: fixed !important;
   z-index: -1;
   opacity: 0;
   width: 100%;
@@ -51,7 +51,7 @@ path.link {
   bottom: 0%;
   padding: 1.2em .7em;
   transform: scale(.1);
-  color: white;
+  color: map-get($color, black--default);
   background-color: rgba(152, 151, 151, 1);
   @include border-radius(20px);
   @include transition(all .3s ease-in);
@@ -61,6 +61,10 @@ path.link {
     transform: scale(1);
     z-index: 10;
   }
+}
+
+.ui.segment {
+  margin: 0px;
 }
 
 #compare_106_105 {
@@ -83,14 +87,40 @@ path.link {
   }
 }
 
+.report-section {
+  margin: 1em 0px;
+  padding: .5em .3em;
+
+  > h2 {
+    color: map-get($color, green);
+    font-size: map-get($font-size, l);
+    margin-bottom: .5em;
+  }
+
+  .report-section-intro {
+    font-weight: bold;
+    margin: .3em 1em;
+  }
+
+  .reference {
+    margin: .3em 1em;
+    color: map-get($color, gray--dark);
+    &:hover {
+      color: map-get($color, green);
+    }
+  }
+}
+
 @media (min-width: map-get($break-point, break-xs)) {
   .detail-container {
     width: 25%;
     right: 10%;
     top: 30%;
     bottom: auto;
-    color: map-get($color, black--default);
     background-color: rgba(152, 151, 151, .2);
+  }
+  .ui.segment {
+    margin: 1rem;
   }
 }
 

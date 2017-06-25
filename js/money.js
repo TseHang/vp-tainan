@@ -1,5 +1,6 @@
 const d3 = window.d3
 const $ = window.$
+const Vue = window.Vue
 const formatFloat = formatFloat
 const isMobile = isMobile
 
@@ -18,16 +19,38 @@ let root1
 let root2
 
 const tree = d3.layout.tree()
-    .nodeSize([0, 20])
+  .nodeSize([0, 20])
 
 const diagonal = d3.svg.diagonal()
-    .projection(d => [d.y, d.x])
+  .projection(d => [d.y, d.x])
+
+
+// Read debt table data
+const vm = new Vue({
+  el: '#debt',
+  data: {
+    tableData: [],
+  },
+  delimiters: ['${', '}'],
+  created: () => {
+    d3.csv('./src/data/money_debt.csv', (data) => {
+      $.each(data, (index, subData) => {
+        vm.tableData.push(subData)
+      })
+    })
+  },
+})
+
+$('table').tablesort()
+$('thead th.sortByValue').data('sortBy', (th, td, tablesort) => {
+  return Number.parseFloat(td.text())
+})
 
 d3.csv('./src/data/money_revenue_106.csv', (data) => {
   const obj = formatData(data)
   d3.select('#svg-annual-income')
     .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+    .attr('transform', `translate(${margin.left},${margin.top})`);
 
   obj.x0 = 0
   obj.y0 = 0
@@ -38,7 +61,7 @@ d3.csv('./src/data/money_expenditure_106.csv', (data) => {
   const obj = formatData(data)
   d3.select('#svg-annual-expenditure')
     .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+    .attr('transform', `translate(${margin.left},${margin.top})`);
   obj.x0 = 0
   obj.y0 = 0
   update(root2 = obj, 'svg-annual-expenditure')
@@ -99,13 +122,13 @@ function update(source, targetId, start = true) {
 
   d3.select(`#${targetId}`).transition()
     .duration(duration)
-      .attr('height', start ? minHeight : height)
+    .attr('height', start ? minHeight : height)
 
   // Compute the 'layout'.
   nodes.forEach((d, index) => {
-    d.x = index * barHeight
-  })
-  // When first run, collapse rects
+      d.x = index * barHeight
+    })
+    // When first run, collapse rects
   if (start) {
     nodes[0]._children = nodes[0].children
     nodes[0].children = null
@@ -129,48 +152,48 @@ function update(source, targetId, start = true) {
   // Update the nodes while collapse
   const chart = d3.select(`#${targetId} > g`)
   const node = chart.selectAll('g.node')
-      .data(nodes, (d, index) => d.id || (d.id = ++index))
+    .data(nodes, (d, index) => d.id || (d.id = ++index))
 
   const nodeEnter = node.enter().append('g')
-      .attr('class', 'node')
-      .attr('transform', `translate(${source.y0},${source.x0})`)
+    .attr('class', 'node')
+    .attr('transform', `translate(${source.y0},${source.x0})`)
 
   // Enter any new nodes at the parent's previous position.
   nodeEnter.append('rect')
-      .attr('y', -barHeight / 2)
-      .attr('height', barHeight)
-      .attr('width', barWidth)
-      .attr('class', d => d._children ? 'rect collapse-close' : 'rect')
-      .style('fill', color)
-      .on('click', function (d) {
-        // Copy from children to d._children
-        if (d.children) {
-          d._children = d.children
-          d.children = null
-          d3.select(this).attr('class', 'rect collapse-close')
-        } else {
-          d.children = d._children
-          d._children = null
-          d3.select(this).attr('class', 'rect')
-        }
-        update(d, targetId, false)
-      })
-      .on('mouseenter', updateContent)
-      .on('mouseleave', () => {
-        $('.detail-container').removeClass('show')
-      })
+    .attr('y', -barHeight / 2)
+    .attr('height', barHeight)
+    .attr('width', barWidth)
+    .attr('class', d => d._children ? 'rect collapse-close' : 'rect')
+    .style('fill', color)
+    .on('click', function(d) {
+      // Copy from children to d._children
+      if (d.children) {
+        d._children = d.children
+        d.children = null
+        d3.select(this).attr('class', 'rect collapse-close')
+      } else {
+        d.children = d._children
+        d._children = null
+        d3.select(this).attr('class', 'rect')
+      }
+      update(d, targetId, false)
+    })
+    .on('mouseenter', updateContent)
+    .on('mouseleave', () => {
+      $('.detail-container').removeClass('show')
+    })
 
   nodeEnter.append('text')
-      .attr('dy', 3.5)
-      .attr('dx', 5.5)
-      .text(d => {
-        if (d.depth === 1) {
-          const budget106 = parseFloat(d.budget_106.replace(/,/ig, ''))
-          const rootBudget = parseFloat(rootNode.budget_106.replace(/,/ig, ''))
-          return `${d.name}(${formatFloat(budget106 / rootBudget * 100, 1)}%): ${d.budget_106}`
-        }
-        return `${d.name}: ${d.budget_106}`
-      })
+    .attr('dy', 3.5)
+    .attr('dx', 5.5)
+    .text(d => {
+      if (d.depth === 1) {
+        const budget106 = parseFloat(d.budget_106.replace(/,/ig, ''))
+        const rootBudget = parseFloat(rootNode.budget_106.replace(/,/ig, ''))
+        return `${d.name}(${formatFloat(budget106 / rootBudget * 100, 1)}%): ${d.budget_106}`
+      }
+      return `${d.name}: ${d.budget_106}`
+    })
 
   nodeEnter.append('text')
     .attr('dy', 3.5)
@@ -247,6 +270,10 @@ function update(source, targetId, start = true) {
     const tmp = n / 100000
     return (tmp < 0.005) ? `${n / 10} 萬元` : `${formatFloat(tmp, 2)} 億元`
   }
+  const turnNumber = (n) => {
+    if (isNaN(n)) return 0
+    return n / 100000
+  }
 
   const compareNumberColor = (child, parent, $this) => {
     const num = child / parent * 100
@@ -261,10 +288,15 @@ function update(source, targetId, start = true) {
   function updateContent(d) {
     $('.detail-container').addClass('show')
 
+    const numDescSelector = '.ui.bulleted.list .item'
+    const randDescIndex = Math.floor(Math.random() * $(numDescSelector).length)
+    const DescToShowSelector = `.ui.bulleted.list .item:eq(${randDescIndex})`
+
     let budget106 = parseFloat(d.budget_106.replace(/,/ig, ''))
     let budget105 = parseFloat(d.budget_105.replace(/,/ig, ''))
     let finalAccounts104 = parseFloat(d.final_accounts_104.replace(/,/ig, ''))
     let compare = parseFloat(d.compare_106_105.replace(/,/ig, '')) / budget105
+    let turnBudget106 = turnNumber(budget106)
 
     // Support content
     const rootBudget = parseFloat(rootNode.budget_106.replace(/,/ig, ''))
@@ -275,6 +307,9 @@ function update(source, targetId, start = true) {
     $('#percentParent').text(compareNumberColor(budget106, parentBudget106, $('#percentParent')))
     $('#percentAll').text(compareNumberColor(budget106, rootBudget, $('#percentAll')))
     $('#children').text(childrenNum)
+
+    $(numDescSelector).hide()
+    $(DescToShowSelector).show()
 
     // Check & format type, then budget will change into string
     budget106 = checkNumber(budget106)
@@ -294,5 +329,25 @@ function update(source, targetId, start = true) {
       return `${formatFloat(compare, 2)}%`
     })
     $('#final_accounts_104').text(finalAccounts104)
+
+    $('#change-drink-num-description').text(function () {
+      const drinkPrice = 50
+      const turnNum_1 = parseInt((turnBudget106 * (100000000 / drinkPrice)), 10)
+      const turnNum_2 = parseInt(turnNum_1 / 10000, 10)
+      return (turnNum_2 === 0 )? `${turnNum_1} 杯鮮奶茶` : `${turnNum_2}(萬) 杯鮮奶茶`
+    })
+    $('#change-wage-num-description').text(function () {
+      const minWage = 21009
+      const turnMonth = parseInt((turnBudget106 * (100000000 / minWage)), 10)
+      const turnYear = parseInt(turnMonth / 12, 10)
+      return `${turnYear} 年`
+    })
+    $('#change-money-num-description').text(function () {
+      const thick = 100000 // 1 cm
+      const hight = parseInt(((turnBudget106 * 100000000) / thick) / 100, 10)
+      const floor = parseInt(hight / 3, 10)
+      return `${hight} 層樓(3公尺/層)`
+    })
+
   }
 }
