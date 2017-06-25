@@ -108,14 +108,12 @@ const route = [
   }, {
     data: {
       paht: './',
-      title: '106台南市預算收支圖表',
+      title: '106台南市預算圖表',
       chart_description: {
         img: '//www.taiwanstat.com/vp-tainan/dist/img/money/money_screenshot.png',
         description: '這次我們將台南市的財政狀況分為「歲入」、「歲出」、「人民負債資訊」，大家一起來看看吧！',
         href: 'https://www.taiwanstat.com/vp-tainan/money_report.html',
       },
-      components: {
-      }
     },
     partials: './partial.js',
     layout: './layout/money_report.hbs',
